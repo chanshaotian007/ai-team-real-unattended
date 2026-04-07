@@ -1,0 +1,23 @@
+{
+  "generated_at": "2026-04-07T17:11:33.916244+08:00",
+  "staging": {
+    "artifact": "standalone-bundle",
+    "status": "promoted",
+    "environment": "staging",
+    "verified_checks": []
+  },
+  "production": {
+    "artifact": null,
+    "status": "idle"
+  },
+  "history": [
+    {
+      "at": "2026-04-07T17:11:34.224750+08:00",
+      "event": "promote-staging",
+      "details": {
+        "artifact": "standalone-bundle",
+        "environment": "staging"
+      }
+    }
+  ]
+}

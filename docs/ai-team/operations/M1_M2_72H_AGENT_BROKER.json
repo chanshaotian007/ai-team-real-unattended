@@ -1,0 +1,556 @@
+{
+  "work_orders": {
+    "PILOT-TASK-TEAM-DISPATCH-001": {
+      "task_id": "PILOT-TASK-TEAM-DISPATCH-001",
+      "owner_role": "orchestrator",
+      "summary": "dispatch bridge init health",
+      "task_ref": "TASK-TEAM-DISPATCH-001",
+      "shift_id": null,
+      "status": "completed",
+      "artifacts": [
+        "scripts/ai_team_codex_dispatch_runner.py",
+        "docs/ai-team/operations/M1_M2_72H_CODEX_AGENT_RUNNER_STATE.json"
+      ],
+      "write_scopes": [
+        "scripts/ai_team_codex_dispatch_runner.py",
+        "docs/ai-team/operations/**"
+      ],
+      "goal": "验证 Codex dispatch bridge 可以初始化运行时状态。",
+      "depends_on_task_refs": [],
+      "constraints": [
+        "只允许使用 standalone 工程内状态文件"
+      ],
+      "read_scopes": [
+        "scripts/**",
+        "docs/**",
+        "AGENTS.md",
+        "PLANS.md"
+      ],
+      "acceptance_commands": [
+        "python3 scripts/ai_team_codex_dispatch_runner.py init --json"
+      ],
+      "risk_notes_required": true,
+      "rollback_hint": "revert standalone dispatch bridge bootstrap",
+      "collaborators": [
+        "qa-agent"
+      ],
+      "dispatch_channel": "codex_agent",
+      "dispatched_at": "2026-04-07T17:11:18.319720+08:00",
+      "dispatch_count": 1,
+      "last_work_order_id": "PILOT-TASK-TEAM-DISPATCH-001#codex#1",
+      "last_result": "unattended acceptance completed for PILOT-TASK-TEAM-DISPATCH-001#codex#1",
+      "created_at": "2026-04-07T17:11:18.319720+08:00",
+      "updated_at": "2026-04-07T17:11:23.434876+08:00",
+      "task_source": "codex_pilot_catalog",
+      "last_delivery": {
+        "mode": "codex_agent",
+        "dispatch_id": "PILOT-TASK-TEAM-DISPATCH-001#codex#1",
+        "changed_files": [],
+        "artifacts_produced": [
+          "scripts/ai_team_codex_dispatch_runner.py",
+          "docs/ai-team/operations/M1_M2_72H_CODEX_AGENT_RUNNER_STATE.json"
+        ],
+        "risk_notes": [
+          "accepted by unattended codex entry against current repo/runtime evidence; rerun if upstream scope changes",
+          "revert standalone dispatch bridge bootstrap"
+        ],
+        "handover_notes": [],
+        "tests_run": [
+          {
+            "command": "python3 scripts/ai_team_codex_dispatch_runner.py init --json",
+            "status": "passed"
+          }
+        ]
+      },
+      "claimed_by": "orchestrator",
+      "claimed_at": "2026-04-07T17:11:21.614361+08:00",
+      "completed_at": "2026-04-07T17:11:23.434876+08:00"
+    },
+    "PILOT-TASK-TEAM-CATALOG-002": {
+      "task_id": "PILOT-TASK-TEAM-CATALOG-002",
+      "owner_role": "orchestrator",
+      "summary": "pilot catalog and contract health",
+      "task_ref": "TASK-TEAM-CATALOG-002",
+      "shift_id": null,
+      "status": "completed",
+      "artifacts": [
+        "scripts/ai_team_codex_pilot_seed.py",
+        "docs/ai-team/operations/CODEX_AGENT_DISPATCH_CONTRACT.md",
+        "docs/ai-team/operations/CODEX_AGENT_DELIVERY_CONTRACT.md"
+      ],
+      "write_scopes": [
+        "scripts/ai_team_codex_pilot_seed.py",
+        "docs/ai-team/operations/**"
+      ],
+      "goal": "验证 pilot catalog、dispatch contract 与 delivery contract 能被读取。",
+      "depends_on_task_refs": [
+        "TASK-TEAM-DISPATCH-001"
+      ],
+      "constraints": [
+        "不得越权修改非 standalone 项目文件"
+      ],
+      "read_scopes": [
+        "scripts/**",
+        "docs/**",
+        "AGENTS.md",
+        "PLANS.md"
+      ],
+      "acceptance_commands": [
+        "python3 scripts/ai_team_codex_pilot_seed.py list --json"
+      ],
+      "risk_notes_required": true,
+      "rollback_hint": "revert standalone pilot catalog bootstrap",
+      "collaborators": [
+        "qa-agent"
+      ],
+      "dispatch_channel": "codex_agent",
+      "dispatched_at": "2026-04-07T17:11:24.128011+08:00",
+      "dispatch_count": 1,
+      "last_work_order_id": "PILOT-TASK-TEAM-CATALOG-002#codex#1",
+      "last_result": "unattended acceptance completed for PILOT-TASK-TEAM-CATALOG-002#codex#1",
+      "created_at": "2026-04-07T17:11:24.128011+08:00",
+      "updated_at": "2026-04-07T17:11:27.640289+08:00",
+      "task_source": "codex_pilot_catalog",
+      "last_delivery": {
+        "mode": "codex_agent",
+        "dispatch_id": "PILOT-TASK-TEAM-CATALOG-002#codex#1",
+        "changed_files": [],
+        "artifacts_produced": [
+          "scripts/ai_team_codex_pilot_seed.py",
+          "docs/ai-team/operations/CODEX_AGENT_DISPATCH_CONTRACT.md",
+          "docs/ai-team/operations/CODEX_AGENT_DELIVERY_CONTRACT.md"
+        ],
+        "risk_notes": [
+          "accepted by unattended codex entry against current repo/runtime evidence; rerun if upstream scope changes",
+          "revert standalone pilot catalog bootstrap"
+        ],
+        "handover_notes": [],
+        "tests_run": [
+          {
+            "command": "python3 scripts/ai_team_codex_pilot_seed.py list --json",
+            "status": "passed"
+          }
+        ]
+      },
+      "claimed_by": "orchestrator",
+      "claimed_at": "2026-04-07T17:11:26.880803+08:00",
+      "completed_at": "2026-04-07T17:11:27.640289+08:00"
+    },
+    "PILOT-TASK-TEAM-GIT-003": {
+      "task_id": "PILOT-TASK-TEAM-GIT-003",
+      "owner_role": "devops-agent",
+      "summary": "git save/push closure health",
+      "task_ref": "TASK-TEAM-GIT-003",
+      "shift_id": null,
+      "status": "completed",
+      "artifacts": [
+        "scripts/ai_team_git_repo_manager.py"
+      ],
+      "write_scopes": [
+        "scripts/ai_team_git_repo_manager.py"
+      ],
+      "goal": "验证 standalone ai-team 自身具备 git init/save/push 能力。",
+      "depends_on_task_refs": [
+        "TASK-TEAM-DISPATCH-001"
+      ],
+      "constraints": [
+        "不得推送到未声明 remote"
+      ],
+      "read_scopes": [
+        "scripts/**",
+        "docs/**",
+        "PLANS.md"
+      ],
+      "acceptance_commands": [
+        "python3 scripts/ai_team_git_repo_manager.py status --json"
+      ],
+      "risk_notes_required": true,
+      "rollback_hint": "revert standalone git closure changes",
+      "collaborators": [
+        "orchestrator"
+      ],
+      "dispatch_channel": "codex_agent",
+      "dispatched_at": "2026-04-07T17:11:24.128011+08:00",
+      "dispatch_count": 1,
+      "last_work_order_id": "PILOT-TASK-TEAM-GIT-003#codex#1",
+      "last_result": "unattended acceptance completed for PILOT-TASK-TEAM-GIT-003#codex#1",
+      "created_at": "2026-04-07T17:11:24.128011+08:00",
+      "updated_at": "2026-04-07T17:11:28.878768+08:00",
+      "task_source": "codex_pilot_catalog",
+      "last_delivery": {
+        "mode": "codex_agent",
+        "dispatch_id": "PILOT-TASK-TEAM-GIT-003#codex#1",
+        "changed_files": [],
+        "artifacts_produced": [
+          "scripts/ai_team_git_repo_manager.py"
+        ],
+        "risk_notes": [
+          "accepted by unattended codex entry against current repo/runtime evidence; rerun if upstream scope changes",
+          "revert standalone git closure changes"
+        ],
+        "handover_notes": [],
+        "tests_run": [
+          {
+            "command": "python3 scripts/ai_team_git_repo_manager.py status --json",
+            "status": "passed"
+          }
+        ]
+      },
+      "claimed_by": "devops-agent",
+      "claimed_at": "2026-04-07T17:11:27.884881+08:00",
+      "completed_at": "2026-04-07T17:11:28.878768+08:00"
+    },
+    "PILOT-TASK-TEAM-MR-004": {
+      "task_id": "PILOT-TASK-TEAM-MR-004",
+      "owner_role": "orchestrator",
+      "summary": "gitlab mr reviewer plan",
+      "task_ref": "TASK-TEAM-MR-004",
+      "shift_id": null,
+      "status": "completed",
+      "artifacts": [
+        "scripts/ai_team_gitlab_flow.py",
+        "docs/ai-team/reports/MR_PLAN.json"
+      ],
+      "write_scopes": [
+        "scripts/ai_team_gitlab_flow.py",
+        "docs/ai-team/reports/**"
+      ],
+      "goal": "验证 standalone ai-team 可生成 GitLab merge request payload，并在有 token 时接通 reviewer gate。",
+      "depends_on_task_refs": [
+        "TASK-TEAM-GIT-003"
+      ],
+      "constraints": [
+        "默认验收只生成计划与报告，不在测试中强制创建远端 MR"
+      ],
+      "read_scopes": [
+        "scripts/**",
+        "docs/**",
+        "PLANS.md",
+        "AGENTS.md"
+      ],
+      "acceptance_commands": [
+        "python3 scripts/ai_team_gitlab_flow.py plan-mr --write-report docs/ai-team/reports/MR_PLAN.json --json"
+      ],
+      "risk_notes_required": true,
+      "rollback_hint": "remove standalone MR plan if project mapping or reviewer contract changes",
+      "collaborators": [
+        "devops-agent"
+      ],
+      "dispatch_channel": "codex_agent",
+      "dispatched_at": "2026-04-07T17:11:29.669217+08:00",
+      "dispatch_count": 1,
+      "last_work_order_id": "PILOT-TASK-TEAM-MR-004#codex#1",
+      "last_result": "unattended acceptance completed for PILOT-TASK-TEAM-MR-004#codex#1",
+      "created_at": "2026-04-07T17:11:29.669217+08:00",
+      "updated_at": "2026-04-07T17:11:33.394679+08:00",
+      "task_source": "codex_pilot_catalog",
+      "last_delivery": {
+        "mode": "codex_agent",
+        "dispatch_id": "PILOT-TASK-TEAM-MR-004#codex#1",
+        "changed_files": [],
+        "artifacts_produced": [
+          "scripts/ai_team_gitlab_flow.py",
+          "docs/ai-team/reports/MR_PLAN.json"
+        ],
+        "risk_notes": [
+          "accepted by unattended codex entry against current repo/runtime evidence; rerun if upstream scope changes",
+          "remove standalone MR plan if project mapping or reviewer contract changes"
+        ],
+        "handover_notes": [],
+        "tests_run": [
+          {
+            "command": "python3 scripts/ai_team_gitlab_flow.py plan-mr --write-report docs/ai-team/reports/MR_PLAN.json --json",
+            "status": "passed"
+          }
+        ]
+      },
+      "claimed_by": "orchestrator",
+      "claimed_at": "2026-04-07T17:11:32.579858+08:00",
+      "completed_at": "2026-04-07T17:11:33.394679+08:00"
+    },
+    "PILOT-TASK-TEAM-RELEASE-005": {
+      "task_id": "PILOT-TASK-TEAM-RELEASE-005",
+      "owner_role": "devops-agent",
+      "summary": "release controller health",
+      "task_ref": "TASK-TEAM-RELEASE-005",
+      "shift_id": null,
+      "status": "completed",
+      "artifacts": [
+        "scripts/ai_team_release_controller.py",
+        "docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json"
+      ],
+      "write_scopes": [
+        "scripts/ai_team_release_controller.py",
+        "docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json"
+      ],
+      "goal": "验证 standalone ai-team 具备 staging / release / rollback 状态控制。",
+      "depends_on_task_refs": [
+        "TASK-TEAM-GIT-003"
+      ],
+      "constraints": [
+        "默认验收只操作本地 release state，不执行真实远端发布"
+      ],
+      "read_scopes": [
+        "scripts/**",
+        "docs/**",
+        "PLANS.md"
+      ],
+      "acceptance_commands": [
+        "python3 scripts/ai_team_release_controller.py init --json",
+        "python3 scripts/ai_team_release_controller.py promote-staging --artifact standalone-bundle --json"
+      ],
+      "risk_notes_required": true,
+      "rollback_hint": "revert standalone release-controller state if rollout contract changes",
+      "collaborators": [
+        "orchestrator"
+      ],
+      "dispatch_channel": "codex_agent",
+      "dispatched_at": "2026-04-07T17:11:29.669217+08:00",
+      "dispatch_count": 1,
+      "last_work_order_id": "PILOT-TASK-TEAM-RELEASE-005#codex#1",
+      "last_result": "unattended acceptance completed for PILOT-TASK-TEAM-RELEASE-005#codex#1",
+      "created_at": "2026-04-07T17:11:29.669217+08:00",
+      "updated_at": "2026-04-07T17:11:34.605812+08:00",
+      "task_source": "codex_pilot_catalog",
+      "last_delivery": {
+        "mode": "codex_agent",
+        "dispatch_id": "PILOT-TASK-TEAM-RELEASE-005#codex#1",
+        "changed_files": [],
+        "artifacts_produced": [
+          "scripts/ai_team_release_controller.py",
+          "docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json"
+        ],
+        "risk_notes": [
+          "accepted by unattended codex entry against current repo/runtime evidence; rerun if upstream scope changes",
+          "revert standalone release-controller state if rollout contract changes"
+        ],
+        "handover_notes": [],
+        "tests_run": [
+          {
+            "command": "python3 scripts/ai_team_release_controller.py init --json",
+            "status": "passed"
+          },
+          {
+            "command": "python3 scripts/ai_team_release_controller.py promote-staging --artifact standalone-bundle --json",
+            "status": "passed"
+          }
+        ]
+      },
+      "claimed_by": "devops-agent",
+      "claimed_at": "2026-04-07T17:11:33.620250+08:00",
+      "completed_at": "2026-04-07T17:11:34.605812+08:00"
+    },
+    "PILOT-TASK-TEAM-UAT-006": {
+      "task_id": "PILOT-TASK-TEAM-UAT-006",
+      "owner_role": "qa-agent",
+      "summary": "standalone qa regression",
+      "task_ref": "TASK-TEAM-UAT-006",
+      "shift_id": null,
+      "status": "completed",
+      "artifacts": [
+        "docs/ai-team/reviews/qa/TASK-TEAM-UAT-006.md"
+      ],
+      "write_scopes": [
+        "tests/**",
+        "docs/ai-team/reviews/qa/**"
+      ],
+      "goal": "执行 standalone ai-team 的最小测试集并产出 QA review。",
+      "depends_on_task_refs": [
+        "TASK-TEAM-CATALOG-002",
+        "TASK-TEAM-GIT-003",
+        "TASK-TEAM-MR-004",
+        "TASK-TEAM-RELEASE-005"
+      ],
+      "constraints": [
+        "review 证据必须来自当前仓库运行结果"
+      ],
+      "read_scopes": [
+        "scripts/**",
+        "docs/**",
+        "tests/**",
+        "PLANS.md"
+      ],
+      "acceptance_commands": [
+        "pytest tests -q"
+      ],
+      "risk_notes_required": true,
+      "rollback_hint": "discard synthesized QA review if tests or evidence become stale",
+      "collaborators": [
+        "orchestrator",
+        "devops-agent"
+      ],
+      "dispatch_channel": "codex_agent",
+      "dispatched_at": "2026-04-07T17:11:35.451857+08:00",
+      "dispatch_count": 1,
+      "last_work_order_id": "PILOT-TASK-TEAM-UAT-006#codex#1",
+      "last_result": "unattended acceptance completed for PILOT-TASK-TEAM-UAT-006#codex#1",
+      "created_at": "2026-04-07T17:11:35.451857+08:00",
+      "updated_at": "2026-04-07T17:11:42.490256+08:00",
+      "task_source": "codex_pilot_catalog",
+      "last_delivery": {
+        "mode": "codex_agent",
+        "dispatch_id": "PILOT-TASK-TEAM-UAT-006#codex#1",
+        "changed_files": [
+          "docs/ai-team/reviews/qa/TASK-TEAM-UAT-006.md"
+        ],
+        "artifacts_produced": [
+          "docs/ai-team/reviews/qa/TASK-TEAM-UAT-006.md"
+        ],
+        "risk_notes": [
+          "accepted by unattended codex entry against current repo/runtime evidence; rerun if upstream scope changes",
+          "discard synthesized QA review if tests or evidence become stale",
+          "markdown review artifact was synthesized from current evidence rather than interactive reviewer narration"
+        ],
+        "handover_notes": [],
+        "tests_run": [
+          {
+            "command": "pytest tests -q",
+            "status": "passed"
+          }
+        ]
+      },
+      "claimed_by": "qa-agent",
+      "claimed_at": "2026-04-07T17:11:38.188300+08:00",
+      "completed_at": "2026-04-07T17:11:42.490256+08:00"
+    },
+    "PILOT-TASK-TEAM-CLOSEOUT-007": {
+      "task_id": "PILOT-TASK-TEAM-CLOSEOUT-007",
+      "owner_role": "orchestrator",
+      "summary": "standalone plans closeout",
+      "task_ref": "TASK-TEAM-CLOSEOUT-007",
+      "shift_id": null,
+      "status": "completed",
+      "artifacts": [
+        "PLANS.md",
+        "docs/ai-team/reports/PLANS_SYNC.json"
+      ],
+      "write_scopes": [
+        "PLANS.md",
+        "docs/ai-team/reports/**",
+        "docs/ai-team/operations/**"
+      ],
+      "goal": "根据 broker 与证据回写 standalone PLANS，并输出 closeout 报告。",
+      "depends_on_task_refs": [
+        "TASK-TEAM-UAT-006"
+      ],
+      "constraints": [
+        "只允许回写 standalone 项目内的 PLANS 与报告"
+      ],
+      "read_scopes": [
+        "scripts/**",
+        "docs/**",
+        "PLANS.md"
+      ],
+      "acceptance_commands": [
+        "python3 scripts/ai_team_plans_status_sync.py --apply --write-report docs/ai-team/reports/PLANS_SYNC.json --json"
+      ],
+      "risk_notes_required": true,
+      "rollback_hint": "revert standalone PLANS closeout if any row is upgraded without evidence",
+      "collaborators": [
+        "qa-agent",
+        "devops-agent"
+      ],
+      "dispatch_channel": "codex_agent",
+      "dispatched_at": "2026-04-07T17:11:43.283155+08:00",
+      "dispatch_count": 1,
+      "last_work_order_id": "PILOT-TASK-TEAM-CLOSEOUT-007#codex#1",
+      "last_result": "unattended acceptance completed for PILOT-TASK-TEAM-CLOSEOUT-007#codex#1",
+      "created_at": "2026-04-07T17:11:43.283155+08:00",
+      "updated_at": "2026-04-07T17:11:46.480133+08:00",
+      "task_source": "codex_pilot_catalog",
+      "last_delivery": {
+        "mode": "codex_agent",
+        "dispatch_id": "PILOT-TASK-TEAM-CLOSEOUT-007#codex#1",
+        "changed_files": [],
+        "artifacts_produced": [
+          "PLANS.md",
+          "docs/ai-team/reports/PLANS_SYNC.json"
+        ],
+        "risk_notes": [
+          "accepted by unattended codex entry against current repo/runtime evidence; rerun if upstream scope changes",
+          "revert standalone PLANS closeout if any row is upgraded without evidence"
+        ],
+        "handover_notes": [],
+        "tests_run": [
+          {
+            "command": "python3 scripts/ai_team_plans_status_sync.py --apply --write-report docs/ai-team/reports/PLANS_SYNC.json --json",
+            "status": "passed"
+          }
+        ]
+      },
+      "claimed_by": "orchestrator",
+      "claimed_at": "2026-04-07T17:11:45.951863+08:00",
+      "completed_at": "2026-04-07T17:11:46.480133+08:00"
+    },
+    "PILOT-TASK-TEAM-FINALIZE-008": {
+      "task_id": "PILOT-TASK-TEAM-FINALIZE-008",
+      "owner_role": "orchestrator",
+      "summary": "final verified snapshot",
+      "task_ref": "TASK-TEAM-FINALIZE-008",
+      "shift_id": null,
+      "status": "completed",
+      "artifacts": [
+        "PLANS.md",
+        "docs/ai-team/reports/PLANS_SYNC.json"
+      ],
+      "write_scopes": [
+        "PLANS.md",
+        "docs/ai-team/reports/**",
+        "docs/ai-team/operations/**"
+      ],
+      "goal": "在 closeout report 生成后再次执行 PLANS sync，确保最终状态落盘。",
+      "depends_on_task_refs": [
+        "TASK-TEAM-CLOSEOUT-007"
+      ],
+      "constraints": [
+        "只允许写 standalone PLANS 与报告"
+      ],
+      "read_scopes": [
+        "scripts/**",
+        "docs/**",
+        "PLANS.md"
+      ],
+      "acceptance_commands": [
+        "python3 scripts/ai_team_plans_status_sync.py --apply --write-report docs/ai-team/reports/PLANS_SYNC.json --json"
+      ],
+      "risk_notes_required": true,
+      "rollback_hint": "revert final verified snapshot if evidence chain is incomplete",
+      "collaborators": [
+        "qa-agent"
+      ],
+      "dispatch_channel": "codex_agent",
+      "dispatched_at": "2026-04-07T17:11:47.004139+08:00",
+      "dispatch_count": 1,
+      "last_work_order_id": "PILOT-TASK-TEAM-FINALIZE-008#codex#1",
+      "last_result": "unattended acceptance completed for PILOT-TASK-TEAM-FINALIZE-008#codex#1",
+      "created_at": "2026-04-07T17:11:47.004139+08:00",
+      "updated_at": "2026-04-07T17:11:50.606551+08:00",
+      "task_source": "codex_pilot_catalog",
+      "last_delivery": {
+        "mode": "codex_agent",
+        "dispatch_id": "PILOT-TASK-TEAM-FINALIZE-008#codex#1",
+        "changed_files": [],
+        "artifacts_produced": [
+          "PLANS.md",
+          "docs/ai-team/reports/PLANS_SYNC.json"
+        ],
+        "risk_notes": [
+          "accepted by unattended codex entry against current repo/runtime evidence; rerun if upstream scope changes",
+          "revert final verified snapshot if evidence chain is incomplete"
+        ],
+        "handover_notes": [],
+        "tests_run": [
+          {
+            "command": "python3 scripts/ai_team_plans_status_sync.py --apply --write-report docs/ai-team/reports/PLANS_SYNC.json --json",
+            "status": "passed"
+          }
+        ]
+      },
+      "claimed_by": "orchestrator",
+      "claimed_at": "2026-04-07T17:11:49.939334+08:00",
+      "completed_at": "2026-04-07T17:11:50.606551+08:00"
+    }
+  },
+  "locks": {},
+  "updated_at": "2026-04-07T17:11:50.606551+08:00"
+}

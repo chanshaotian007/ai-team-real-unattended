@@ -1,0 +1,15 @@
+{
+  "status": "ok",
+  "project_path": "chenjihui/kernel-sense",
+  "gitlab_base_url": "http://192.168.0.186:80",
+  "source_branch": "",
+  "target_branch": "main",
+  "payload": {
+    "source_branch": "",
+    "target_branch": "main",
+    "title": "ai-team: merge",
+    "description": "Automated ai-team delivery for branch ``.",
+    "remove_source_branch": "false",
+    "labels": "ai-team:auto,ai-team:review"
+  }
+}

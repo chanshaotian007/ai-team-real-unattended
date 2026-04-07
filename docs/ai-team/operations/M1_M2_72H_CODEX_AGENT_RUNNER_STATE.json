@@ -1,0 +1,61 @@
+{
+  "dispatches": {
+    "PILOT-TASK-TEAM-DISPATCH-001#codex#1": {
+      "status": "completed",
+      "claimed_by": "orchestrator",
+      "claimed_at": "2026-04-07T17:11:21.614361+08:00",
+      "updated_at": "2026-04-07T17:11:23.434876+08:00",
+      "completed_at": "2026-04-07T17:11:23.434876+08:00"
+    },
+    "PILOT-TASK-TEAM-CATALOG-002#codex#1": {
+      "status": "completed",
+      "claimed_by": "orchestrator",
+      "claimed_at": "2026-04-07T17:11:26.880803+08:00",
+      "updated_at": "2026-04-07T17:11:27.640289+08:00",
+      "completed_at": "2026-04-07T17:11:27.640289+08:00"
+    },
+    "PILOT-TASK-TEAM-GIT-003#codex#1": {
+      "status": "completed",
+      "claimed_by": "devops-agent",
+      "claimed_at": "2026-04-07T17:11:27.884881+08:00",
+      "updated_at": "2026-04-07T17:11:28.878768+08:00",
+      "completed_at": "2026-04-07T17:11:28.878768+08:00"
+    },
+    "PILOT-TASK-TEAM-MR-004#codex#1": {
+      "status": "completed",
+      "claimed_by": "orchestrator",
+      "claimed_at": "2026-04-07T17:11:32.579858+08:00",
+      "updated_at": "2026-04-07T17:11:33.394679+08:00",
+      "completed_at": "2026-04-07T17:11:33.394679+08:00"
+    },
+    "PILOT-TASK-TEAM-RELEASE-005#codex#1": {
+      "status": "completed",
+      "claimed_by": "devops-agent",
+      "claimed_at": "2026-04-07T17:11:33.620250+08:00",
+      "updated_at": "2026-04-07T17:11:34.605812+08:00",
+      "completed_at": "2026-04-07T17:11:34.605812+08:00"
+    },
+    "PILOT-TASK-TEAM-UAT-006#codex#1": {
+      "status": "completed",
+      "claimed_by": "qa-agent",
+      "claimed_at": "2026-04-07T17:11:38.188300+08:00",
+      "updated_at": "2026-04-07T17:11:42.490256+08:00",
+      "completed_at": "2026-04-07T17:11:42.490256+08:00"
+    },
+    "PILOT-TASK-TEAM-CLOSEOUT-007#codex#1": {
+      "status": "completed",
+      "claimed_by": "orchestrator",
+      "claimed_at": "2026-04-07T17:11:45.951863+08:00",
+      "updated_at": "2026-04-07T17:11:46.480133+08:00",
+      "completed_at": "2026-04-07T17:11:46.480133+08:00"
+    },
+    "PILOT-TASK-TEAM-FINALIZE-008#codex#1": {
+      "status": "completed",
+      "claimed_by": "orchestrator",
+      "claimed_at": "2026-04-07T17:11:49.939334+08:00",
+      "updated_at": "2026-04-07T17:11:50.606551+08:00",
+      "completed_at": "2026-04-07T17:11:50.606551+08:00"
+    }
+  },
+  "claims": {}
+}

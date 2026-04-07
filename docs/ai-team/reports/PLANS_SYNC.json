@@ -1,0 +1,130 @@
+{
+  "status": "ok",
+  "plans_path": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/PLANS.md",
+  "mapping_path": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/PLANS_CLOSURE_MAP.yaml",
+  "broker_state_path": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_BROKER.json",
+  "summary": {
+    "mapped_count": 7,
+    "ready_count": 7,
+    "updated_count": 1,
+    "unresolved_count": 0
+  },
+  "updated_plan_refs": [
+    "5.7"
+  ],
+  "unresolved_plan_refs": [],
+  "items": [
+    {
+      "plan_ref": "5.1",
+      "current_status": "Verified-Local",
+      "target_status": "Verified-Local",
+      "task_refs": [
+        "TASK-TEAM-DISPATCH-001"
+      ],
+      "missing_task_refs": [],
+      "evidence_files": [
+        "scripts/ai_team_codex_dispatch_runner.py",
+        "docs/ai-team/operations/M1_M2_72H_CODEX_AGENT_RUNNER_STATE.json"
+      ],
+      "missing_evidence_files": [],
+      "plan_row_found": true,
+      "ready": true
+    },
+    {
+      "plan_ref": "5.2",
+      "current_status": "Verified-Local",
+      "target_status": "Verified-Local",
+      "task_refs": [
+        "TASK-TEAM-CATALOG-002"
+      ],
+      "missing_task_refs": [],
+      "evidence_files": [
+        "scripts/ai_team_codex_pilot_seed.py",
+        "docs/ai-team/operations/CODEX_AGENT_DISPATCH_CONTRACT.md",
+        "docs/ai-team/operations/CODEX_AGENT_DELIVERY_CONTRACT.md"
+      ],
+      "missing_evidence_files": [],
+      "plan_row_found": true,
+      "ready": true
+    },
+    {
+      "plan_ref": "5.3",
+      "current_status": "Verified-Local",
+      "target_status": "Verified-Local",
+      "task_refs": [
+        "TASK-TEAM-GIT-003"
+      ],
+      "missing_task_refs": [],
+      "evidence_files": [
+        "scripts/ai_team_git_repo_manager.py"
+      ],
+      "missing_evidence_files": [],
+      "plan_row_found": true,
+      "ready": true
+    },
+    {
+      "plan_ref": "5.4",
+      "current_status": "Verified-Local",
+      "target_status": "Verified-Local",
+      "task_refs": [
+        "TASK-TEAM-MR-004"
+      ],
+      "missing_task_refs": [],
+      "evidence_files": [
+        "scripts/ai_team_gitlab_flow.py",
+        "docs/ai-team/reports/MR_PLAN.json"
+      ],
+      "missing_evidence_files": [],
+      "plan_row_found": true,
+      "ready": true
+    },
+    {
+      "plan_ref": "5.5",
+      "current_status": "Verified-Local",
+      "target_status": "Verified-Local",
+      "task_refs": [
+        "TASK-TEAM-RELEASE-005"
+      ],
+      "missing_task_refs": [],
+      "evidence_files": [
+        "scripts/ai_team_release_controller.py",
+        "docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json"
+      ],
+      "missing_evidence_files": [],
+      "plan_row_found": true,
+      "ready": true
+    },
+    {
+      "plan_ref": "5.6",
+      "current_status": "Verified-Local",
+      "target_status": "Verified-Local",
+      "task_refs": [
+        "TASK-TEAM-UAT-006"
+      ],
+      "missing_task_refs": [],
+      "evidence_files": [
+        "docs/ai-team/reviews/qa/TASK-TEAM-UAT-006.md",
+        "scripts/ai_team_codex_unattended.py"
+      ],
+      "missing_evidence_files": [],
+      "plan_row_found": true,
+      "ready": true
+    },
+    {
+      "plan_ref": "5.7",
+      "current_status": "Pending",
+      "target_status": "Verified-Local",
+      "task_refs": [
+        "TASK-TEAM-CLOSEOUT-007"
+      ],
+      "missing_task_refs": [],
+      "evidence_files": [
+        "docs/ai-team/reports/PLANS_SYNC.json",
+        "scripts/ai_team_plans_status_sync.py"
+      ],
+      "missing_evidence_files": [],
+      "plan_row_found": true,
+      "ready": true
+    }
+  ]
+}

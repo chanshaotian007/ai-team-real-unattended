@@ -1,0 +1,151 @@
+tasks:
+  - task_id: "PILOT-TASK-TEAM-DISPATCH-001"
+    task_ref: "TASK-TEAM-DISPATCH-001"
+    owner_role: "orchestrator"
+    priority: 10
+    summary: "dispatch bridge init health"
+    goal: "验证 Codex dispatch bridge 可以初始化运行时状态。"
+    collaborators: ["qa-agent"]
+    constraints: ["只允许使用 standalone 工程内状态文件"]
+    read_scopes: ["scripts/**", "docs/**", "AGENTS.md", "PLANS.md"]
+    write_scopes: ["scripts/ai_team_codex_dispatch_runner.py", "docs/ai-team/operations/**"]
+    artifacts:
+      - "scripts/ai_team_codex_dispatch_runner.py"
+      - "docs/ai-team/operations/M1_M2_72H_CODEX_AGENT_RUNNER_STATE.json"
+    acceptance_commands:
+      - "python3 scripts/ai_team_codex_dispatch_runner.py init --json"
+    rollback_hint: "revert standalone dispatch bridge bootstrap"
+    risk_notes_required: true
+
+  - task_id: "PILOT-TASK-TEAM-CATALOG-002"
+    task_ref: "TASK-TEAM-CATALOG-002"
+    owner_role: "orchestrator"
+    priority: 20
+    summary: "pilot catalog and contract health"
+    goal: "验证 pilot catalog、dispatch contract 与 delivery contract 能被读取。"
+    collaborators: ["qa-agent"]
+    depends_on_task_refs: ["TASK-TEAM-DISPATCH-001"]
+    constraints: ["不得越权修改非 standalone 项目文件"]
+    read_scopes: ["scripts/**", "docs/**", "AGENTS.md", "PLANS.md"]
+    write_scopes: ["scripts/ai_team_codex_pilot_seed.py", "docs/ai-team/operations/**"]
+    artifacts:
+      - "scripts/ai_team_codex_pilot_seed.py"
+      - "docs/ai-team/operations/CODEX_AGENT_DISPATCH_CONTRACT.md"
+      - "docs/ai-team/operations/CODEX_AGENT_DELIVERY_CONTRACT.md"
+    acceptance_commands:
+      - "python3 scripts/ai_team_codex_pilot_seed.py list --json"
+    rollback_hint: "revert standalone pilot catalog bootstrap"
+    risk_notes_required: true
+
+  - task_id: "PILOT-TASK-TEAM-GIT-003"
+    task_ref: "TASK-TEAM-GIT-003"
+    owner_role: "devops-agent"
+    priority: 30
+    summary: "git save/push closure health"
+    goal: "验证 standalone ai-team 自身具备 git init/save/push 能力。"
+    collaborators: ["orchestrator"]
+    depends_on_task_refs: ["TASK-TEAM-DISPATCH-001"]
+    constraints: ["不得推送到未声明 remote"]
+    read_scopes: ["scripts/**", "docs/**", "PLANS.md"]
+    write_scopes: ["scripts/ai_team_git_repo_manager.py"]
+    artifacts:
+      - "scripts/ai_team_git_repo_manager.py"
+    acceptance_commands:
+      - "python3 scripts/ai_team_git_repo_manager.py status --json"
+    rollback_hint: "revert standalone git closure changes"
+    risk_notes_required: true
+
+  - task_id: "PILOT-TASK-TEAM-MR-004"
+    task_ref: "TASK-TEAM-MR-004"
+    owner_role: "orchestrator"
+    priority: 40
+    summary: "gitlab mr reviewer plan"
+    goal: "验证 standalone ai-team 可生成 GitLab merge request payload，并在有 token 时接通 reviewer gate。"
+    collaborators: ["devops-agent"]
+    depends_on_task_refs: ["TASK-TEAM-GIT-003"]
+    constraints: ["默认验收只生成计划与报告，不在测试中强制创建远端 MR"]
+    read_scopes: ["scripts/**", "docs/**", "PLANS.md", "AGENTS.md"]
+    write_scopes: ["scripts/ai_team_gitlab_flow.py", "docs/ai-team/reports/**"]
+    artifacts:
+      - "scripts/ai_team_gitlab_flow.py"
+      - "docs/ai-team/reports/MR_PLAN.json"
+    acceptance_commands:
+      - "python3 scripts/ai_team_gitlab_flow.py plan-mr --write-report docs/ai-team/reports/MR_PLAN.json --json"
+    rollback_hint: "remove standalone MR plan if project mapping or reviewer contract changes"
+    risk_notes_required: true
+
+  - task_id: "PILOT-TASK-TEAM-RELEASE-005"
+    task_ref: "TASK-TEAM-RELEASE-005"
+    owner_role: "devops-agent"
+    priority: 50
+    summary: "release controller health"
+    goal: "验证 standalone ai-team 具备 staging / release / rollback 状态控制。"
+    collaborators: ["orchestrator"]
+    depends_on_task_refs: ["TASK-TEAM-GIT-003"]
+    constraints: ["默认验收只操作本地 release state，不执行真实远端发布"]
+    read_scopes: ["scripts/**", "docs/**", "PLANS.md"]
+    write_scopes: ["scripts/ai_team_release_controller.py", "docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json"]
+    artifacts:
+      - "scripts/ai_team_release_controller.py"
+      - "docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json"
+    acceptance_commands:
+      - "python3 scripts/ai_team_release_controller.py init --json"
+      - "python3 scripts/ai_team_release_controller.py promote-staging --artifact standalone-bundle --json"
+    rollback_hint: "revert standalone release-controller state if rollout contract changes"
+    risk_notes_required: true
+
+  - task_id: "PILOT-TASK-TEAM-UAT-006"
+    task_ref: "TASK-TEAM-UAT-006"
+    owner_role: "qa-agent"
+    priority: 60
+    summary: "standalone qa regression"
+    goal: "执行 standalone ai-team 的最小测试集并产出 QA review。"
+    collaborators: ["orchestrator", "devops-agent"]
+    depends_on_task_refs: ["TASK-TEAM-CATALOG-002", "TASK-TEAM-GIT-003", "TASK-TEAM-MR-004", "TASK-TEAM-RELEASE-005"]
+    constraints: ["review 证据必须来自当前仓库运行结果"]
+    read_scopes: ["scripts/**", "docs/**", "tests/**", "PLANS.md"]
+    write_scopes: ["tests/**", "docs/ai-team/reviews/qa/**"]
+    artifacts:
+      - "docs/ai-team/reviews/qa/TASK-TEAM-UAT-006.md"
+    acceptance_commands:
+      - "pytest tests -q"
+    rollback_hint: "discard synthesized QA review if tests or evidence become stale"
+    risk_notes_required: true
+
+  - task_id: "PILOT-TASK-TEAM-CLOSEOUT-007"
+    task_ref: "TASK-TEAM-CLOSEOUT-007"
+    owner_role: "orchestrator"
+    priority: 70
+    summary: "standalone plans closeout"
+    goal: "根据 broker 与证据回写 standalone PLANS，并输出 closeout 报告。"
+    collaborators: ["qa-agent", "devops-agent"]
+    depends_on_task_refs: ["TASK-TEAM-UAT-006"]
+    constraints: ["只允许回写 standalone 项目内的 PLANS 与报告"]
+    read_scopes: ["scripts/**", "docs/**", "PLANS.md"]
+    write_scopes: ["PLANS.md", "docs/ai-team/reports/**", "docs/ai-team/operations/**"]
+    artifacts:
+      - "PLANS.md"
+      - "docs/ai-team/reports/PLANS_SYNC.json"
+    acceptance_commands:
+      - "python3 scripts/ai_team_plans_status_sync.py --apply --write-report docs/ai-team/reports/PLANS_SYNC.json --json"
+    rollback_hint: "revert standalone PLANS closeout if any row is upgraded without evidence"
+    risk_notes_required: true
+
+  - task_id: "PILOT-TASK-TEAM-FINALIZE-008"
+    task_ref: "TASK-TEAM-FINALIZE-008"
+    owner_role: "orchestrator"
+    priority: 80
+    summary: "final verified snapshot"
+    goal: "在 closeout report 生成后再次执行 PLANS sync，确保最终状态落盘。"
+    collaborators: ["qa-agent"]
+    depends_on_task_refs: ["TASK-TEAM-CLOSEOUT-007"]
+    constraints: ["只允许写 standalone PLANS 与报告"]
+    read_scopes: ["scripts/**", "docs/**", "PLANS.md"]
+    write_scopes: ["PLANS.md", "docs/ai-team/reports/**", "docs/ai-team/operations/**"]
+    artifacts:
+      - "PLANS.md"
+      - "docs/ai-team/reports/PLANS_SYNC.json"
+    acceptance_commands:
+      - "python3 scripts/ai_team_plans_status_sync.py --apply --write-report docs/ai-team/reports/PLANS_SYNC.json --json"
+    rollback_hint: "revert final verified snapshot if evidence chain is incomplete"
+    risk_notes_required: true

@@ -1,0 +1,1967 @@
+{
+  "generated_at": "2026-04-07T17:11:54.403894+08:00",
+  "rounds": [
+    {
+      "progress": true,
+      "claims": [],
+      "executions": [],
+      "seed": {
+        "status": "ok",
+        "selected_count": 1,
+        "seeded_count": 1,
+        "results": [
+          {
+            "status": "seeded",
+            "task_ref": "TASK-TEAM-DISPATCH-001",
+            "task_id": "PILOT-TASK-TEAM-DISPATCH-001",
+            "dispatch_id": "PILOT-TASK-TEAM-DISPATCH-001#codex#1",
+            "owner_role": "orchestrator",
+            "validation": {
+              "ok": true,
+              "errors": [],
+              "warnings": []
+            },
+            "readiness": {
+              "ready": true,
+              "depends_on_task_refs": [],
+              "dependency_statuses": [],
+              "blocked_reasons": []
+            }
+          }
+        ],
+        "dispatches_file": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_CODEX_AGENT_DISPATCHES.jsonl",
+        "broker_state": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_BROKER.json",
+        "requested": [
+          "TASK-TEAM-DISPATCH-001"
+        ]
+      },
+      "dispatch_status": {
+        "status": "ok",
+        "role": null,
+        "dispatch_count": 1,
+        "suppressed_superseded_count": 0,
+        "counts": {
+          "pending": 1,
+          "queued": 1,
+          "claimed": 0,
+          "completed": 0,
+          "errored": 0,
+          "reopened": 0,
+          "other": 0
+        },
+        "active_claims": [],
+        "claims": {}
+      }
+    },
+    {
+      "progress": true,
+      "claims": [
+        {
+          "status": "claimed",
+          "dispatch_id": "PILOT-TASK-TEAM-DISPATCH-001#codex#1",
+          "owner_role": "orchestrator",
+          "dispatch": {
+            "delivery_mode": "codex_agent",
+            "dispatch_id": "PILOT-TASK-TEAM-DISPATCH-001#codex#1",
+            "emitted_at": "2026-04-07T17:11:18.319720+08:00",
+            "executor_rule": "manual-codex-pilot-seed",
+            "model_hint": null,
+            "owner_role": "orchestrator",
+            "plan_links": [],
+            "requested_by": "orchestrator",
+            "shift_id": null,
+            "source_refs": [],
+            "summary": "dispatch bridge init health",
+            "task_contract": {
+              "acceptance_commands": [
+                "python3 scripts/ai_team_codex_dispatch_runner.py init --json"
+              ],
+              "artifacts": [
+                "scripts/ai_team_codex_dispatch_runner.py",
+                "docs/ai-team/operations/M1_M2_72H_CODEX_AGENT_RUNNER_STATE.json"
+              ],
+              "collaborators": [
+                "qa-agent"
+              ],
+              "constraints": [
+                "只允许使用 standalone 工程内状态文件"
+              ],
+              "depends_on_task_refs": [],
+              "goal": "验证 Codex dispatch bridge 可以初始化运行时状态。",
+              "owner_role": "orchestrator",
+              "read_scopes": [
+                "scripts/**",
+                "docs/**",
+                "AGENTS.md",
+                "PLANS.md"
+              ],
+              "risk_notes_required": true,
+              "rollback_hint": "revert standalone dispatch bridge bootstrap",
+              "task_id": "PILOT-TASK-TEAM-DISPATCH-001",
+              "write_scopes": [
+                "scripts/ai_team_codex_dispatch_runner.py",
+                "docs/ai-team/operations/**"
+              ]
+            },
+            "task_contract_version": "v1",
+            "task_id": "PILOT-TASK-TEAM-DISPATCH-001",
+            "task_ref": "TASK-TEAM-DISPATCH-001"
+          },
+          "state_file": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_CODEX_AGENT_RUNNER_STATE.json",
+          "notifications_file": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_NOTIFICATIONS.jsonl",
+          "broker_state": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_BROKER.json"
+        }
+      ],
+      "executions": [
+        {
+          "dispatch_id": "PILOT-TASK-TEAM-DISPATCH-001#codex#1",
+          "task_ref": "TASK-TEAM-DISPATCH-001",
+          "owner_role": "orchestrator",
+          "result": "completed",
+          "changed_files": [],
+          "artifacts": [
+            "scripts/ai_team_codex_dispatch_runner.py",
+            "docs/ai-team/operations/M1_M2_72H_CODEX_AGENT_RUNNER_STATE.json"
+          ],
+          "command_results": [
+            {
+              "command": "python3 scripts/ai_team_codex_dispatch_runner.py init --json",
+              "returncode": 0,
+              "stdout_tail": [
+                "{",
+                "  \"status\": \"initialized\",",
+                "  \"dispatches_file\": \"/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_CODEX_AGENT_DISPATCHES.jsonl\",",
+                "  \"state_file\": \"/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_CODEX_AGENT_RUNNER_STATE.json\",",
+                "  \"dispatches_created\": false,",
+                "  \"state_created\": false",
+                "}"
+              ],
+              "stderr_tail": [],
+              "parsed": {
+                "status": "initialized",
+                "dispatches_file": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_CODEX_AGENT_DISPATCHES.jsonl",
+                "state_file": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_CODEX_AGENT_RUNNER_STATE.json",
+                "dispatches_created": false,
+                "state_created": false
+              }
+            }
+          ],
+          "runner_result": {
+            "status": "completed",
+            "dispatch_id": "PILOT-TASK-TEAM-DISPATCH-001#codex#1",
+            "notifications_file": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_NOTIFICATIONS.jsonl",
+            "broker_state": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_BROKER.json"
+          }
+        }
+      ],
+      "seed": {
+        "status": "ok",
+        "selected_count": 2,
+        "seeded_count": 2,
+        "results": [
+          {
+            "status": "seeded",
+            "task_ref": "TASK-TEAM-CATALOG-002",
+            "task_id": "PILOT-TASK-TEAM-CATALOG-002",
+            "dispatch_id": "PILOT-TASK-TEAM-CATALOG-002#codex#1",
+            "owner_role": "orchestrator",
+            "validation": {
+              "ok": true,
+              "errors": [],
+              "warnings": []
+            },
+            "readiness": {
+              "ready": true,
+              "depends_on_task_refs": [
+                "TASK-TEAM-DISPATCH-001"
+              ],
+              "dependency_statuses": [
+                {
+                  "task_ref": "TASK-TEAM-DISPATCH-001",
+                  "task_id": "PILOT-TASK-TEAM-DISPATCH-001",
+                  "status": "completed",
+                  "ready": true
+                }
+              ],
+              "blocked_reasons": []
+            }
+          },
+          {
+            "status": "seeded",
+            "task_ref": "TASK-TEAM-GIT-003",
+            "task_id": "PILOT-TASK-TEAM-GIT-003",
+            "dispatch_id": "PILOT-TASK-TEAM-GIT-003#codex#1",
+            "owner_role": "devops-agent",
+            "validation": {
+              "ok": true,
+              "errors": [],
+              "warnings": []
+            },
+            "readiness": {
+              "ready": true,
+              "depends_on_task_refs": [
+                "TASK-TEAM-DISPATCH-001"
+              ],
+              "dependency_statuses": [
+                {
+                  "task_ref": "TASK-TEAM-DISPATCH-001",
+                  "task_id": "PILOT-TASK-TEAM-DISPATCH-001",
+                  "status": "completed",
+                  "ready": true
+                }
+              ],
+              "blocked_reasons": []
+            }
+          }
+        ],
+        "dispatches_file": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_CODEX_AGENT_DISPATCHES.jsonl",
+        "broker_state": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_BROKER.json",
+        "requested": [
+          "TASK-TEAM-CATALOG-002",
+          "TASK-TEAM-GIT-003"
+        ]
+      },
+      "dispatch_status": {
+        "status": "ok",
+        "role": null,
+        "dispatch_count": 3,
+        "suppressed_superseded_count": 0,
+        "counts": {
+          "pending": 2,
+          "queued": 2,
+          "claimed": 0,
+          "completed": 1,
+          "errored": 0,
+          "reopened": 0,
+          "other": 0
+        },
+        "active_claims": [],
+        "claims": {}
+      }
+    },
+    {
+      "progress": true,
+      "claims": [
+        {
+          "status": "claimed",
+          "dispatch_id": "PILOT-TASK-TEAM-CATALOG-002#codex#1",
+          "owner_role": "orchestrator",
+          "dispatch": {
+            "delivery_mode": "codex_agent",
+            "dispatch_id": "PILOT-TASK-TEAM-CATALOG-002#codex#1",
+            "emitted_at": "2026-04-07T17:11:24.128011+08:00",
+            "executor_rule": "manual-codex-pilot-seed",
+            "model_hint": null,
+            "owner_role": "orchestrator",
+            "plan_links": [],
+            "requested_by": "orchestrator",
+            "shift_id": null,
+            "source_refs": [],
+            "summary": "pilot catalog and contract health",
+            "task_contract": {
+              "acceptance_commands": [
+                "python3 scripts/ai_team_codex_pilot_seed.py list --json"
+              ],
+              "artifacts": [
+                "scripts/ai_team_codex_pilot_seed.py",
+                "docs/ai-team/operations/CODEX_AGENT_DISPATCH_CONTRACT.md",
+                "docs/ai-team/operations/CODEX_AGENT_DELIVERY_CONTRACT.md"
+              ],
+              "collaborators": [
+                "qa-agent"
+              ],
+              "constraints": [
+                "不得越权修改非 standalone 项目文件"
+              ],
+              "depends_on_task_refs": [
+                "TASK-TEAM-DISPATCH-001"
+              ],
+              "goal": "验证 pilot catalog、dispatch contract 与 delivery contract 能被读取。",
+              "owner_role": "orchestrator",
+              "read_scopes": [
+                "scripts/**",
+                "docs/**",
+                "AGENTS.md",
+                "PLANS.md"
+              ],
+              "risk_notes_required": true,
+              "rollback_hint": "revert standalone pilot catalog bootstrap",
+              "task_id": "PILOT-TASK-TEAM-CATALOG-002",
+              "write_scopes": [
+                "scripts/ai_team_codex_pilot_seed.py",
+                "docs/ai-team/operations/**"
+              ]
+            },
+            "task_contract_version": "v1",
+            "task_id": "PILOT-TASK-TEAM-CATALOG-002",
+            "task_ref": "TASK-TEAM-CATALOG-002"
+          },
+          "state_file": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_CODEX_AGENT_RUNNER_STATE.json",
+          "notifications_file": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_NOTIFICATIONS.jsonl",
+          "broker_state": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_BROKER.json"
+        },
+        {
+          "status": "claimed",
+          "dispatch_id": "PILOT-TASK-TEAM-GIT-003#codex#1",
+          "owner_role": "devops-agent",
+          "dispatch": {
+            "delivery_mode": "codex_agent",
+            "dispatch_id": "PILOT-TASK-TEAM-GIT-003#codex#1",
+            "emitted_at": "2026-04-07T17:11:24.128011+08:00",
+            "executor_rule": "manual-codex-pilot-seed",
+            "model_hint": null,
+            "owner_role": "devops-agent",
+            "plan_links": [],
+            "requested_by": "orchestrator",
+            "shift_id": null,
+            "source_refs": [],
+            "summary": "git save/push closure health",
+            "task_contract": {
+              "acceptance_commands": [
+                "python3 scripts/ai_team_git_repo_manager.py status --json"
+              ],
+              "artifacts": [
+                "scripts/ai_team_git_repo_manager.py"
+              ],
+              "collaborators": [
+                "orchestrator"
+              ],
+              "constraints": [
+                "不得推送到未声明 remote"
+              ],
+              "depends_on_task_refs": [
+                "TASK-TEAM-DISPATCH-001"
+              ],
+              "goal": "验证 standalone ai-team 自身具备 git init/save/push 能力。",
+              "owner_role": "devops-agent",
+              "read_scopes": [
+                "scripts/**",
+                "docs/**",
+                "PLANS.md"
+              ],
+              "risk_notes_required": true,
+              "rollback_hint": "revert standalone git closure changes",
+              "task_id": "PILOT-TASK-TEAM-GIT-003",
+              "write_scopes": [
+                "scripts/ai_team_git_repo_manager.py"
+              ]
+            },
+            "task_contract_version": "v1",
+            "task_id": "PILOT-TASK-TEAM-GIT-003",
+            "task_ref": "TASK-TEAM-GIT-003"
+          },
+          "state_file": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_CODEX_AGENT_RUNNER_STATE.json",
+          "notifications_file": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_NOTIFICATIONS.jsonl",
+          "broker_state": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_BROKER.json"
+        }
+      ],
+      "executions": [
+        {
+          "dispatch_id": "PILOT-TASK-TEAM-CATALOG-002#codex#1",
+          "task_ref": "TASK-TEAM-CATALOG-002",
+          "owner_role": "orchestrator",
+          "result": "completed",
+          "changed_files": [],
+          "artifacts": [
+            "scripts/ai_team_codex_pilot_seed.py",
+            "docs/ai-team/operations/CODEX_AGENT_DISPATCH_CONTRACT.md",
+            "docs/ai-team/operations/CODEX_AGENT_DELIVERY_CONTRACT.md"
+          ],
+          "command_results": [
+            {
+              "command": "python3 scripts/ai_team_codex_pilot_seed.py list --json",
+              "returncode": 0,
+              "stdout_tail": [
+                "          }",
+                "        ],",
+                "        \"blocked_reasons\": [",
+                "          \"dependency_not_completed=TASK-TEAM-UAT-006:unseeded\"",
+                "        ]",
+                "      },",
+                "      \"broker_status\": \"unseeded\"",
+                "    },",
+                "    {",
+                "      \"task_ref\": \"TASK-TEAM-FINALIZE-008\",",
+                "      \"task_id\": \"PILOT-TASK-TEAM-FINALIZE-008\",",
+                "      \"owner_role\": \"orchestrator\",",
+                "      \"shift_id\": null,",
+                "      \"summary\": \"final verified snapshot\",",
+                "      \"validation\": {",
+                "        \"ok\": true,",
+                "        \"errors\": [],",
+                "        \"warnings\": []",
+                "      },",
+                "      \"readiness\": {",
+                "        \"ready\": false,",
+                "        \"depends_on_task_refs\": [",
+                "          \"TASK-TEAM-CLOSEOUT-007\"",
+                "        ],",
+                "        \"dependency_statuses\": [",
+                "          {",
+                "            \"task_ref\": \"TASK-TEAM-CLOSEOUT-007\",",
+                "            \"task_id\": \"PILOT-TASK-TEAM-CLOSEOUT-007\",",
+                "            \"status\": \"unseeded\",",
+                "            \"ready\": false",
+                "          }",
+                "        ],",
+                "        \"blocked_reasons\": [",
+                "          \"dependency_not_completed=TASK-TEAM-CLOSEOUT-007:unseeded\"",
+                "        ]",
+                "      },",
+                "      \"broker_status\": \"unseeded\"",
+                "    }",
+                "  ]",
+                "}"
+              ],
+              "stderr_tail": [],
+              "parsed": {
+                "status": "ok",
+                "task_count": 8,
+                "tasks": [
+                  {
+                    "task_ref": "TASK-TEAM-DISPATCH-001",
+                    "task_id": "PILOT-TASK-TEAM-DISPATCH-001",
+                    "owner_role": "orchestrator",
+                    "shift_id": null,
+                    "summary": "dispatch bridge init health",
+                    "validation": {
+                      "ok": true,
+                      "errors": [],
+                      "warnings": []
+                    },
+                    "readiness": {
+                      "ready": true,
+                      "depends_on_task_refs": [],
+                      "dependency_statuses": [],
+                      "blocked_reasons": []
+                    },
+                    "broker_status": "completed"
+                  },
+                  {
+                    "task_ref": "TASK-TEAM-CATALOG-002",
+                    "task_id": "PILOT-TASK-TEAM-CATALOG-002",
+                    "owner_role": "orchestrator",
+                    "shift_id": null,
+                    "summary": "pilot catalog and contract health",
+                    "validation": {
+                      "ok": true,
+                      "errors": [],
+                      "warnings": []
+                    },
+                    "readiness": {
+                      "ready": true,
+                      "depends_on_task_refs": [
+                        "TASK-TEAM-DISPATCH-001"
+                      ],
+                      "dependency_statuses": [
+                        {
+                          "task_ref": "TASK-TEAM-DISPATCH-001",
+                          "task_id": "PILOT-TASK-TEAM-DISPATCH-001",
+                          "status": "completed",
+                          "ready": true
+                        }
+                      ],
+                      "blocked_reasons": []
+                    },
+                    "broker_status": "claimed"
+                  },
+                  {
+                    "task_ref": "TASK-TEAM-GIT-003",
+                    "task_id": "PILOT-TASK-TEAM-GIT-003",
+                    "owner_role": "devops-agent",
+                    "shift_id": null,
+                    "summary": "git save/push closure health",
+                    "validation": {
+                      "ok": true,
+                      "errors": [],
+                      "warnings": []
+                    },
+                    "readiness": {
+                      "ready": true,
+                      "depends_on_task_refs": [
+                        "TASK-TEAM-DISPATCH-001"
+                      ],
+                      "dependency_statuses": [
+                        {
+                          "task_ref": "TASK-TEAM-DISPATCH-001",
+                          "task_id": "PILOT-TASK-TEAM-DISPATCH-001",
+                          "status": "completed",
+                          "ready": true
+                        }
+                      ],
+                      "blocked_reasons": []
+                    },
+                    "broker_status": "dispatched"
+                  },
+                  {
+                    "task_ref": "TASK-TEAM-MR-004",
+                    "task_id": "PILOT-TASK-TEAM-MR-004",
+                    "owner_role": "orchestrator",
+                    "shift_id": null,
+                    "summary": "gitlab mr reviewer plan",
+                    "validation": {
+                      "ok": true,
+                      "errors": [],
+                      "warnings": []
+                    },
+                    "readiness": {
+                      "ready": false,
+                      "depends_on_task_refs": [
+                        "TASK-TEAM-GIT-003"
+                      ],
+                      "dependency_statuses": [
+                        {
+                          "task_ref": "TASK-TEAM-GIT-003",
+                          "task_id": "PILOT-TASK-TEAM-GIT-003",
+                          "status": "dispatched",
+                          "ready": false
+                        }
+                      ],
+                      "blocked_reasons": [
+                        "dependency_not_completed=TASK-TEAM-GIT-003:dispatched"
+                      ]
+                    },
+                    "broker_status": "unseeded"
+                  },
+                  {
+                    "task_ref": "TASK-TEAM-RELEASE-005",
+                    "task_id": "PILOT-TASK-TEAM-RELEASE-005",
+                    "owner_role": "devops-agent",
+                    "shift_id": null,
+                    "summary": "release controller health",
+                    "validation": {
+                      "ok": true,
+                      "errors": [],
+                      "warnings": []
+                    },
+                    "readiness": {
+                      "ready": false,
+                      "depends_on_task_refs": [
+                        "TASK-TEAM-GIT-003"
+                      ],
+                      "dependency_statuses": [
+                        {
+                          "task_ref": "TASK-TEAM-GIT-003",
+                          "task_id": "PILOT-TASK-TEAM-GIT-003",
+                          "status": "dispatched",
+                          "ready": false
+                        }
+                      ],
+                      "blocked_reasons": [
+                        "dependency_not_completed=TASK-TEAM-GIT-003:dispatched"
+                      ]
+                    },
+                    "broker_status": "unseeded"
+                  },
+                  {
+                    "task_ref": "TASK-TEAM-UAT-006",
+                    "task_id": "PILOT-TASK-TEAM-UAT-006",
+                    "owner_role": "qa-agent",
+                    "shift_id": null,
+                    "summary": "standalone qa regression",
+                    "validation": {
+                      "ok": true,
+                      "errors": [],
+                      "warnings": []
+                    },
+                    "readiness": {
+                      "ready": false,
+                      "depends_on_task_refs": [
+                        "TASK-TEAM-CATALOG-002",
+                        "TASK-TEAM-GIT-003",
+                        "TASK-TEAM-MR-004",
+                        "TASK-TEAM-RELEASE-005"
+                      ],
+                      "dependency_statuses": [
+                        {
+                          "task_ref": "TASK-TEAM-CATALOG-002",
+                          "task_id": "PILOT-TASK-TEAM-CATALOG-002",
+                          "status": "claimed",
+                          "ready": false
+                        },
+                        {
+                          "task_ref": "TASK-TEAM-GIT-003",
+                          "task_id": "PILOT-TASK-TEAM-GIT-003",
+                          "status": "dispatched",
+                          "ready": false
+                        },
+                        {
+                          "task_ref": "TASK-TEAM-MR-004",
+                          "task_id": "PILOT-TASK-TEAM-MR-004",
+                          "status": "unseeded",
+                          "ready": false
+                        },
+                        {
+                          "task_ref": "TASK-TEAM-RELEASE-005",
+                          "task_id": "PILOT-TASK-TEAM-RELEASE-005",
+                          "status": "unseeded",
+                          "ready": false
+                        }
+                      ],
+                      "blocked_reasons": [
+                        "dependency_not_completed=TASK-TEAM-CATALOG-002:claimed",
+                        "dependency_not_completed=TASK-TEAM-GIT-003:dispatched",
+                        "dependency_not_completed=TASK-TEAM-MR-004:unseeded",
+                        "dependency_not_completed=TASK-TEAM-RELEASE-005:unseeded"
+                      ]
+                    },
+                    "broker_status": "unseeded"
+                  },
+                  {
+                    "task_ref": "TASK-TEAM-CLOSEOUT-007",
+                    "task_id": "PILOT-TASK-TEAM-CLOSEOUT-007",
+                    "owner_role": "orchestrator",
+                    "shift_id": null,
+                    "summary": "standalone plans closeout",
+                    "validation": {
+                      "ok": true,
+                      "errors": [],
+                      "warnings": []
+                    },
+                    "readiness": {
+                      "ready": false,
+                      "depends_on_task_refs": [
+                        "TASK-TEAM-UAT-006"
+                      ],
+                      "dependency_statuses": [
+                        {
+                          "task_ref": "TASK-TEAM-UAT-006",
+                          "task_id": "PILOT-TASK-TEAM-UAT-006",
+                          "status": "unseeded",
+                          "ready": false
+                        }
+                      ],
+                      "blocked_reasons": [
+                        "dependency_not_completed=TASK-TEAM-UAT-006:unseeded"
+                      ]
+                    },
+                    "broker_status": "unseeded"
+                  },
+                  {
+                    "task_ref": "TASK-TEAM-FINALIZE-008",
+                    "task_id": "PILOT-TASK-TEAM-FINALIZE-008",
+                    "owner_role": "orchestrator",
+                    "shift_id": null,
+                    "summary": "final verified snapshot",
+                    "validation": {
+                      "ok": true,
+                      "errors": [],
+                      "warnings": []
+                    },
+                    "readiness": {
+                      "ready": false,
+                      "depends_on_task_refs": [
+                        "TASK-TEAM-CLOSEOUT-007"
+                      ],
+                      "dependency_statuses": [
+                        {
+                          "task_ref": "TASK-TEAM-CLOSEOUT-007",
+                          "task_id": "PILOT-TASK-TEAM-CLOSEOUT-007",
+                          "status": "unseeded",
+                          "ready": false
+                        }
+                      ],
+                      "blocked_reasons": [
+                        "dependency_not_completed=TASK-TEAM-CLOSEOUT-007:unseeded"
+                      ]
+                    },
+                    "broker_status": "unseeded"
+                  }
+                ]
+              }
+            }
+          ],
+          "runner_result": {
+            "status": "completed",
+            "dispatch_id": "PILOT-TASK-TEAM-CATALOG-002#codex#1",
+            "notifications_file": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_NOTIFICATIONS.jsonl",
+            "broker_state": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_BROKER.json"
+          }
+        },
+        {
+          "dispatch_id": "PILOT-TASK-TEAM-GIT-003#codex#1",
+          "task_ref": "TASK-TEAM-GIT-003",
+          "owner_role": "devops-agent",
+          "result": "completed",
+          "changed_files": [],
+          "artifacts": [
+            "scripts/ai_team_git_repo_manager.py"
+          ],
+          "command_results": [
+            {
+              "command": "python3 scripts/ai_team_git_repo_manager.py status --json",
+              "returncode": 0,
+              "stdout_tail": [
+                "{",
+                "  \"status\": \"ok\",",
+                "  \"repo\": \"/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended\",",
+                "  \"git_repo\": false,",
+                "  \"branch\": \"\",",
+                "  \"remote\": \"origin\",",
+                "  \"remote_url\": \"\",",
+                "  \"working_tree\": []",
+                "}"
+              ],
+              "stderr_tail": [],
+              "parsed": {
+                "status": "ok",
+                "repo": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended",
+                "git_repo": false,
+                "branch": "",
+                "remote": "origin",
+                "remote_url": "",
+                "working_tree": []
+              }
+            }
+          ],
+          "runner_result": {
+            "status": "completed",
+            "dispatch_id": "PILOT-TASK-TEAM-GIT-003#codex#1",
+            "notifications_file": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_NOTIFICATIONS.jsonl",
+            "broker_state": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_BROKER.json"
+          }
+        }
+      ],
+      "seed": {
+        "status": "ok",
+        "selected_count": 2,
+        "seeded_count": 2,
+        "results": [
+          {
+            "status": "seeded",
+            "task_ref": "TASK-TEAM-MR-004",
+            "task_id": "PILOT-TASK-TEAM-MR-004",
+            "dispatch_id": "PILOT-TASK-TEAM-MR-004#codex#1",
+            "owner_role": "orchestrator",
+            "validation": {
+              "ok": true,
+              "errors": [],
+              "warnings": []
+            },
+            "readiness": {
+              "ready": true,
+              "depends_on_task_refs": [
+                "TASK-TEAM-GIT-003"
+              ],
+              "dependency_statuses": [
+                {
+                  "task_ref": "TASK-TEAM-GIT-003",
+                  "task_id": "PILOT-TASK-TEAM-GIT-003",
+                  "status": "completed",
+                  "ready": true
+                }
+              ],
+              "blocked_reasons": []
+            }
+          },
+          {
+            "status": "seeded",
+            "task_ref": "TASK-TEAM-RELEASE-005",
+            "task_id": "PILOT-TASK-TEAM-RELEASE-005",
+            "dispatch_id": "PILOT-TASK-TEAM-RELEASE-005#codex#1",
+            "owner_role": "devops-agent",
+            "validation": {
+              "ok": true,
+              "errors": [],
+              "warnings": []
+            },
+            "readiness": {
+              "ready": true,
+              "depends_on_task_refs": [
+                "TASK-TEAM-GIT-003"
+              ],
+              "dependency_statuses": [
+                {
+                  "task_ref": "TASK-TEAM-GIT-003",
+                  "task_id": "PILOT-TASK-TEAM-GIT-003",
+                  "status": "completed",
+                  "ready": true
+                }
+              ],
+              "blocked_reasons": []
+            }
+          }
+        ],
+        "dispatches_file": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_CODEX_AGENT_DISPATCHES.jsonl",
+        "broker_state": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_BROKER.json",
+        "requested": [
+          "TASK-TEAM-MR-004",
+          "TASK-TEAM-RELEASE-005"
+        ]
+      },
+      "dispatch_status": {
+        "status": "ok",
+        "role": null,
+        "dispatch_count": 5,
+        "suppressed_superseded_count": 0,
+        "counts": {
+          "pending": 2,
+          "queued": 2,
+          "claimed": 0,
+          "completed": 3,
+          "errored": 0,
+          "reopened": 0,
+          "other": 0
+        },
+        "active_claims": [],
+        "claims": {}
+      }
+    },
+    {
+      "progress": true,
+      "claims": [
+        {
+          "status": "claimed",
+          "dispatch_id": "PILOT-TASK-TEAM-MR-004#codex#1",
+          "owner_role": "orchestrator",
+          "dispatch": {
+            "delivery_mode": "codex_agent",
+            "dispatch_id": "PILOT-TASK-TEAM-MR-004#codex#1",
+            "emitted_at": "2026-04-07T17:11:29.669217+08:00",
+            "executor_rule": "manual-codex-pilot-seed",
+            "model_hint": null,
+            "owner_role": "orchestrator",
+            "plan_links": [],
+            "requested_by": "orchestrator",
+            "shift_id": null,
+            "source_refs": [],
+            "summary": "gitlab mr reviewer plan",
+            "task_contract": {
+              "acceptance_commands": [
+                "python3 scripts/ai_team_gitlab_flow.py plan-mr --write-report docs/ai-team/reports/MR_PLAN.json --json"
+              ],
+              "artifacts": [
+                "scripts/ai_team_gitlab_flow.py",
+                "docs/ai-team/reports/MR_PLAN.json"
+              ],
+              "collaborators": [
+                "devops-agent"
+              ],
+              "constraints": [
+                "默认验收只生成计划与报告，不在测试中强制创建远端 MR"
+              ],
+              "depends_on_task_refs": [
+                "TASK-TEAM-GIT-003"
+              ],
+              "goal": "验证 standalone ai-team 可生成 GitLab merge request payload，并在有 token 时接通 reviewer gate。",
+              "owner_role": "orchestrator",
+              "read_scopes": [
+                "scripts/**",
+                "docs/**",
+                "PLANS.md",
+                "AGENTS.md"
+              ],
+              "risk_notes_required": true,
+              "rollback_hint": "remove standalone MR plan if project mapping or reviewer contract changes",
+              "task_id": "PILOT-TASK-TEAM-MR-004",
+              "write_scopes": [
+                "scripts/ai_team_gitlab_flow.py",
+                "docs/ai-team/reports/**"
+              ]
+            },
+            "task_contract_version": "v1",
+            "task_id": "PILOT-TASK-TEAM-MR-004",
+            "task_ref": "TASK-TEAM-MR-004"
+          },
+          "state_file": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_CODEX_AGENT_RUNNER_STATE.json",
+          "notifications_file": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_NOTIFICATIONS.jsonl",
+          "broker_state": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_BROKER.json"
+        },
+        {
+          "status": "claimed",
+          "dispatch_id": "PILOT-TASK-TEAM-RELEASE-005#codex#1",
+          "owner_role": "devops-agent",
+          "dispatch": {
+            "delivery_mode": "codex_agent",
+            "dispatch_id": "PILOT-TASK-TEAM-RELEASE-005#codex#1",
+            "emitted_at": "2026-04-07T17:11:29.669217+08:00",
+            "executor_rule": "manual-codex-pilot-seed",
+            "model_hint": null,
+            "owner_role": "devops-agent",
+            "plan_links": [],
+            "requested_by": "orchestrator",
+            "shift_id": null,
+            "source_refs": [],
+            "summary": "release controller health",
+            "task_contract": {
+              "acceptance_commands": [
+                "python3 scripts/ai_team_release_controller.py init --json",
+                "python3 scripts/ai_team_release_controller.py promote-staging --artifact standalone-bundle --json"
+              ],
+              "artifacts": [
+                "scripts/ai_team_release_controller.py",
+                "docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json"
+              ],
+              "collaborators": [
+                "orchestrator"
+              ],
+              "constraints": [
+                "默认验收只操作本地 release state，不执行真实远端发布"
+              ],
+              "depends_on_task_refs": [
+                "TASK-TEAM-GIT-003"
+              ],
+              "goal": "验证 standalone ai-team 具备 staging / release / rollback 状态控制。",
+              "owner_role": "devops-agent",
+              "read_scopes": [
+                "scripts/**",
+                "docs/**",
+                "PLANS.md"
+              ],
+              "risk_notes_required": true,
+              "rollback_hint": "revert standalone release-controller state if rollout contract changes",
+              "task_id": "PILOT-TASK-TEAM-RELEASE-005",
+              "write_scopes": [
+                "scripts/ai_team_release_controller.py",
+                "docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json"
+              ]
+            },
+            "task_contract_version": "v1",
+            "task_id": "PILOT-TASK-TEAM-RELEASE-005",
+            "task_ref": "TASK-TEAM-RELEASE-005"
+          },
+          "state_file": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_CODEX_AGENT_RUNNER_STATE.json",
+          "notifications_file": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_NOTIFICATIONS.jsonl",
+          "broker_state": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_BROKER.json"
+        }
+      ],
+      "executions": [
+        {
+          "dispatch_id": "PILOT-TASK-TEAM-MR-004#codex#1",
+          "task_ref": "TASK-TEAM-MR-004",
+          "owner_role": "orchestrator",
+          "result": "completed",
+          "changed_files": [],
+          "artifacts": [
+            "scripts/ai_team_gitlab_flow.py",
+            "docs/ai-team/reports/MR_PLAN.json"
+          ],
+          "command_results": [
+            {
+              "command": "python3 scripts/ai_team_gitlab_flow.py plan-mr --write-report docs/ai-team/reports/MR_PLAN.json --json",
+              "returncode": 0,
+              "stdout_tail": [
+                "{",
+                "  \"status\": \"ok\",",
+                "  \"project_path\": \"chenjihui/kernel-sense\",",
+                "  \"gitlab_base_url\": \"http://192.168.0.186:80\",",
+                "  \"source_branch\": \"\",",
+                "  \"target_branch\": \"main\",",
+                "  \"payload\": {",
+                "    \"source_branch\": \"\",",
+                "    \"target_branch\": \"main\",",
+                "    \"title\": \"ai-team: merge\",",
+                "    \"description\": \"Automated ai-team delivery for branch ``.\",",
+                "    \"remove_source_branch\": \"false\",",
+                "    \"labels\": \"ai-team:auto,ai-team:review\"",
+                "  }",
+                "}"
+              ],
+              "stderr_tail": [],
+              "parsed": {
+                "status": "ok",
+                "project_path": "chenjihui/kernel-sense",
+                "gitlab_base_url": "http://192.168.0.186:80",
+                "source_branch": "",
+                "target_branch": "main",
+                "payload": {
+                  "source_branch": "",
+                  "target_branch": "main",
+                  "title": "ai-team: merge",
+                  "description": "Automated ai-team delivery for branch ``.",
+                  "remove_source_branch": "false",
+                  "labels": "ai-team:auto,ai-team:review"
+                }
+              }
+            }
+          ],
+          "runner_result": {
+            "status": "completed",
+            "dispatch_id": "PILOT-TASK-TEAM-MR-004#codex#1",
+            "notifications_file": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_NOTIFICATIONS.jsonl",
+            "broker_state": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_BROKER.json"
+          }
+        },
+        {
+          "dispatch_id": "PILOT-TASK-TEAM-RELEASE-005#codex#1",
+          "task_ref": "TASK-TEAM-RELEASE-005",
+          "owner_role": "devops-agent",
+          "result": "completed",
+          "changed_files": [],
+          "artifacts": [
+            "scripts/ai_team_release_controller.py",
+            "docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json"
+          ],
+          "command_results": [
+            {
+              "command": "python3 scripts/ai_team_release_controller.py init --json",
+              "returncode": 0,
+              "stdout_tail": [
+                "{",
+                "  \"status\": \"initialized\",",
+                "  \"state_file\": \"/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json\",",
+                "  \"state\": {",
+                "    \"generated_at\": \"2026-04-07T17:11:33.916244+08:00\",",
+                "    \"staging\": {",
+                "      \"artifact\": null,",
+                "      \"status\": \"idle\",",
+                "      \"verified_checks\": []",
+                "    },",
+                "    \"production\": {",
+                "      \"artifact\": null,",
+                "      \"status\": \"idle\"",
+                "    },",
+                "    \"history\": []",
+                "  }",
+                "}"
+              ],
+              "stderr_tail": [],
+              "parsed": {
+                "status": "initialized",
+                "state_file": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json",
+                "state": {
+                  "generated_at": "2026-04-07T17:11:33.916244+08:00",
+                  "staging": {
+                    "artifact": null,
+                    "status": "idle",
+                    "verified_checks": []
+                  },
+                  "production": {
+                    "artifact": null,
+                    "status": "idle"
+                  },
+                  "history": []
+                }
+              }
+            },
+            {
+              "command": "python3 scripts/ai_team_release_controller.py promote-staging --artifact standalone-bundle --json",
+              "returncode": 0,
+              "stdout_tail": [
+                "{",
+                "  \"status\": \"promoted\",",
+                "  \"stage\": \"staging\",",
+                "  \"artifact\": \"standalone-bundle\",",
+                "  \"environment\": \"staging\"",
+                "}"
+              ],
+              "stderr_tail": [],
+              "parsed": {
+                "status": "promoted",
+                "stage": "staging",
+                "artifact": "standalone-bundle",
+                "environment": "staging"
+              }
+            }
+          ],
+          "runner_result": {
+            "status": "completed",
+            "dispatch_id": "PILOT-TASK-TEAM-RELEASE-005#codex#1",
+            "notifications_file": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_NOTIFICATIONS.jsonl",
+            "broker_state": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_BROKER.json"
+          }
+        }
+      ],
+      "seed": {
+        "status": "ok",
+        "selected_count": 1,
+        "seeded_count": 1,
+        "results": [
+          {
+            "status": "seeded",
+            "task_ref": "TASK-TEAM-UAT-006",
+            "task_id": "PILOT-TASK-TEAM-UAT-006",
+            "dispatch_id": "PILOT-TASK-TEAM-UAT-006#codex#1",
+            "owner_role": "qa-agent",
+            "validation": {
+              "ok": true,
+              "errors": [],
+              "warnings": []
+            },
+            "readiness": {
+              "ready": true,
+              "depends_on_task_refs": [
+                "TASK-TEAM-CATALOG-002",
+                "TASK-TEAM-GIT-003",
+                "TASK-TEAM-MR-004",
+                "TASK-TEAM-RELEASE-005"
+              ],
+              "dependency_statuses": [
+                {
+                  "task_ref": "TASK-TEAM-CATALOG-002",
+                  "task_id": "PILOT-TASK-TEAM-CATALOG-002",
+                  "status": "completed",
+                  "ready": true
+                },
+                {
+                  "task_ref": "TASK-TEAM-GIT-003",
+                  "task_id": "PILOT-TASK-TEAM-GIT-003",
+                  "status": "completed",
+                  "ready": true
+                },
+                {
+                  "task_ref": "TASK-TEAM-MR-004",
+                  "task_id": "PILOT-TASK-TEAM-MR-004",
+                  "status": "completed",
+                  "ready": true
+                },
+                {
+                  "task_ref": "TASK-TEAM-RELEASE-005",
+                  "task_id": "PILOT-TASK-TEAM-RELEASE-005",
+                  "status": "completed",
+                  "ready": true
+                }
+              ],
+              "blocked_reasons": []
+            }
+          }
+        ],
+        "dispatches_file": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_CODEX_AGENT_DISPATCHES.jsonl",
+        "broker_state": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_BROKER.json",
+        "requested": [
+          "TASK-TEAM-UAT-006"
+        ]
+      },
+      "dispatch_status": {
+        "status": "ok",
+        "role": null,
+        "dispatch_count": 6,
+        "suppressed_superseded_count": 0,
+        "counts": {
+          "pending": 1,
+          "queued": 1,
+          "claimed": 0,
+          "completed": 5,
+          "errored": 0,
+          "reopened": 0,
+          "other": 0
+        },
+        "active_claims": [],
+        "claims": {}
+      }
+    },
+    {
+      "progress": true,
+      "claims": [
+        {
+          "status": "claimed",
+          "dispatch_id": "PILOT-TASK-TEAM-UAT-006#codex#1",
+          "owner_role": "qa-agent",
+          "dispatch": {
+            "delivery_mode": "codex_agent",
+            "dispatch_id": "PILOT-TASK-TEAM-UAT-006#codex#1",
+            "emitted_at": "2026-04-07T17:11:35.451857+08:00",
+            "executor_rule": "manual-codex-pilot-seed",
+            "model_hint": null,
+            "owner_role": "qa-agent",
+            "plan_links": [],
+            "requested_by": "orchestrator",
+            "shift_id": null,
+            "source_refs": [],
+            "summary": "standalone qa regression",
+            "task_contract": {
+              "acceptance_commands": [
+                "pytest tests -q"
+              ],
+              "artifacts": [
+                "docs/ai-team/reviews/qa/TASK-TEAM-UAT-006.md"
+              ],
+              "collaborators": [
+                "orchestrator",
+                "devops-agent"
+              ],
+              "constraints": [
+                "review 证据必须来自当前仓库运行结果"
+              ],
+              "depends_on_task_refs": [
+                "TASK-TEAM-CATALOG-002",
+                "TASK-TEAM-GIT-003",
+                "TASK-TEAM-MR-004",
+                "TASK-TEAM-RELEASE-005"
+              ],
+              "goal": "执行 standalone ai-team 的最小测试集并产出 QA review。",
+              "owner_role": "qa-agent",
+              "read_scopes": [
+                "scripts/**",
+                "docs/**",
+                "tests/**",
+                "PLANS.md"
+              ],
+              "risk_notes_required": true,
+              "rollback_hint": "discard synthesized QA review if tests or evidence become stale",
+              "task_id": "PILOT-TASK-TEAM-UAT-006",
+              "write_scopes": [
+                "tests/**",
+                "docs/ai-team/reviews/qa/**"
+              ]
+            },
+            "task_contract_version": "v1",
+            "task_id": "PILOT-TASK-TEAM-UAT-006",
+            "task_ref": "TASK-TEAM-UAT-006"
+          },
+          "state_file": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_CODEX_AGENT_RUNNER_STATE.json",
+          "notifications_file": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_NOTIFICATIONS.jsonl",
+          "broker_state": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_BROKER.json"
+        }
+      ],
+      "executions": [
+        {
+          "dispatch_id": "PILOT-TASK-TEAM-UAT-006#codex#1",
+          "task_ref": "TASK-TEAM-UAT-006",
+          "owner_role": "qa-agent",
+          "result": "completed",
+          "changed_files": [
+            "docs/ai-team/reviews/qa/TASK-TEAM-UAT-006.md"
+          ],
+          "artifacts": [
+            "docs/ai-team/reviews/qa/TASK-TEAM-UAT-006.md"
+          ],
+          "command_results": [
+            {
+              "command": "pytest tests -q",
+              "returncode": 0,
+              "stdout_tail": [
+                ".....                                                                    [100%]",
+                "5 passed in 2.69s"
+              ],
+              "stderr_tail": [],
+              "parsed": null
+            }
+          ],
+          "runner_result": {
+            "status": "completed",
+            "dispatch_id": "PILOT-TASK-TEAM-UAT-006#codex#1",
+            "notifications_file": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_NOTIFICATIONS.jsonl",
+            "broker_state": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_BROKER.json"
+          }
+        }
+      ],
+      "seed": {
+        "status": "ok",
+        "selected_count": 1,
+        "seeded_count": 1,
+        "results": [
+          {
+            "status": "seeded",
+            "task_ref": "TASK-TEAM-CLOSEOUT-007",
+            "task_id": "PILOT-TASK-TEAM-CLOSEOUT-007",
+            "dispatch_id": "PILOT-TASK-TEAM-CLOSEOUT-007#codex#1",
+            "owner_role": "orchestrator",
+            "validation": {
+              "ok": true,
+              "errors": [],
+              "warnings": []
+            },
+            "readiness": {
+              "ready": true,
+              "depends_on_task_refs": [
+                "TASK-TEAM-UAT-006"
+              ],
+              "dependency_statuses": [
+                {
+                  "task_ref": "TASK-TEAM-UAT-006",
+                  "task_id": "PILOT-TASK-TEAM-UAT-006",
+                  "status": "completed",
+                  "ready": true
+                }
+              ],
+              "blocked_reasons": []
+            }
+          }
+        ],
+        "dispatches_file": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_CODEX_AGENT_DISPATCHES.jsonl",
+        "broker_state": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_BROKER.json",
+        "requested": [
+          "TASK-TEAM-CLOSEOUT-007"
+        ]
+      },
+      "dispatch_status": {
+        "status": "ok",
+        "role": null,
+        "dispatch_count": 7,
+        "suppressed_superseded_count": 0,
+        "counts": {
+          "pending": 1,
+          "queued": 1,
+          "claimed": 0,
+          "completed": 6,
+          "errored": 0,
+          "reopened": 0,
+          "other": 0
+        },
+        "active_claims": [],
+        "claims": {}
+      }
+    },
+    {
+      "progress": true,
+      "claims": [
+        {
+          "status": "claimed",
+          "dispatch_id": "PILOT-TASK-TEAM-CLOSEOUT-007#codex#1",
+          "owner_role": "orchestrator",
+          "dispatch": {
+            "delivery_mode": "codex_agent",
+            "dispatch_id": "PILOT-TASK-TEAM-CLOSEOUT-007#codex#1",
+            "emitted_at": "2026-04-07T17:11:43.283155+08:00",
+            "executor_rule": "manual-codex-pilot-seed",
+            "model_hint": null,
+            "owner_role": "orchestrator",
+            "plan_links": [],
+            "requested_by": "orchestrator",
+            "shift_id": null,
+            "source_refs": [],
+            "summary": "standalone plans closeout",
+            "task_contract": {
+              "acceptance_commands": [
+                "python3 scripts/ai_team_plans_status_sync.py --apply --write-report docs/ai-team/reports/PLANS_SYNC.json --json"
+              ],
+              "artifacts": [
+                "PLANS.md",
+                "docs/ai-team/reports/PLANS_SYNC.json"
+              ],
+              "collaborators": [
+                "qa-agent",
+                "devops-agent"
+              ],
+              "constraints": [
+                "只允许回写 standalone 项目内的 PLANS 与报告"
+              ],
+              "depends_on_task_refs": [
+                "TASK-TEAM-UAT-006"
+              ],
+              "goal": "根据 broker 与证据回写 standalone PLANS，并输出 closeout 报告。",
+              "owner_role": "orchestrator",
+              "read_scopes": [
+                "scripts/**",
+                "docs/**",
+                "PLANS.md"
+              ],
+              "risk_notes_required": true,
+              "rollback_hint": "revert standalone PLANS closeout if any row is upgraded without evidence",
+              "task_id": "PILOT-TASK-TEAM-CLOSEOUT-007",
+              "write_scopes": [
+                "PLANS.md",
+                "docs/ai-team/reports/**",
+                "docs/ai-team/operations/**"
+              ]
+            },
+            "task_contract_version": "v1",
+            "task_id": "PILOT-TASK-TEAM-CLOSEOUT-007",
+            "task_ref": "TASK-TEAM-CLOSEOUT-007"
+          },
+          "state_file": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_CODEX_AGENT_RUNNER_STATE.json",
+          "notifications_file": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_NOTIFICATIONS.jsonl",
+          "broker_state": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_BROKER.json"
+        }
+      ],
+      "executions": [
+        {
+          "dispatch_id": "PILOT-TASK-TEAM-CLOSEOUT-007#codex#1",
+          "task_ref": "TASK-TEAM-CLOSEOUT-007",
+          "owner_role": "orchestrator",
+          "result": "completed",
+          "changed_files": [],
+          "artifacts": [
+            "PLANS.md",
+            "docs/ai-team/reports/PLANS_SYNC.json"
+          ],
+          "command_results": [
+            {
+              "command": "python3 scripts/ai_team_plans_status_sync.py --apply --write-report docs/ai-team/reports/PLANS_SYNC.json --json",
+              "returncode": 0,
+              "stdout_tail": [
+                "      \"ready\": true",
+                "    },",
+                "    {",
+                "      \"plan_ref\": \"5.6\",",
+                "      \"current_status\": \"Pending\",",
+                "      \"target_status\": \"Verified-Local\",",
+                "      \"task_refs\": [",
+                "        \"TASK-TEAM-UAT-006\"",
+                "      ],",
+                "      \"missing_task_refs\": [],",
+                "      \"evidence_files\": [",
+                "        \"docs/ai-team/reviews/qa/TASK-TEAM-UAT-006.md\",",
+                "        \"scripts/ai_team_codex_unattended.py\"",
+                "      ],",
+                "      \"missing_evidence_files\": [],",
+                "      \"plan_row_found\": true,",
+                "      \"ready\": true",
+                "    },",
+                "    {",
+                "      \"plan_ref\": \"5.7\",",
+                "      \"current_status\": \"Pending\",",
+                "      \"target_status\": \"Verified-Local\",",
+                "      \"task_refs\": [",
+                "        \"TASK-TEAM-CLOSEOUT-007\"",
+                "      ],",
+                "      \"missing_task_refs\": [",
+                "        \"TASK-TEAM-CLOSEOUT-007\"",
+                "      ],",
+                "      \"evidence_files\": [",
+                "        \"docs/ai-team/reports/PLANS_SYNC.json\",",
+                "        \"scripts/ai_team_plans_status_sync.py\"",
+                "      ],",
+                "      \"missing_evidence_files\": [",
+                "        \"docs/ai-team/reports/PLANS_SYNC.json\"",
+                "      ],",
+                "      \"plan_row_found\": true,",
+                "      \"ready\": false",
+                "    }",
+                "  ]",
+                "}"
+              ],
+              "stderr_tail": [],
+              "parsed": {
+                "status": "ok",
+                "plans_path": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/PLANS.md",
+                "mapping_path": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/PLANS_CLOSURE_MAP.yaml",
+                "broker_state_path": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_BROKER.json",
+                "summary": {
+                  "mapped_count": 7,
+                  "ready_count": 6,
+                  "updated_count": 6,
+                  "unresolved_count": 1
+                },
+                "updated_plan_refs": [
+                  "5.1",
+                  "5.2",
+                  "5.3",
+                  "5.4",
+                  "5.5",
+                  "5.6"
+                ],
+                "unresolved_plan_refs": [
+                  "5.7"
+                ],
+                "items": [
+                  {
+                    "plan_ref": "5.1",
+                    "current_status": "Pending",
+                    "target_status": "Verified-Local",
+                    "task_refs": [
+                      "TASK-TEAM-DISPATCH-001"
+                    ],
+                    "missing_task_refs": [],
+                    "evidence_files": [
+                      "scripts/ai_team_codex_dispatch_runner.py",
+                      "docs/ai-team/operations/M1_M2_72H_CODEX_AGENT_RUNNER_STATE.json"
+                    ],
+                    "missing_evidence_files": [],
+                    "plan_row_found": true,
+                    "ready": true
+                  },
+                  {
+                    "plan_ref": "5.2",
+                    "current_status": "Pending",
+                    "target_status": "Verified-Local",
+                    "task_refs": [
+                      "TASK-TEAM-CATALOG-002"
+                    ],
+                    "missing_task_refs": [],
+                    "evidence_files": [
+                      "scripts/ai_team_codex_pilot_seed.py",
+                      "docs/ai-team/operations/CODEX_AGENT_DISPATCH_CONTRACT.md",
+                      "docs/ai-team/operations/CODEX_AGENT_DELIVERY_CONTRACT.md"
+                    ],
+                    "missing_evidence_files": [],
+                    "plan_row_found": true,
+                    "ready": true
+                  },
+                  {
+                    "plan_ref": "5.3",
+                    "current_status": "Pending",
+                    "target_status": "Verified-Local",
+                    "task_refs": [
+                      "TASK-TEAM-GIT-003"
+                    ],
+                    "missing_task_refs": [],
+                    "evidence_files": [
+                      "scripts/ai_team_git_repo_manager.py"
+                    ],
+                    "missing_evidence_files": [],
+                    "plan_row_found": true,
+                    "ready": true
+                  },
+                  {
+                    "plan_ref": "5.4",
+                    "current_status": "Pending",
+                    "target_status": "Verified-Local",
+                    "task_refs": [
+                      "TASK-TEAM-MR-004"
+                    ],
+                    "missing_task_refs": [],
+                    "evidence_files": [
+                      "scripts/ai_team_gitlab_flow.py",
+                      "docs/ai-team/reports/MR_PLAN.json"
+                    ],
+                    "missing_evidence_files": [],
+                    "plan_row_found": true,
+                    "ready": true
+                  },
+                  {
+                    "plan_ref": "5.5",
+                    "current_status": "Pending",
+                    "target_status": "Verified-Local",
+                    "task_refs": [
+                      "TASK-TEAM-RELEASE-005"
+                    ],
+                    "missing_task_refs": [],
+                    "evidence_files": [
+                      "scripts/ai_team_release_controller.py",
+                      "docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json"
+                    ],
+                    "missing_evidence_files": [],
+                    "plan_row_found": true,
+                    "ready": true
+                  },
+                  {
+                    "plan_ref": "5.6",
+                    "current_status": "Pending",
+                    "target_status": "Verified-Local",
+                    "task_refs": [
+                      "TASK-TEAM-UAT-006"
+                    ],
+                    "missing_task_refs": [],
+                    "evidence_files": [
+                      "docs/ai-team/reviews/qa/TASK-TEAM-UAT-006.md",
+                      "scripts/ai_team_codex_unattended.py"
+                    ],
+                    "missing_evidence_files": [],
+                    "plan_row_found": true,
+                    "ready": true
+                  },
+                  {
+                    "plan_ref": "5.7",
+                    "current_status": "Pending",
+                    "target_status": "Verified-Local",
+                    "task_refs": [
+                      "TASK-TEAM-CLOSEOUT-007"
+                    ],
+                    "missing_task_refs": [
+                      "TASK-TEAM-CLOSEOUT-007"
+                    ],
+                    "evidence_files": [
+                      "docs/ai-team/reports/PLANS_SYNC.json",
+                      "scripts/ai_team_plans_status_sync.py"
+                    ],
+                    "missing_evidence_files": [
+                      "docs/ai-team/reports/PLANS_SYNC.json"
+                    ],
+                    "plan_row_found": true,
+                    "ready": false
+                  }
+                ]
+              }
+            }
+          ],
+          "runner_result": {
+            "status": "completed",
+            "dispatch_id": "PILOT-TASK-TEAM-CLOSEOUT-007#codex#1",
+            "notifications_file": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_NOTIFICATIONS.jsonl",
+            "broker_state": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_BROKER.json"
+          }
+        }
+      ],
+      "seed": {
+        "status": "ok",
+        "selected_count": 1,
+        "seeded_count": 1,
+        "results": [
+          {
+            "status": "seeded",
+            "task_ref": "TASK-TEAM-FINALIZE-008",
+            "task_id": "PILOT-TASK-TEAM-FINALIZE-008",
+            "dispatch_id": "PILOT-TASK-TEAM-FINALIZE-008#codex#1",
+            "owner_role": "orchestrator",
+            "validation": {
+              "ok": true,
+              "errors": [],
+              "warnings": []
+            },
+            "readiness": {
+              "ready": true,
+              "depends_on_task_refs": [
+                "TASK-TEAM-CLOSEOUT-007"
+              ],
+              "dependency_statuses": [
+                {
+                  "task_ref": "TASK-TEAM-CLOSEOUT-007",
+                  "task_id": "PILOT-TASK-TEAM-CLOSEOUT-007",
+                  "status": "completed",
+                  "ready": true
+                }
+              ],
+              "blocked_reasons": []
+            }
+          }
+        ],
+        "dispatches_file": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_CODEX_AGENT_DISPATCHES.jsonl",
+        "broker_state": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_BROKER.json",
+        "requested": [
+          "TASK-TEAM-FINALIZE-008"
+        ]
+      },
+      "dispatch_status": {
+        "status": "ok",
+        "role": null,
+        "dispatch_count": 8,
+        "suppressed_superseded_count": 0,
+        "counts": {
+          "pending": 1,
+          "queued": 1,
+          "claimed": 0,
+          "completed": 7,
+          "errored": 0,
+          "reopened": 0,
+          "other": 0
+        },
+        "active_claims": [],
+        "claims": {}
+      }
+    },
+    {
+      "progress": true,
+      "claims": [
+        {
+          "status": "claimed",
+          "dispatch_id": "PILOT-TASK-TEAM-FINALIZE-008#codex#1",
+          "owner_role": "orchestrator",
+          "dispatch": {
+            "delivery_mode": "codex_agent",
+            "dispatch_id": "PILOT-TASK-TEAM-FINALIZE-008#codex#1",
+            "emitted_at": "2026-04-07T17:11:47.004139+08:00",
+            "executor_rule": "manual-codex-pilot-seed",
+            "model_hint": null,
+            "owner_role": "orchestrator",
+            "plan_links": [],
+            "requested_by": "orchestrator",
+            "shift_id": null,
+            "source_refs": [],
+            "summary": "final verified snapshot",
+            "task_contract": {
+              "acceptance_commands": [
+                "python3 scripts/ai_team_plans_status_sync.py --apply --write-report docs/ai-team/reports/PLANS_SYNC.json --json"
+              ],
+              "artifacts": [
+                "PLANS.md",
+                "docs/ai-team/reports/PLANS_SYNC.json"
+              ],
+              "collaborators": [
+                "qa-agent"
+              ],
+              "constraints": [
+                "只允许写 standalone PLANS 与报告"
+              ],
+              "depends_on_task_refs": [
+                "TASK-TEAM-CLOSEOUT-007"
+              ],
+              "goal": "在 closeout report 生成后再次执行 PLANS sync，确保最终状态落盘。",
+              "owner_role": "orchestrator",
+              "read_scopes": [
+                "scripts/**",
+                "docs/**",
+                "PLANS.md"
+              ],
+              "risk_notes_required": true,
+              "rollback_hint": "revert final verified snapshot if evidence chain is incomplete",
+              "task_id": "PILOT-TASK-TEAM-FINALIZE-008",
+              "write_scopes": [
+                "PLANS.md",
+                "docs/ai-team/reports/**",
+                "docs/ai-team/operations/**"
+              ]
+            },
+            "task_contract_version": "v1",
+            "task_id": "PILOT-TASK-TEAM-FINALIZE-008",
+            "task_ref": "TASK-TEAM-FINALIZE-008"
+          },
+          "state_file": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_CODEX_AGENT_RUNNER_STATE.json",
+          "notifications_file": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_NOTIFICATIONS.jsonl",
+          "broker_state": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_BROKER.json"
+        }
+      ],
+      "executions": [
+        {
+          "dispatch_id": "PILOT-TASK-TEAM-FINALIZE-008#codex#1",
+          "task_ref": "TASK-TEAM-FINALIZE-008",
+          "owner_role": "orchestrator",
+          "result": "completed",
+          "changed_files": [],
+          "artifacts": [
+            "PLANS.md",
+            "docs/ai-team/reports/PLANS_SYNC.json"
+          ],
+          "command_results": [
+            {
+              "command": "python3 scripts/ai_team_plans_status_sync.py --apply --write-report docs/ai-team/reports/PLANS_SYNC.json --json",
+              "returncode": 0,
+              "stdout_tail": [
+                "        \"docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json\"",
+                "      ],",
+                "      \"missing_evidence_files\": [],",
+                "      \"plan_row_found\": true,",
+                "      \"ready\": true",
+                "    },",
+                "    {",
+                "      \"plan_ref\": \"5.6\",",
+                "      \"current_status\": \"Verified-Local\",",
+                "      \"target_status\": \"Verified-Local\",",
+                "      \"task_refs\": [",
+                "        \"TASK-TEAM-UAT-006\"",
+                "      ],",
+                "      \"missing_task_refs\": [],",
+                "      \"evidence_files\": [",
+                "        \"docs/ai-team/reviews/qa/TASK-TEAM-UAT-006.md\",",
+                "        \"scripts/ai_team_codex_unattended.py\"",
+                "      ],",
+                "      \"missing_evidence_files\": [],",
+                "      \"plan_row_found\": true,",
+                "      \"ready\": true",
+                "    },",
+                "    {",
+                "      \"plan_ref\": \"5.7\",",
+                "      \"current_status\": \"Pending\",",
+                "      \"target_status\": \"Verified-Local\",",
+                "      \"task_refs\": [",
+                "        \"TASK-TEAM-CLOSEOUT-007\"",
+                "      ],",
+                "      \"missing_task_refs\": [],",
+                "      \"evidence_files\": [",
+                "        \"docs/ai-team/reports/PLANS_SYNC.json\",",
+                "        \"scripts/ai_team_plans_status_sync.py\"",
+                "      ],",
+                "      \"missing_evidence_files\": [],",
+                "      \"plan_row_found\": true,",
+                "      \"ready\": true",
+                "    }",
+                "  ]",
+                "}"
+              ],
+              "stderr_tail": [],
+              "parsed": {
+                "status": "ok",
+                "plans_path": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/PLANS.md",
+                "mapping_path": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/PLANS_CLOSURE_MAP.yaml",
+                "broker_state_path": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_BROKER.json",
+                "summary": {
+                  "mapped_count": 7,
+                  "ready_count": 7,
+                  "updated_count": 1,
+                  "unresolved_count": 0
+                },
+                "updated_plan_refs": [
+                  "5.7"
+                ],
+                "unresolved_plan_refs": [],
+                "items": [
+                  {
+                    "plan_ref": "5.1",
+                    "current_status": "Verified-Local",
+                    "target_status": "Verified-Local",
+                    "task_refs": [
+                      "TASK-TEAM-DISPATCH-001"
+                    ],
+                    "missing_task_refs": [],
+                    "evidence_files": [
+                      "scripts/ai_team_codex_dispatch_runner.py",
+                      "docs/ai-team/operations/M1_M2_72H_CODEX_AGENT_RUNNER_STATE.json"
+                    ],
+                    "missing_evidence_files": [],
+                    "plan_row_found": true,
+                    "ready": true
+                  },
+                  {
+                    "plan_ref": "5.2",
+                    "current_status": "Verified-Local",
+                    "target_status": "Verified-Local",
+                    "task_refs": [
+                      "TASK-TEAM-CATALOG-002"
+                    ],
+                    "missing_task_refs": [],
+                    "evidence_files": [
+                      "scripts/ai_team_codex_pilot_seed.py",
+                      "docs/ai-team/operations/CODEX_AGENT_DISPATCH_CONTRACT.md",
+                      "docs/ai-team/operations/CODEX_AGENT_DELIVERY_CONTRACT.md"
+                    ],
+                    "missing_evidence_files": [],
+                    "plan_row_found": true,
+                    "ready": true
+                  },
+                  {
+                    "plan_ref": "5.3",
+                    "current_status": "Verified-Local",
+                    "target_status": "Verified-Local",
+                    "task_refs": [
+                      "TASK-TEAM-GIT-003"
+                    ],
+                    "missing_task_refs": [],
+                    "evidence_files": [
+                      "scripts/ai_team_git_repo_manager.py"
+                    ],
+                    "missing_evidence_files": [],
+                    "plan_row_found": true,
+                    "ready": true
+                  },
+                  {
+                    "plan_ref": "5.4",
+                    "current_status": "Verified-Local",
+                    "target_status": "Verified-Local",
+                    "task_refs": [
+                      "TASK-TEAM-MR-004"
+                    ],
+                    "missing_task_refs": [],
+                    "evidence_files": [
+                      "scripts/ai_team_gitlab_flow.py",
+                      "docs/ai-team/reports/MR_PLAN.json"
+                    ],
+                    "missing_evidence_files": [],
+                    "plan_row_found": true,
+                    "ready": true
+                  },
+                  {
+                    "plan_ref": "5.5",
+                    "current_status": "Verified-Local",
+                    "target_status": "Verified-Local",
+                    "task_refs": [
+                      "TASK-TEAM-RELEASE-005"
+                    ],
+                    "missing_task_refs": [],
+                    "evidence_files": [
+                      "scripts/ai_team_release_controller.py",
+                      "docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json"
+                    ],
+                    "missing_evidence_files": [],
+                    "plan_row_found": true,
+                    "ready": true
+                  },
+                  {
+                    "plan_ref": "5.6",
+                    "current_status": "Verified-Local",
+                    "target_status": "Verified-Local",
+                    "task_refs": [
+                      "TASK-TEAM-UAT-006"
+                    ],
+                    "missing_task_refs": [],
+                    "evidence_files": [
+                      "docs/ai-team/reviews/qa/TASK-TEAM-UAT-006.md",
+                      "scripts/ai_team_codex_unattended.py"
+                    ],
+                    "missing_evidence_files": [],
+                    "plan_row_found": true,
+                    "ready": true
+                  },
+                  {
+                    "plan_ref": "5.7",
+                    "current_status": "Pending",
+                    "target_status": "Verified-Local",
+                    "task_refs": [
+                      "TASK-TEAM-CLOSEOUT-007"
+                    ],
+                    "missing_task_refs": [],
+                    "evidence_files": [
+                      "docs/ai-team/reports/PLANS_SYNC.json",
+                      "scripts/ai_team_plans_status_sync.py"
+                    ],
+                    "missing_evidence_files": [],
+                    "plan_row_found": true,
+                    "ready": true
+                  }
+                ]
+              }
+            }
+          ],
+          "runner_result": {
+            "status": "completed",
+            "dispatch_id": "PILOT-TASK-TEAM-FINALIZE-008#codex#1",
+            "notifications_file": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_NOTIFICATIONS.jsonl",
+            "broker_state": "/Users/jhchen/Developer/AIworkerspaces/ai-team-real-unattended/docs/ai-team/operations/M1_M2_72H_AGENT_BROKER.json"
+          }
+        }
+      ],
+      "seed": {
+        "status": "idle",
+        "requested": []
+      },
+      "dispatch_status": {
+        "status": "ok",
+        "role": null,
+        "dispatch_count": 8,
+        "suppressed_superseded_count": 0,
+        "counts": {
+          "pending": 0,
+          "queued": 0,
+          "claimed": 0,
+          "completed": 8,
+          "errored": 0,
+          "reopened": 0,
+          "other": 0
+        },
+        "active_claims": [],
+        "claims": {}
+      }
+    },
+    {
+      "progress": false,
+      "claims": [],
+      "executions": [],
+      "seed": {
+        "status": "idle",
+        "requested": []
+      },
+      "dispatch_status": {
+        "status": "ok",
+        "role": null,
+        "dispatch_count": 8,
+        "suppressed_superseded_count": 0,
+        "counts": {
+          "pending": 0,
+          "queued": 0,
+          "claimed": 0,
+          "completed": 8,
+          "errored": 0,
+          "reopened": 0,
+          "other": 0
+        },
+        "active_claims": [],
+        "claims": {}
+      }
+    }
+  ],
+  "final_status": {
+    "status": "ok",
+    "role": null,
+    "dispatch_count": 8,
+    "suppressed_superseded_count": 0,
+    "counts": {
+      "pending": 0,
+      "queued": 0,
+      "claimed": 0,
+      "completed": 8,
+      "errored": 0,
+      "reopened": 0,
+      "other": 0
+    },
+    "active_claims": [],
+    "claims": {}
+  },
+  "summary": {
+    "status": "ok",
+    "round_count": 8,
+    "completed_dispatches": 8,
+    "failed_dispatches": 0,
+    "seeded_task_refs": [
+      "TASK-TEAM-DISPATCH-001",
+      "TASK-TEAM-CATALOG-002",
+      "TASK-TEAM-GIT-003",
+      "TASK-TEAM-MR-004",
+      "TASK-TEAM-RELEASE-005",
+      "TASK-TEAM-UAT-006",
+      "TASK-TEAM-CLOSEOUT-007",
+      "TASK-TEAM-FINALIZE-008"
+    ],
+    "pending_dispatches": 0,
+    "errored_dispatches": 0
+  }
+}
