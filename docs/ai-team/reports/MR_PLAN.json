@@ -29,5 +29,35 @@
     "docs/ai-team/operations/init-enh-001_plan.json",
     "docs/ai-team/operations/init-enh-001_verification.json"
   ],
-  "mr_status": "planned"
+  "mr_status": "ok",
+  "git_save": {
+    "status": "saved",
+    "repo": "/home/hya-chenu/AIWS/ai-team-real-unattended",
+    "branch": "main",
+    "commit": "c7c2b9177b2774fd22a6b95f4856a21a3f4d1bab",
+    "staged": {
+      "mode": "all",
+      "paths": []
+    },
+    "identity_updated": {
+      "user.name": "ai-team-bot",
+      "user.email": "ai-team@example.invalid"
+    },
+    "working_tree": []
+  },
+  "mr_plan": {
+    "status": "ok",
+    "project_path": "chenjihui/ai-team-real-unattended",
+    "gitlab_base_url": "",
+    "source_branch": "main",
+    "target_branch": "main",
+    "payload": {
+      "source_branch": "main",
+      "target_branch": "main",
+      "title": "ai-team: merge main",
+      "description": "Automated ai-team delivery for branch `main`.",
+      "remove_source_branch": "false",
+      "labels": "ai-team:review"
+    }
+  }
 }

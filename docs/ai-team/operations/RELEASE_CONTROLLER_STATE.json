@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T16:14:17.563883+08:00",
+  "generated_at": "2026-05-25T16:18:14.910539+08:00",
   "staging": {
     "artifact": "INIT-ENH-001-BATCH-001",
     "status": "verified",
@@ -8,26 +8,25 @@
       {
         "check": "initiative:INIT-ENH-001",
         "status": "passed",
-        "at": "2026-05-25T16:14:17.563920+08:00"
+        "at": "2026-05-25T16:18:15.001104+08:00"
       }
     ]
   },
   "production": {
-    "artifact": "INIT-ENH-001-BATCH-001",
-    "status": "ready_for_release",
-    "environment": "production"
+    "artifact": null,
+    "status": "idle"
   },
   "history": [
     {
-      "at": "2026-05-25T16:14:17.563926+08:00",
+      "at": "2026-05-25T16:18:14.957943+08:00",
       "event": "promote-staging",
       "details": {
         "artifact": "INIT-ENH-001-BATCH-001",
-        "initiative_id": "INIT-ENH-001"
+        "environment": "staging"
       }
     },
     {
-      "at": "2026-05-25T16:14:17.563931+08:00",
+      "at": "2026-05-25T16:18:15.001133+08:00",
       "event": "verify",
       "details": {
         "environment": "staging",

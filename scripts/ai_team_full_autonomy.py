@@ -96,6 +96,17 @@ def run_git_save() -> dict[str, Any]:
     )
 
 
+def run_git_push() -> dict[str, Any]:
+    return run_json_command(
+        [
+            sys.executable,
+            str(ROOT / "scripts/ai_team_git_repo_manager.py"),
+            "push",
+            "--json",
+        ]
+    )
+
+
 def run_mr_plan(args: argparse.Namespace) -> dict[str, Any]:
     return run_json_command(
         [
@@ -104,6 +115,17 @@ def run_mr_plan(args: argparse.Namespace) -> dict[str, Any]:
             "plan-mr",
             "--write-report",
             str(resolve_path(args.mr_report)),
+            "--json",
+        ]
+    )
+
+
+def run_mr_status() -> dict[str, Any]:
+    return run_json_command(
+        [
+            sys.executable,
+            str(ROOT / "scripts/ai_team_gitlab_flow.py"),
+            "mr-status",
             "--json",
         ]
     )
@@ -204,7 +226,9 @@ def finalize_lifecycle(args: argparse.Namespace) -> dict[str, Any]:
     if str(workflow.get("status") or "").strip().lower() != "completed":
         return {"status": "workflow_failed", "workflow": workflow}
     git_save = run_git_save()
+    git_push = run_git_push()
     mr_plan = run_mr_plan(args)
+    mr_status = run_mr_status()
     release_state = run_release_state(args)
     board = refresh_board(args)
     if str(board.get("status") or "").strip().lower() != "ok":
@@ -223,7 +247,7 @@ def finalize_lifecycle(args: argparse.Namespace) -> dict[str, Any]:
     if not isinstance(batch, dict) or not batch:
         return {"status": "missing_batch", "batch_id": args.batch_id}
 
-    mr_report = build_mr_report(args.initiative_id, args.batch_id, board, workflow, mr_plan, git_save)
+    mr_report = build_mr_report(args.initiative_id, args.batch_id, board, workflow, {**mr_plan, "mr_status_live": mr_status}, {**git_save, "push": git_push})
     write_json(mr_report_path, mr_report)
 
     release_state_payload = load_json(release_state_path)
@@ -237,8 +261,9 @@ def finalize_lifecycle(args: argparse.Namespace) -> dict[str, Any]:
         "release_state": str(release_state_path),
         "mr_status": mr_report.get("mr_status"),
         "release_status": release_state_payload.get("production", {}).get("status"),
-        "git_save": git_save,
+        "git_save": {**git_save, "push": git_push},
         "mr_plan": mr_plan,
+        "mr_status_live": mr_status,
         "release_steps": release_state,
     }
     write_json(initiatives_path, initiatives)
@@ -249,7 +274,9 @@ def finalize_lifecycle(args: argparse.Namespace) -> dict[str, Any]:
         "batch_id": args.batch_id,
         "workflow": workflow,
         "git_save": git_save,
+        "git_push": git_push,
         "mr_plan": mr_plan,
+        "mr_status": mr_status,
         "release_steps": release_state,
         "board": board,
         "mr_report": str(mr_report_path),
