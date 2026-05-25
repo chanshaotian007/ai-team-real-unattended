@@ -342,7 +342,7 @@ def finalize_lifecycle(args: argparse.Namespace) -> dict[str, Any]:
     git_push = run_git_push(args)
     mr_plan = run_mr_plan(args)
     mr_ensure = run_mr_ensure(args)
-    mr_status = run_mr_status()
+    mr_status = run_mr_status(args)
     release_state = run_release_state(args, verification_command=verification_command)
     board = refresh_board(args)
     if str(board.get("status") or "").strip().lower() != "ok":
