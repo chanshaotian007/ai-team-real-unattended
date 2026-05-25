@@ -42,6 +42,7 @@ def parse_args() -> argparse.Namespace:
     push_cmd = subparsers.add_parser("push")
     push_cmd.add_argument("--remote", default="origin")
     push_cmd.add_argument("--branch")
+    push_cmd.add_argument("--ensure-branch", action="store_true")
     push_cmd.add_argument("--remote-url")
     push_cmd.add_argument("--http-user")
     push_cmd.add_argument("--http-token")
@@ -112,11 +113,21 @@ def ensure_identity(repo: Path, user_name: str, user_email: str) -> dict[str, st
     return changed
 
 
-def current_branch(repo: Path) -> str:
-    return git_output(repo, "branch", "--show-current")
+def ensure_branch(repo: Path, branch: str) -> dict[str, Any]:
+    target_branch = str(branch or "").strip()
+    if not target_branch:
+        raise RuntimeError("missing branch")
+    current = current_branch(repo)
+    if current == target_branch:
+        return {"status": "existing", "branch": target_branch}
+    verify = run_git(repo, "rev-parse", "--verify", target_branch, check=False)
+    if verify.returncode == 0:
+        run_git(repo, "checkout", target_branch)
+        return {"status": "checked_out", "branch": target_branch}
+    run_git(repo, "checkout", "-b", target_branch)
+    return {"status": "created", "branch": target_branch}
 
 
-def remote_url(repo: Path, remote: str) -> str:
     return git_output(repo, "remote", "get-url", remote)
 
 
@@ -208,6 +219,7 @@ def push_repo(
     remote: str,
     branch: Optional[str],
     *,
+    ensure_branch_exists: bool = False,
     explicit_remote_url: Optional[str] = None,
     http_user: Optional[str] = None,
     http_token: Optional[str] = None,
@@ -217,6 +229,7 @@ def push_repo(
     push_branch = branch or current_branch(repo)
     if not push_branch:
         raise RuntimeError("unable to determine branch to push")
+    branch_result = ensure_branch(repo, push_branch) if ensure_branch_exists else {"status": "skipped", "branch": push_branch}
     target = str(explicit_remote_url or "").strip() or remote
     target_for_push = authenticated_remote_url(target, http_user, http_token)
     run_git(repo, "push", "-u", target_for_push, push_branch)
@@ -224,6 +237,7 @@ def push_repo(
         "status": "pushed",
         "repo": str(repo),
         "branch": push_branch,
+        "branch_result": branch_result,
         "remote": remote,
         "remote_url": remote_url(repo, remote),
         "push_target": target,
@@ -266,6 +280,7 @@ def main() -> int:
             repo,
             args.remote,
             args.branch,
+            ensure_branch_exists=bool(args.ensure_branch),
             explicit_remote_url=args.remote_url,
             http_user=args.http_user,
             http_token=args.http_token,

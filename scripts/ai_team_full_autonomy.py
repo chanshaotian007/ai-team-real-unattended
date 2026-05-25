@@ -64,6 +64,10 @@ def run_json_command(command: list[str]) -> dict[str, Any]:
     return payload if isinstance(payload, dict) else {"status": "invalid_payload", "payload": payload}
 
 
+def delivery_branch_name(initiative_id: str, batch_id: str) -> str:
+    return f"ai-team/{initiative_id.lower()}/{batch_id.lower()}".replace("_", "-")
+
+
 def run_autonomous_workflow(args: argparse.Namespace) -> dict[str, Any]:
     return run_json_command(
         [
@@ -96,23 +100,32 @@ def run_git_save() -> dict[str, Any]:
     )
 
 
-def run_git_push() -> dict[str, Any]:
+def run_git_push(args: argparse.Namespace) -> dict[str, Any]:
+    branch = delivery_branch_name(str(args.initiative_id), str(args.batch_id))
     return run_json_command(
         [
             sys.executable,
             str(ROOT / "scripts/ai_team_git_repo_manager.py"),
             "push",
+            "--branch",
+            branch,
+            "--ensure-branch",
             "--json",
         ]
     )
 
 
 def run_mr_plan(args: argparse.Namespace) -> dict[str, Any]:
+    branch = delivery_branch_name(str(args.initiative_id), str(args.batch_id))
     return run_json_command(
         [
             sys.executable,
             str(ROOT / "scripts/ai_team_gitlab_flow.py"),
             "plan-mr",
+            "--source-branch",
+            branch,
+            "--target-branch",
+            "main",
             "--write-report",
             str(resolve_path(args.mr_report)),
             "--json",
@@ -120,23 +133,33 @@ def run_mr_plan(args: argparse.Namespace) -> dict[str, Any]:
     )
 
 
-def run_mr_status() -> dict[str, Any]:
+def run_mr_status(args: argparse.Namespace) -> dict[str, Any]:
+    branch = delivery_branch_name(str(args.initiative_id), str(args.batch_id))
     return run_json_command(
         [
             sys.executable,
             str(ROOT / "scripts/ai_team_gitlab_flow.py"),
             "mr-status",
+            "--source-branch",
+            branch,
+            "--target-branch",
+            "main",
             "--json",
         ]
     )
 
 
 def run_mr_ensure(args: argparse.Namespace) -> dict[str, Any]:
+    branch = delivery_branch_name(str(args.initiative_id), str(args.batch_id))
     return run_json_command(
         [
             sys.executable,
             str(ROOT / "scripts/ai_team_gitlab_flow.py"),
             "ensure-mr",
+            "--source-branch",
+            branch,
+            "--target-branch",
+            "main",
             "--write-report",
             str(resolve_path(args.mr_report)),
             "--json",

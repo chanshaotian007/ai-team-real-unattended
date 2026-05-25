@@ -182,8 +182,8 @@
           "status": "completed",
           "triggered_by": "tester",
           "triggered_at": "2026-05-25T16:02:48.619855+08:00",
-          "started_at": "2026-05-25T16:48:28.415962+08:00",
-          "completed_at": "2026-05-25T16:48:28.624892+08:00",
+          "started_at": "2026-05-25T16:51:50.647658+08:00",
+          "completed_at": "2026-05-25T16:51:50.896846+08:00",
           "verification_summary": {
             "completed_task_count": 5,
             "artifacts_updated": 5,
@@ -192,12 +192,12 @@
             "mr_status": "ok",
             "pipeline_status": "",
             "release_gate": "blocked",
-            "release_status": "idle",
+            "release_status": "rolled_back",
             "git_save": {
               "status": "saved",
               "repo": "/home/hya-chenu/AIWS/ai-team-real-unattended",
               "branch": "main",
-              "commit": "6c9071cb2e3291b7e0e43e93af8fca72253f0e59",
+              "commit": "9dd6103330d3c6e0989889d5f36b7c4062127ace",
               "staged": {
                 "mode": "all",
                 "paths": []
@@ -256,7 +256,7 @@
                 "status": "initialized",
                 "state_file": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json",
                 "state": {
-                  "generated_at": "2026-05-25T16:48:29.098053+08:00",
+                  "generated_at": "2026-05-25T16:51:51.398439+08:00",
                   "staging": {
                     "artifact": null,
                     "status": "idle",
@@ -299,7 +299,7 @@
                 "status": "ok",
                 "state_file": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json",
                 "state": {
-                  "generated_at": "2026-05-25T16:48:29.098053+08:00",
+                  "generated_at": "2026-05-25T16:51:51.398439+08:00",
                   "staging": {
                     "artifact": "INIT-ENH-001-BATCH-001",
                     "status": "promoted",
@@ -312,7 +312,7 @@
                   },
                   "history": [
                     {
-                      "at": "2026-05-25T16:48:29.141494+08:00",
+                      "at": "2026-05-25T16:51:51.444489+08:00",
                       "event": "promote-staging",
                       "details": {
                         "artifact": "INIT-ENH-001-BATCH-001",
@@ -321,6 +321,15 @@
                     }
                   ]
                 }
+              }
+            },
+            "release_action": {
+              "action": "rollback",
+              "result": {
+                "status": "rolled_back",
+                "environment": "production",
+                "reason": "release_gate=blocked",
+                "command_result": null
               }
             }
           }
@@ -511,8 +520,8 @@
           "status": "completed",
           "triggered_by": "tester",
           "triggered_at": "2026-05-25T16:02:48.619855+08:00",
-          "started_at": "2026-05-25T16:48:28.415962+08:00",
-          "completed_at": "2026-05-25T16:48:28.624892+08:00",
+          "started_at": "2026-05-25T16:51:50.647658+08:00",
+          "completed_at": "2026-05-25T16:51:50.896846+08:00",
           "verification_summary": {
             "completed_task_count": 5,
             "artifacts_updated": 5,
@@ -521,12 +530,12 @@
             "mr_status": "ok",
             "pipeline_status": "",
             "release_gate": "blocked",
-            "release_status": "idle",
+            "release_status": "rolled_back",
             "git_save": {
               "status": "saved",
               "repo": "/home/hya-chenu/AIWS/ai-team-real-unattended",
               "branch": "main",
-              "commit": "6c9071cb2e3291b7e0e43e93af8fca72253f0e59",
+              "commit": "9dd6103330d3c6e0989889d5f36b7c4062127ace",
               "staged": {
                 "mode": "all",
                 "paths": []
@@ -585,7 +594,7 @@
                 "status": "initialized",
                 "state_file": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json",
                 "state": {
-                  "generated_at": "2026-05-25T16:48:29.098053+08:00",
+                  "generated_at": "2026-05-25T16:51:51.398439+08:00",
                   "staging": {
                     "artifact": null,
                     "status": "idle",
@@ -628,7 +637,7 @@
                 "status": "ok",
                 "state_file": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json",
                 "state": {
-                  "generated_at": "2026-05-25T16:48:29.098053+08:00",
+                  "generated_at": "2026-05-25T16:51:51.398439+08:00",
                   "staging": {
                     "artifact": "INIT-ENH-001-BATCH-001",
                     "status": "promoted",
@@ -641,7 +650,7 @@
                   },
                   "history": [
                     {
-                      "at": "2026-05-25T16:48:29.141494+08:00",
+                      "at": "2026-05-25T16:51:51.444489+08:00",
                       "event": "promote-staging",
                       "details": {
                         "artifact": "INIT-ENH-001-BATCH-001",
@@ -650,6 +659,15 @@
                     }
                   ]
                 }
+              }
+            },
+            "release_action": {
+              "action": "rollback",
+              "result": {
+                "status": "rolled_back",
+                "environment": "production",
+                "reason": "release_gate=blocked",
+                "command_result": null
               }
             }
           }
