@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T17:36:36.767963+08:00",
+  "generated_at": "2026-05-25T17:45:26.852910+08:00",
   "staging": {
     "artifact": "INIT-ENH-001-BATCH-001",
     "status": "promoted",
@@ -10,19 +10,20 @@
     "artifact": null,
     "status": "rolled_back",
     "rollback_reason": "release_gate=blocked",
-    "rolled_back_at": "2026-05-25T17:36:37.039229+08:00"
+    "rolled_back_at": "2026-05-25T17:45:27.155755+08:00"
   },
   "history": [
     {
-      "at": "2026-05-25T17:36:36.813336+08:00",
+      "at": "2026-05-25T17:45:26.905329+08:00",
       "event": "promote-staging",
       "details": {
         "artifact": "INIT-ENH-001-BATCH-001",
-        "environment": "staging"
+        "environment": "staging",
+        "command_result": null
       }
     },
     {
-      "at": "2026-05-25T17:36:37.039285+08:00",
+      "at": "2026-05-25T17:45:27.155808+08:00",
       "event": "rollback",
       "details": {
         "environment": "production",

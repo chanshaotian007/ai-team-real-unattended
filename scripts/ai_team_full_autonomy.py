@@ -26,6 +26,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--autonomous-report", default=str(DEFAULT_AUTONOMOUS_REPORT))
     parser.add_argument("--mr-report", default=str(DEFAULT_MR_REPORT))
     parser.add_argument("--release-state", default=str(DEFAULT_RELEASE_STATE))
+    parser.add_argument("--staging-command")
+    parser.add_argument("--verify-command")
+    parser.add_argument("--release-command")
+    parser.add_argument("--rollback-command")
     parser.add_argument("--initiative-id", required=True)
     parser.add_argument("--batch-id", required=True)
     parser.add_argument("--json", action="store_true")
@@ -178,6 +182,7 @@ def run_release_state(args: argparse.Namespace, *, verification_command: str) ->
             "--json",
         ]
     )
+    promote_command = str(getattr(args, "staging_command", "") or "").strip()
     promote_payload = run_json_command(
         [
             sys.executable,
@@ -187,9 +192,11 @@ def run_release_state(args: argparse.Namespace, *, verification_command: str) ->
             "promote-staging",
             "--artifact",
             str(args.batch_id),
+            *( ["--command", promote_command] if promote_command else [] ),
             "--json",
         ]
     )
+    verify_command = str(getattr(args, "verify_command", "") or verification_command).strip() or verification_command
     run_check_payload = run_json_command(
         [
             sys.executable,
@@ -202,7 +209,7 @@ def run_release_state(args: argparse.Namespace, *, verification_command: str) ->
             "--check",
             f"initiative:{args.initiative_id}",
             "--command",
-            verification_command,
+            verify_command,
             "--json",
         ]
     )
@@ -274,6 +281,7 @@ def build_release_state(initiative_id: str, batch_id: str) -> dict[str, Any]:
 
 def promote_or_rollback_release(args: argparse.Namespace, release_gate: str) -> dict[str, Any]:
     if release_gate == "ready_for_release":
+        release_command = str(getattr(args, "release_command", "") or "").strip()
         promote_payload = run_json_command(
             [
                 sys.executable,
@@ -283,10 +291,12 @@ def promote_or_rollback_release(args: argparse.Namespace, release_gate: str) -> 
                 "promote-release",
                 "--artifact",
                 str(args.batch_id),
+                *( ["--command", release_command] if release_command else [] ),
                 "--json",
             ]
         )
         return {"action": "promote-release", "result": promote_payload}
+    rollback_command = str(getattr(args, "rollback_command", "") or "").strip()
     rollback_payload = run_json_command(
         [
             sys.executable,
@@ -298,6 +308,7 @@ def promote_or_rollback_release(args: argparse.Namespace, release_gate: str) -> 
             "production",
             "--reason",
             f"release_gate={release_gate}",
+            *( ["--command", rollback_command] if rollback_command else [] ),
             "--json",
         ]
     )

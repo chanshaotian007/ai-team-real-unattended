@@ -29,8 +29,14 @@ python3 scripts/ai_team_orchestrator.py create \
 
 python3 scripts/ai_team_approval.py approve --initiative-id INIT-ADD-DASHBOARD-REVIEW-FLOW-001 --json
 python3 scripts/ai_team_codex_pilot_seed.py seed --source initiative --initiative-id INIT-ADD-DASHBOARD-REVIEW-FLOW-001 --all --json
-python3 scripts/ai_team_autonomous_workflow.py --initiative-id INIT-ADD-DASHBOARD-REVIEW-FLOW-001 --batch-id INIT-ADD-DASHBOARD-REVIEW-FLOW-001-BATCH-001 --json
-python3 scripts/ai_team_full_autonomy.py --initiative-id INIT-ADD-DASHBOARD-REVIEW-FLOW-001 --batch-id INIT-ADD-DASHBOARD-REVIEW-FLOW-001-BATCH-001 --json
+python3 scripts/ai_team_full_autonomy.py \
+  --initiative-id INIT-ADD-DASHBOARD-REVIEW-FLOW-001 \
+  --batch-id INIT-ADD-DASHBOARD-REVIEW-FLOW-001-BATCH-001 \
+  --staging-command "python3 -m py_compile scripts/ai_team_generated_impl.py" \
+  --verify-command "python3 -m py_compile scripts/ai_team_generated_impl.py" \
+  --release-command "python3 -m py_compile scripts/ai_team_generated_impl.py" \
+  --rollback-command "python3 -m py_compile scripts/ai_team_generated_impl.py" \
+  --json
 python3 scripts/ai_team_board.py --json
 ```
 

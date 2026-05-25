@@ -95,7 +95,7 @@
       ],
       "returncode": 1,
       "stdout": "",
-      "stderr": "Traceback (most recent call last):\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_gitlab_flow.py\", line 667, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_gitlab_flow.py\", line 629, in main\n    payload = ensure_merge_request(\n        repo,\n    ...<6 lines>...\n        draft=bool(args.draft),\n    )\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_gitlab_flow.py\", line 386, in ensure_merge_request\n    raise RuntimeError(\"missing GITLAB_TOKEN\")\nRuntimeError: missing GITLAB_TOKEN"
+      "stderr": "Traceback (most recent call last):\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_gitlab_flow.py\", line 671, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_gitlab_flow.py\", line 633, in main\n    payload = ensure_merge_request(\n        repo,\n    ...<6 lines>...\n        draft=bool(args.draft),\n    )\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_gitlab_flow.py\", line 408, in ensure_merge_request\n    raise RuntimeError(\"missing GITLAB_TOKEN\")\nRuntimeError: missing GITLAB_TOKEN"
     }
   },
   "mr_ensure": {
@@ -114,6 +114,6 @@
     ],
     "returncode": 1,
     "stdout": "",
-    "stderr": "Traceback (most recent call last):\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_gitlab_flow.py\", line 667, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_gitlab_flow.py\", line 629, in main\n    payload = ensure_merge_request(\n        repo,\n    ...<6 lines>...\n        draft=bool(args.draft),\n    )\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_gitlab_flow.py\", line 386, in ensure_merge_request\n    raise RuntimeError(\"missing GITLAB_TOKEN\")\nRuntimeError: missing GITLAB_TOKEN"
+    "stderr": "Traceback (most recent call last):\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_gitlab_flow.py\", line 671, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_gitlab_flow.py\", line 633, in main\n    payload = ensure_merge_request(\n        repo,\n    ...<6 lines>...\n        draft=bool(args.draft),\n    )\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_gitlab_flow.py\", line 408, in ensure_merge_request\n    raise RuntimeError(\"missing GITLAB_TOKEN\")\nRuntimeError: missing GITLAB_TOKEN"
   }
 }
