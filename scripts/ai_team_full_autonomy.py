@@ -339,7 +339,7 @@ def finalize_lifecycle(args: argparse.Namespace) -> dict[str, Any]:
         return {"status": "workflow_failed", "workflow": workflow}
     verification_command = "python3 -m py_compile scripts/ai_team_generated_impl.py"
     git_save = run_git_save()
-    git_push = run_git_push()
+    git_push = run_git_push(args)
     mr_plan = run_mr_plan(args)
     mr_ensure = run_mr_ensure(args)
     mr_status = run_mr_status()
