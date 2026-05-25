@@ -34,7 +34,7 @@
     "status": "saved",
     "repo": "/home/hya-chenu/AIWS/ai-team-real-unattended",
     "branch": "main",
-    "commit": "a58f2e7a1039453a63a9e292c0b9848f8506e94c",
+    "commit": "6c9071cb2e3291b7e0e43e93af8fca72253f0e59",
     "staged": {
       "mode": "all",
       "paths": []
@@ -87,5 +87,19 @@
       "stdout": "",
       "stderr": "Traceback (most recent call last):\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_gitlab_flow.py\", line 667, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_gitlab_flow.py\", line 629, in main\n    payload = ensure_merge_request(\n        repo,\n    ...<6 lines>...\n        draft=bool(args.draft),\n    )\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_gitlab_flow.py\", line 386, in ensure_merge_request\n    raise RuntimeError(\"missing GITLAB_TOKEN\")\nRuntimeError: missing GITLAB_TOKEN"
     }
+  },
+  "mr_ensure": {
+    "status": "failed",
+    "command": [
+      "/usr/bin/python3",
+      "/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_gitlab_flow.py",
+      "ensure-mr",
+      "--write-report",
+      "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/reports/MR_PLAN.json",
+      "--json"
+    ],
+    "returncode": 1,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_gitlab_flow.py\", line 667, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_gitlab_flow.py\", line 629, in main\n    payload = ensure_merge_request(\n        repo,\n    ...<6 lines>...\n        draft=bool(args.draft),\n    )\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_gitlab_flow.py\", line 386, in ensure_merge_request\n    raise RuntimeError(\"missing GITLAB_TOKEN\")\nRuntimeError: missing GITLAB_TOKEN"
   }
 }

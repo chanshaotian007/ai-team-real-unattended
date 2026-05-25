@@ -182,8 +182,8 @@
           "status": "completed",
           "triggered_by": "tester",
           "triggered_at": "2026-05-25T16:02:48.619855+08:00",
-          "started_at": "2026-05-25T16:45:14.271332+08:00",
-          "completed_at": "2026-05-25T16:45:14.495612+08:00",
+          "started_at": "2026-05-25T16:48:28.415962+08:00",
+          "completed_at": "2026-05-25T16:48:28.624892+08:00",
           "verification_summary": {
             "completed_task_count": 5,
             "artifacts_updated": 5,
@@ -197,7 +197,7 @@
               "status": "saved",
               "repo": "/home/hya-chenu/AIWS/ai-team-real-unattended",
               "branch": "main",
-              "commit": "a58f2e7a1039453a63a9e292c0b9848f8506e94c",
+              "commit": "6c9071cb2e3291b7e0e43e93af8fca72253f0e59",
               "staged": {
                 "mode": "all",
                 "paths": []
@@ -256,7 +256,7 @@
                 "status": "initialized",
                 "state_file": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json",
                 "state": {
-                  "generated_at": "2026-05-25T16:45:15.138299+08:00",
+                  "generated_at": "2026-05-25T16:48:29.098053+08:00",
                   "staging": {
                     "artifact": null,
                     "status": "idle",
@@ -299,7 +299,7 @@
                 "status": "ok",
                 "state_file": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json",
                 "state": {
-                  "generated_at": "2026-05-25T16:45:15.138299+08:00",
+                  "generated_at": "2026-05-25T16:48:29.098053+08:00",
                   "staging": {
                     "artifact": "INIT-ENH-001-BATCH-001",
                     "status": "promoted",
@@ -312,7 +312,7 @@
                   },
                   "history": [
                     {
-                      "at": "2026-05-25T16:45:15.178959+08:00",
+                      "at": "2026-05-25T16:48:29.141494+08:00",
                       "event": "promote-staging",
                       "details": {
                         "artifact": "INIT-ENH-001-BATCH-001",
@@ -511,8 +511,8 @@
           "status": "completed",
           "triggered_by": "tester",
           "triggered_at": "2026-05-25T16:02:48.619855+08:00",
-          "started_at": "2026-05-25T16:45:14.271332+08:00",
-          "completed_at": "2026-05-25T16:45:14.495612+08:00",
+          "started_at": "2026-05-25T16:48:28.415962+08:00",
+          "completed_at": "2026-05-25T16:48:28.624892+08:00",
           "verification_summary": {
             "completed_task_count": 5,
             "artifacts_updated": 5,
@@ -526,7 +526,7 @@
               "status": "saved",
               "repo": "/home/hya-chenu/AIWS/ai-team-real-unattended",
               "branch": "main",
-              "commit": "a58f2e7a1039453a63a9e292c0b9848f8506e94c",
+              "commit": "6c9071cb2e3291b7e0e43e93af8fca72253f0e59",
               "staged": {
                 "mode": "all",
                 "paths": []
@@ -585,7 +585,7 @@
                 "status": "initialized",
                 "state_file": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json",
                 "state": {
-                  "generated_at": "2026-05-25T16:45:15.138299+08:00",
+                  "generated_at": "2026-05-25T16:48:29.098053+08:00",
                   "staging": {
                     "artifact": null,
                     "status": "idle",
@@ -628,7 +628,7 @@
                 "status": "ok",
                 "state_file": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json",
                 "state": {
-                  "generated_at": "2026-05-25T16:45:15.138299+08:00",
+                  "generated_at": "2026-05-25T16:48:29.098053+08:00",
                   "staging": {
                     "artifact": "INIT-ENH-001-BATCH-001",
                     "status": "promoted",
@@ -641,7 +641,7 @@
                   },
                   "history": [
                     {
-                      "at": "2026-05-25T16:45:15.178959+08:00",
+                      "at": "2026-05-25T16:48:29.141494+08:00",
                       "event": "promote-staging",
                       "details": {
                         "artifact": "INIT-ENH-001-BATCH-001",

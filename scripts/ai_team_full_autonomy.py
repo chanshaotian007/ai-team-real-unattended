@@ -249,6 +249,38 @@ def build_release_state(initiative_id: str, batch_id: str) -> dict[str, Any]:
     }
 
 
+def promote_or_rollback_release(args: argparse.Namespace, release_gate: str) -> dict[str, Any]:
+    if release_gate == "ready_for_release":
+        promote_payload = run_json_command(
+            [
+                sys.executable,
+                str(ROOT / "scripts/ai_team_release_controller.py"),
+                "--state-file",
+                str(resolve_path(args.release_state)),
+                "promote-release",
+                "--artifact",
+                str(args.batch_id),
+                "--json",
+            ]
+        )
+        return {"action": "promote-release", "result": promote_payload}
+    rollback_payload = run_json_command(
+        [
+            sys.executable,
+            str(ROOT / "scripts/ai_team_release_controller.py"),
+            "--state-file",
+            str(resolve_path(args.release_state)),
+            "rollback",
+            "--environment",
+            "production",
+            "--reason",
+            f"release_gate={release_gate}",
+            "--json",
+        ]
+    )
+    return {"action": "rollback", "result": rollback_payload}
+
+
 def workflow_now() -> str:
     from datetime import datetime
 
@@ -312,6 +344,9 @@ def finalize_lifecycle(args: argparse.Namespace) -> dict[str, Any]:
     pipeline_status = str((mr_status.get("pipeline") if isinstance(mr_status.get("pipeline"), dict) else {}).get("pipeline_status") or "").strip().lower()
     release_state_payload = load_json(release_state_path)
     release_gate, release_status = release_gate_status({**mr_report, "pipeline_status": pipeline_status}, release_state_payload)
+    release_action = promote_or_rollback_release(args, release_gate)
+    release_state_payload = load_json(release_state_path)
+    release_status = str((release_state_payload.get("production") if isinstance(release_state_payload.get("production"), dict) else {}).get("status") or release_status).strip().lower() or release_status
 
     initiative["status"] = "integration_ready" if release_gate == "ready_for_release" else "approved_for_execution"
     initiative["updated_at"] = workflow_now()
@@ -329,6 +364,7 @@ def finalize_lifecycle(args: argparse.Namespace) -> dict[str, Any]:
         "mr_status_live": mr_status,
         "mr_ensure": mr_ensure,
         "release_steps": release_state,
+        "release_action": release_action,
     }
     write_json(initiatives_path, initiatives)
     write_json(batches_path, batches)
@@ -343,6 +379,7 @@ def finalize_lifecycle(args: argparse.Namespace) -> dict[str, Any]:
         "mr_ensure": mr_ensure,
         "mr_status": mr_status,
         "release_steps": release_state,
+        "release_action": release_action,
         "board": board,
         "mr_report": str(mr_report_path),
         "release_state": str(release_state_path),
