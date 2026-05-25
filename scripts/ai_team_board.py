@@ -99,7 +99,8 @@ def column_for(task: dict[str, Any], initiative: dict[str, Any], work_order: dic
         return "Awaiting Approval"
     if task_type == "implementation":
         mr_status = str(verification.get("mr_status") or "").strip().lower()
-        if mr_status in {"planned", "planned_only", "created", "existing", "ready", "missing_token"}:
+        push_status = str(((verification.get("git_save") if isinstance(verification.get("git_save"), dict) else {}).get("push") if isinstance((verification.get("git_save") if isinstance(verification.get("git_save"), dict) else {}).get("push"), dict) else {}).get("status") or "").strip().lower()
+        if mr_status in {"open", "created", "existing", "planned_only", "missing_token"} and push_status in {"pushed", "failed", "missing_context", "missing"}:
             return "Ready for MR"
         if work_status == "completed" or batch_status in {"completed", "integration_ready"}:
             return "Approved"

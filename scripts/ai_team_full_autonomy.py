@@ -200,7 +200,15 @@ def build_mr_report(initiative_id: str, batch_id: str, board: dict[str, Any], wo
     completed_tasks = workflow.get("completed_tasks", []) if isinstance(workflow.get("completed_tasks"), list) else []
     changed_files = [path for task in completed_tasks if isinstance(task, dict) for path in task.get("changed_files", []) if isinstance(path, str)]
     live_status = mr_plan.get("mr_status_live") if isinstance(mr_plan.get("mr_status_live"), dict) else {}
-    resolved_status = str((live_status.get("status") if isinstance(live_status, dict) else "") or mr_plan.get("status") or "planned").strip().lower() or "planned"
+    push_payload = git_save.get("push") if isinstance(git_save.get("push"), dict) else {}
+    save_status = str(git_save.get("status") or "").strip().lower()
+    push_status = str(push_payload.get("status") or "").strip().lower()
+    mr_live_status = str((live_status.get("status") if isinstance(live_status, dict) else "") or "").strip().lower()
+    resolved_status = "blocked"
+    if push_status == "pushed" and mr_live_status in {"open", "missing", "created", "existing"}:
+        resolved_status = mr_live_status or "created"
+    elif save_status in {"saved", "saved-and-pushed", "noop"}:
+        resolved_status = str(mr_plan.get("status") or "planned_only").strip().lower() or "planned_only"
     return {
         "status": "ready",
         "initiative_id": initiative_id,
@@ -241,12 +249,15 @@ def workflow_now() -> str:
 
 def release_gate_status(mr_report: dict[str, Any], release_state_payload: dict[str, Any]) -> tuple[str, str]:
     mr_status = str(mr_report.get("mr_status") or "").strip().lower()
+    pipeline_status = str(mr_report.get("pipeline_status") or "").strip().lower()
     staging = release_state_payload.get("staging") if isinstance(release_state_payload.get("staging"), dict) else {}
     production = release_state_payload.get("production") if isinstance(release_state_payload.get("production"), dict) else {}
     staging_status = str(staging.get("status") or "").strip().lower()
     production_status = str(production.get("status") or "").strip().lower()
-    if mr_status not in {"ready", "planned", "planned_only", "created", "existing", "missing_token"}:
+    if mr_status not in {"open", "created", "existing", "planned_only", "missing_token"}:
         return "blocked", production_status or "unknown"
+    if pipeline_status and pipeline_status not in {"passed", "success", "ok", "missing_context", "missing"}:
+        return "blocked", production_status or pipeline_status
     if staging_status != "verified":
         return "blocked", production_status or staging_status or "unknown"
     return "ready_for_release", production_status or "ready_for_release"
@@ -290,8 +301,9 @@ def finalize_lifecycle(args: argparse.Namespace) -> dict[str, Any]:
     mr_report = build_mr_report(args.initiative_id, args.batch_id, board, workflow, {**mr_plan, "mr_status_live": mr_status, "mr_ensure": mr_ensure}, {**git_save, "push": git_push})
     write_json(mr_report_path, mr_report)
 
+    pipeline_status = str((mr_status.get("pipeline") if isinstance(mr_status.get("pipeline"), dict) else {}).get("pipeline_status") or "").strip().lower()
     release_state_payload = load_json(release_state_path)
-    release_gate, release_status = release_gate_status(mr_report, release_state_payload)
+    release_gate, release_status = release_gate_status({**mr_report, "pipeline_status": pipeline_status}, release_state_payload)
 
     initiative["status"] = "integration_ready" if release_gate == "ready_for_release" else "approved_for_execution"
     initiative["updated_at"] = workflow_now()
@@ -301,6 +313,7 @@ def finalize_lifecycle(args: argparse.Namespace) -> dict[str, Any]:
         "mr_report": str(mr_report_path),
         "release_state": str(release_state_path),
         "mr_status": mr_report.get("mr_status"),
+        "pipeline_status": pipeline_status,
         "release_gate": release_gate,
         "release_status": release_status,
         "git_save": {**git_save, "push": git_push},

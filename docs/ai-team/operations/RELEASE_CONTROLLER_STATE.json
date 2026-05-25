@@ -1,16 +1,10 @@
 {
-  "generated_at": "2026-05-25T16:36:20.894905+08:00",
+  "generated_at": "2026-05-25T16:42:42.803926+08:00",
   "staging": {
     "artifact": "INIT-ENH-001-BATCH-001",
-    "status": "verified",
+    "status": "promoted",
     "environment": "staging",
-    "verified_checks": [
-      {
-        "check": "initiative:INIT-ENH-001",
-        "status": "passed",
-        "at": "2026-05-25T16:36:20.984427+08:00"
-      }
-    ]
+    "verified_checks": []
   },
   "production": {
     "artifact": null,
@@ -18,20 +12,11 @@
   },
   "history": [
     {
-      "at": "2026-05-25T16:36:20.936919+08:00",
+      "at": "2026-05-25T16:42:42.853087+08:00",
       "event": "promote-staging",
       "details": {
         "artifact": "INIT-ENH-001-BATCH-001",
         "environment": "staging"
-      }
-    },
-    {
-      "at": "2026-05-25T16:36:20.984458+08:00",
-      "event": "verify",
-      "details": {
-        "environment": "staging",
-        "check": "initiative:INIT-ENH-001",
-        "status": "passed"
       }
     }
   ]
