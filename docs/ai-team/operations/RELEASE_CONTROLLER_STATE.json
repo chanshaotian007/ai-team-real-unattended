@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T16:30:36.027114+08:00",
+  "generated_at": "2026-05-25T16:35:30.670002+08:00",
   "staging": {
     "artifact": "INIT-ENH-001-BATCH-001",
     "status": "verified",
@@ -8,7 +8,7 @@
       {
         "check": "initiative:INIT-ENH-001",
         "status": "passed",
-        "at": "2026-05-25T16:30:36.114415+08:00"
+        "at": "2026-05-25T16:35:30.753229+08:00"
       }
     ]
   },
@@ -18,7 +18,7 @@
   },
   "history": [
     {
-      "at": "2026-05-25T16:30:36.068657+08:00",
+      "at": "2026-05-25T16:35:30.711399+08:00",
       "event": "promote-staging",
       "details": {
         "artifact": "INIT-ENH-001-BATCH-001",
@@ -26,7 +26,7 @@
       }
     },
     {
-      "at": "2026-05-25T16:30:36.114445+08:00",
+      "at": "2026-05-25T16:35:30.753264+08:00",
       "event": "verify",
       "details": {
         "environment": "staging",

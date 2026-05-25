@@ -10,11 +10,11 @@
     "Design": 0,
     "Plan": 0,
     "Awaiting Approval": 0,
-    "Approved": 1,
+    "Approved": 4,
     "Coding": 0,
-    "QA/Compliance": 1,
-    "Ready for MR": 3,
-    "Ready for Release": 3,
+    "QA/Compliance": 4,
+    "Ready for MR": 0,
+    "Ready for Release": 0,
     "Done": 12,
     "Blocked": 0
   },
@@ -34,7 +34,7 @@
     "status": "saved",
     "repo": "/home/hya-chenu/AIWS/ai-team-real-unattended",
     "branch": "main",
-    "commit": "36b3ab891edcefc58d996f6d0698d3301e0d4955",
+    "commit": "46a656f732af6d057a9a96ee4addd385abf6d9bc",
     "staged": {
       "mode": "all",
       "paths": []

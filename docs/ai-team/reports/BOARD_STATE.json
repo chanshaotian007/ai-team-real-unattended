@@ -9,103 +9,6 @@
     "Awaiting Approval": [],
     "Approved": [
       {
-        "initiative_id": "INIT-ENH-001",
-        "task_id": "INIT-ENH-001-IMPLEMENT",
-        "task_ref": "INIT-ENH-001-IMPLEMENT",
-        "title": "Enhanced delivery flow",
-        "summary": "Enhanced delivery flow implementation",
-        "owner_role": "frontend-agent",
-        "task_type": "implementation",
-        "approval": {
-          "initiative_id": "INIT-ENH-001",
-          "status": "approved",
-          "approved_by": "tester",
-          "approved_at": "2026-05-25T16:02:48.619855+08:00",
-          "approval_notes": [
-            "enhance demo"
-          ],
-          "batch_id": "INIT-ENH-001-BATCH-001"
-        },
-        "batch_id": "INIT-ENH-001-BATCH-001",
-        "batch": {
-          "batch_id": "INIT-ENH-001-BATCH-001",
-          "initiative_id": "INIT-ENH-001",
-          "approved_snapshot_id": "2026-05-25T16:02:48.619855+08:00",
-          "task_ids": [
-            "INIT-ENH-001-ANALYSIS",
-            "INIT-ENH-001-DESIGN",
-            "INIT-ENH-001-IMPLEMENT",
-            "INIT-ENH-001-PLAN",
-            "INIT-ENH-001-VERIFY"
-          ],
-          "status": "completed",
-          "triggered_by": "tester",
-          "triggered_at": "2026-05-25T16:02:48.619855+08:00",
-          "started_at": "2026-05-25T16:30:35.389093+08:00",
-          "completed_at": "2026-05-25T16:30:35.626545+08:00",
-          "verification_summary": {
-            "completed_task_count": 5,
-            "artifacts_updated": 5
-          }
-        },
-        "work_order_status": "unseeded",
-        "write_scopes": [
-          "frontend/**",
-          "scripts/ai_team_generated_impl.py"
-        ]
-      }
-    ],
-    "Coding": [],
-    "QA/Compliance": [
-      {
-        "initiative_id": "INIT-ENH-001",
-        "task_id": "INIT-ENH-001-VERIFY",
-        "task_ref": "INIT-ENH-001-VERIFY",
-        "title": "Enhanced delivery flow",
-        "summary": "Enhanced delivery flow verification",
-        "owner_role": "qa-agent",
-        "task_type": "qa",
-        "approval": {
-          "initiative_id": "INIT-ENH-001",
-          "status": "approved",
-          "approved_by": "tester",
-          "approved_at": "2026-05-25T16:02:48.619855+08:00",
-          "approval_notes": [
-            "enhance demo"
-          ],
-          "batch_id": "INIT-ENH-001-BATCH-001"
-        },
-        "batch_id": "INIT-ENH-001-BATCH-001",
-        "batch": {
-          "batch_id": "INIT-ENH-001-BATCH-001",
-          "initiative_id": "INIT-ENH-001",
-          "approved_snapshot_id": "2026-05-25T16:02:48.619855+08:00",
-          "task_ids": [
-            "INIT-ENH-001-ANALYSIS",
-            "INIT-ENH-001-DESIGN",
-            "INIT-ENH-001-IMPLEMENT",
-            "INIT-ENH-001-PLAN",
-            "INIT-ENH-001-VERIFY"
-          ],
-          "status": "completed",
-          "triggered_by": "tester",
-          "triggered_at": "2026-05-25T16:02:48.619855+08:00",
-          "started_at": "2026-05-25T16:30:35.389093+08:00",
-          "completed_at": "2026-05-25T16:30:35.626545+08:00",
-          "verification_summary": {
-            "completed_task_count": 5,
-            "artifacts_updated": 5
-          }
-        },
-        "work_order_status": "unseeded",
-        "write_scopes": [
-          "tests/**",
-          "docs/ai-team/reviews/qa/**"
-        ]
-      }
-    ],
-    "Ready for MR": [
-      {
         "initiative_id": "INIT-DEMO-001",
         "task_id": "INIT-DEMO-001-IMPLEMENT",
         "task_ref": "INIT-DEMO-001-IMPLEMENT",
@@ -245,9 +148,56 @@
         "write_scopes": [
           "frontend/**"
         ]
+      },
+      {
+        "initiative_id": "INIT-ENH-001",
+        "task_id": "INIT-ENH-001-IMPLEMENT",
+        "task_ref": "INIT-ENH-001-IMPLEMENT",
+        "title": "Enhanced delivery flow",
+        "summary": "Enhanced delivery flow implementation",
+        "owner_role": "frontend-agent",
+        "task_type": "implementation",
+        "approval": {
+          "initiative_id": "INIT-ENH-001",
+          "status": "approved",
+          "approved_by": "tester",
+          "approved_at": "2026-05-25T16:02:48.619855+08:00",
+          "approval_notes": [
+            "enhance demo"
+          ],
+          "batch_id": "INIT-ENH-001-BATCH-001"
+        },
+        "batch_id": "INIT-ENH-001-BATCH-001",
+        "batch": {
+          "batch_id": "INIT-ENH-001-BATCH-001",
+          "initiative_id": "INIT-ENH-001",
+          "approved_snapshot_id": "2026-05-25T16:02:48.619855+08:00",
+          "task_ids": [
+            "INIT-ENH-001-ANALYSIS",
+            "INIT-ENH-001-DESIGN",
+            "INIT-ENH-001-IMPLEMENT",
+            "INIT-ENH-001-PLAN",
+            "INIT-ENH-001-VERIFY"
+          ],
+          "status": "completed",
+          "triggered_by": "tester",
+          "triggered_at": "2026-05-25T16:02:48.619855+08:00",
+          "started_at": "2026-05-25T16:35:30.050018+08:00",
+          "completed_at": "2026-05-25T16:35:30.263031+08:00",
+          "verification_summary": {
+            "completed_task_count": 5,
+            "artifacts_updated": 5
+          }
+        },
+        "work_order_status": "unseeded",
+        "write_scopes": [
+          "frontend/**",
+          "scripts/ai_team_generated_impl.py"
+        ]
       }
     ],
-    "Ready for Release": [
+    "Coding": [],
+    "QA/Compliance": [
       {
         "initiative_id": "INIT-DEMO-001",
         "task_id": "INIT-DEMO-001-VERIFY",
@@ -391,8 +341,56 @@
           "tests/**",
           "docs/ai-team/reviews/qa/**"
         ]
+      },
+      {
+        "initiative_id": "INIT-ENH-001",
+        "task_id": "INIT-ENH-001-VERIFY",
+        "task_ref": "INIT-ENH-001-VERIFY",
+        "title": "Enhanced delivery flow",
+        "summary": "Enhanced delivery flow verification",
+        "owner_role": "qa-agent",
+        "task_type": "qa",
+        "approval": {
+          "initiative_id": "INIT-ENH-001",
+          "status": "approved",
+          "approved_by": "tester",
+          "approved_at": "2026-05-25T16:02:48.619855+08:00",
+          "approval_notes": [
+            "enhance demo"
+          ],
+          "batch_id": "INIT-ENH-001-BATCH-001"
+        },
+        "batch_id": "INIT-ENH-001-BATCH-001",
+        "batch": {
+          "batch_id": "INIT-ENH-001-BATCH-001",
+          "initiative_id": "INIT-ENH-001",
+          "approved_snapshot_id": "2026-05-25T16:02:48.619855+08:00",
+          "task_ids": [
+            "INIT-ENH-001-ANALYSIS",
+            "INIT-ENH-001-DESIGN",
+            "INIT-ENH-001-IMPLEMENT",
+            "INIT-ENH-001-PLAN",
+            "INIT-ENH-001-VERIFY"
+          ],
+          "status": "completed",
+          "triggered_by": "tester",
+          "triggered_at": "2026-05-25T16:02:48.619855+08:00",
+          "started_at": "2026-05-25T16:35:30.050018+08:00",
+          "completed_at": "2026-05-25T16:35:30.263031+08:00",
+          "verification_summary": {
+            "completed_task_count": 5,
+            "artifacts_updated": 5
+          }
+        },
+        "work_order_status": "unseeded",
+        "write_scopes": [
+          "tests/**",
+          "docs/ai-team/reviews/qa/**"
+        ]
       }
     ],
+    "Ready for MR": [],
+    "Ready for Release": [],
     "Done": [
       {
         "initiative_id": "INIT-DEMO-001",

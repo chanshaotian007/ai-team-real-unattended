@@ -83,13 +83,13 @@
       "status": "completed",
       "triggered_by": "tester",
       "triggered_at": "2026-05-25T16:02:48.619855+08:00",
-      "started_at": "2026-05-25T16:35:30.050018+08:00",
-      "completed_at": "2026-05-25T16:35:30.263031+08:00",
+      "started_at": "2026-05-25T16:36:20.236349+08:00",
+      "completed_at": "2026-05-25T16:36:20.485845+08:00",
       "verification_summary": {
         "completed_task_count": 5,
         "artifacts_updated": 5
       }
     }
   },
-  "updated_at": "2026-05-25T16:35:30.263031+08:00"
+  "updated_at": "2026-05-25T16:36:20.485845+08:00"
 }

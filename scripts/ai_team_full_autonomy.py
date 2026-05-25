@@ -208,6 +208,12 @@ def build_release_state(initiative_id: str, batch_id: str) -> dict[str, Any]:
     }
 
 
+def workflow_now() -> str:
+    from datetime import datetime
+
+    return datetime.now().astimezone().isoformat()
+
+
 def release_gate_status(mr_report: dict[str, Any], release_state_payload: dict[str, Any]) -> tuple[str, str]:
     mr_status = str(mr_report.get("mr_status") or "").strip().lower()
     staging = release_state_payload.get("staging") if isinstance(release_state_payload.get("staging"), dict) else {}
