@@ -14,16 +14,26 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_PLAN = ROOT / "docs/ai-team/operations/M1_M2_72H_PLAN.json"
 DEFAULT_CATALOG = ROOT / "docs/ai-team/operations/CODEX_AGENT_PILOT_TASKS.yaml"
+DEFAULT_INITIATIVES = ROOT / "docs/ai-team/operations/INITIATIVES.json"
+DEFAULT_INITIATIVE_TASKS = ROOT / "docs/ai-team/operations/INITIATIVE_TASKS.json"
+DEFAULT_APPROVALS = ROOT / "docs/ai-team/operations/APPROVALS.json"
+DEFAULT_EXECUTION_BATCHES = ROOT / "docs/ai-team/operations/EXECUTION_BATCHES.json"
 DEFAULT_BROKER_STATE = ROOT / "docs/ai-team/operations/M1_M2_72H_AGENT_BROKER.json"
 DEFAULT_DISPATCHES = ROOT / "docs/ai-team/operations/M1_M2_72H_CODEX_AGENT_DISPATCHES.jsonl"
 ACTIVE_WORK_ORDER_STATUSES = {"dispatched", "running", "claimed"}
 COMPLETED_WORK_ORDER_STATUSES = {"completed", "accepted", "closed"}
+PLANNING_TASK_TYPES = {"analysis", "design", "planning"}
+IMPLEMENTATION_TASK_TYPES = {"implementation", "qa", "compliance", "release", "devops"}
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Seed real Codex-agent pilot tasks from a curated catalog.")
     parser.add_argument("--plan", default=str(DEFAULT_PLAN))
     parser.add_argument("--catalog", default=str(DEFAULT_CATALOG))
+    parser.add_argument("--initiatives-file", default=str(DEFAULT_INITIATIVES))
+    parser.add_argument("--initiative-tasks-file", default=str(DEFAULT_INITIATIVE_TASKS))
+    parser.add_argument("--approvals-file", default=str(DEFAULT_APPROVALS))
+    parser.add_argument("--execution-batches-file", default=str(DEFAULT_EXECUTION_BATCHES))
     parser.add_argument("--broker-state", default=str(DEFAULT_BROKER_STATE))
     parser.add_argument("--dispatches-file", default=str(DEFAULT_DISPATCHES))
     parser.add_argument("--at", help="Override current time with ISO8601 timestamp")
@@ -32,15 +42,22 @@ def parse_args() -> argparse.Namespace:
 
     list_cmd = subparsers.add_parser("list")
     list_cmd.add_argument("--role")
+    list_cmd.add_argument("--source", choices=["catalog", "initiative"], default="catalog")
+    list_cmd.add_argument("--initiative-id")
     list_cmd.add_argument("--json", action="store_true")
 
     show_cmd = subparsers.add_parser("show")
     show_cmd.add_argument("--task-ref", required=True)
+    show_cmd.add_argument("--source", choices=["catalog", "initiative"], default="catalog")
+    show_cmd.add_argument("--initiative-id")
     show_cmd.add_argument("--json", action="store_true")
 
     seed_cmd = subparsers.add_parser("seed")
     seed_cmd.add_argument("--task-ref", action="append", default=[])
     seed_cmd.add_argument("--role")
+    seed_cmd.add_argument("--source", choices=["catalog", "initiative"], default="catalog")
+    seed_cmd.add_argument("--initiative-id")
+    seed_cmd.add_argument("--batch-id")
     seed_cmd.add_argument("--all", action="store_true")
     seed_cmd.add_argument("--force", action="store_true")
     seed_cmd.add_argument("--requested-by", default="orchestrator")
@@ -112,14 +129,49 @@ def normalized_string_list(value: Any) -> list[str]:
     return [str(item).strip() for item in value if str(item).strip()]
 
 
-def normalized_int(value: Any, default: int) -> int:
-    try:
-        return int(value)
-    except (TypeError, ValueError):
-        return default
+def ensure_named_mapping(payload: dict[str, Any] | None, key: str) -> dict[str, Any]:
+    state = payload if isinstance(payload, dict) else {}
+    value = state.get(key)
+    if not isinstance(value, dict):
+        value = {}
+        state[key] = value
+    return state
 
 
-def ensure_broker_state(payload: dict[str, Any] | None = None) -> dict[str, Any]:
+def load_named_mapping(path: Path, key: str) -> dict[str, Any]:
+    return ensure_named_mapping(load_json(path), key)
+
+
+def task_phase(task: dict[str, Any]) -> str:
+    phase = str(task.get("phase") or "").strip().lower()
+    if phase:
+        return phase
+    task_type = str(task.get("task_type") or "").strip().lower()
+    if task_type in PLANNING_TASK_TYPES:
+        return "planning"
+    if task_type in IMPLEMENTATION_TASK_TYPES:
+        return "execution"
+    return "execution"
+
+
+def task_type(task: dict[str, Any]) -> str:
+    return str(task.get("task_type") or "implementation").strip().lower() or "implementation"
+
+
+def approval_gate(task: dict[str, Any]) -> dict[str, Any]:
+    value = task.get("approval_gate")
+    if isinstance(value, dict):
+        gate = dict(value)
+    else:
+        gate = {}
+    task_kind = task_type(task)
+    phase = task_phase(task)
+    required = bool(gate.get("required", task_kind in IMPLEMENTATION_TASK_TYPES and phase != "planning"))
+    status = str(gate.get("status") or ("approved" if not required else "pending")).strip().lower()
+    reason = str(gate.get("reason") or "").strip() or None
+    return {"required": required, "status": status, "reason": reason}
+
+
     state = payload if isinstance(payload, dict) else {}
     work_orders = state.get("work_orders")
     locks = state.get("locks")
@@ -165,6 +217,13 @@ def plan_lock_owners(plan: dict[str, Any], scope: str) -> list[str]:
 def task_contract(task: dict[str, Any]) -> dict[str, Any]:
     return {
         "task_id": str(task.get("task_id") or "").strip(),
+        "initiative_id": str(task.get("initiative_id") or "").strip() or None,
+        "parent_task_id": str(task.get("parent_task_id") or "").strip() or None,
+        "task_type": task_type(task),
+        "phase": task_phase(task),
+        "approval_gate": approval_gate(task),
+        "execution_mode": str(task.get("execution_mode") or "codex_agent").strip() or "codex_agent",
+        "batch_id": str(task.get("batch_id") or "").strip() or None,
         "owner_role": str(task.get("owner_role") or "").strip(),
         "collaborators": normalized_string_list(task.get("collaborators")),
         "depends_on_task_refs": normalized_string_list(task.get("depends_on_task_refs")),
@@ -176,6 +235,10 @@ def task_contract(task: dict[str, Any]) -> dict[str, Any]:
         "acceptance_commands": normalized_string_list(task.get("acceptance_commands")),
         "risk_notes_required": bool(task.get("risk_notes_required", True)),
         "rollback_hint": str(task.get("rollback_hint") or "").strip(),
+        "produces": normalized_string_list(task.get("produces")),
+        "consumes": normalized_string_list(task.get("consumes")),
+        "source_refs": normalized_string_list(task.get("source_refs")),
+        "plan_links": task.get("plan_links") if isinstance(task.get("plan_links"), list) else [],
     }
 
 
@@ -193,6 +256,9 @@ def validate_task(task: dict[str, Any], plan: dict[str, Any], catalog_tasks: lis
         for item in (catalog_tasks or [])
         if isinstance(item, dict) and str(item.get("task_ref") or "").strip()
     }
+    task_kind = task_type(task)
+    phase = task_phase(task)
+    gate = approval_gate(task)
 
     if not str(task.get("task_id") or "").strip():
         errors.append("missing_task_id")
@@ -208,6 +274,12 @@ def validate_task(task: dict[str, Any], plan: dict[str, Any], catalog_tasks: lis
         errors.append("missing_write_scopes")
     if not acceptance_commands:
         errors.append("missing_acceptance_commands")
+    if task_kind in IMPLEMENTATION_TASK_TYPES and not str(task.get("initiative_id") or "").strip():
+        warnings.append("missing_initiative_id")
+    if gate["required"] and gate["status"] not in {"pending", "approved", "rejected"}:
+        errors.append(f"invalid_approval_gate_status={gate['status']}")
+    if phase == "planning" and task_kind in IMPLEMENTATION_TASK_TYPES:
+        errors.append(f"invalid_phase_for_task_type={task_kind}:{phase}")
     for dep_ref in depends_on_task_refs:
         if dep_ref == task_ref:
             errors.append(f"self_dependency={dep_ref}")
@@ -244,11 +316,18 @@ def load_catalog_tasks(path: Path) -> list[dict[str, Any]]:
             {
                 "task_id": str(item.get("task_id") or "").strip(),
                 "task_ref": str(item.get("task_ref") or "").strip(),
+                "initiative_id": str(item.get("initiative_id") or "").strip() or None,
+                "parent_task_id": str(item.get("parent_task_id") or "").strip() or None,
                 "owner_role": str(item.get("owner_role") or "").strip(),
                 "priority": normalized_int(item.get("priority", 100), 100),
                 "summary": str(item.get("summary") or item.get("task_ref") or "").strip(),
                 "shift_id": str(item.get("shift_id") or "").strip() or None,
                 "goal": str(item.get("goal") or "").strip(),
+                "task_type": str(item.get("task_type") or "implementation").strip() or "implementation",
+                "phase": str(item.get("phase") or "").strip() or None,
+                "approval_gate": item.get("approval_gate") if isinstance(item.get("approval_gate"), dict) else None,
+                "execution_mode": str(item.get("execution_mode") or "codex_agent").strip() or "codex_agent",
+                "batch_id": str(item.get("batch_id") or "").strip() or None,
                 "depends_on_task_refs": normalized_string_list(item.get("depends_on_task_refs")),
                 "constraints": normalized_string_list(item.get("constraints")),
                 "read_scopes": normalized_string_list(item.get("read_scopes")),
@@ -261,17 +340,88 @@ def load_catalog_tasks(path: Path) -> list[dict[str, Any]]:
                 "model_hint": str(item.get("model_hint") or "").strip() or None,
                 "source_refs": normalized_string_list(item.get("source_refs")),
                 "plan_links": item.get("plan_links") if isinstance(item.get("plan_links"), list) else [],
+                "produces": normalized_string_list(item.get("produces")),
+                "consumes": normalized_string_list(item.get("consumes")),
             }
         )
     return normalized
 
 
-def find_task(tasks: list[dict[str, Any]], task_ref: str) -> dict[str, Any] | None:
-    lookup = str(task_ref or "").strip()
-    for task in tasks:
-        if str(task.get("task_ref") or "").strip() == lookup:
-            return task
-    return None
+def load_initiative_tasks(path: Path, initiative_id: str | None = None) -> list[dict[str, Any]]:
+    payload = load_named_mapping(path, "tasks")
+    normalized: list[dict[str, Any]] = []
+    requested_initiative = str(initiative_id or "").strip()
+    for task_id, raw in payload["tasks"].items():
+        if not isinstance(raw, dict):
+            continue
+        item = dict(raw)
+        item["task_id"] = str(item.get("task_id") or task_id).strip()
+        item["task_ref"] = str(item.get("task_ref") or item["task_id"]).strip()
+        item["summary"] = str(item.get("summary") or item["task_ref"]).strip()
+        item["initiative_id"] = str(item.get("initiative_id") or "").strip() or None
+        item["parent_task_id"] = str(item.get("parent_task_id") or "").strip() or None
+        item["owner_role"] = str(item.get("owner_role") or "").strip()
+        item["shift_id"] = str(item.get("shift_id") or "").strip() or None
+        item["goal"] = str(item.get("goal") or "").strip()
+        item["task_type"] = str(item.get("task_type") or "implementation").strip() or "implementation"
+        item["phase"] = str(item.get("phase") or "").strip() or None
+        item["approval_gate"] = item.get("approval_gate") if isinstance(item.get("approval_gate"), dict) else None
+        item["execution_mode"] = str(item.get("execution_mode") or "codex_agent").strip() or "codex_agent"
+        item["batch_id"] = str(item.get("batch_id") or "").strip() or None
+        item["priority"] = normalized_int(item.get("priority", 100), 100)
+        item["depends_on_task_refs"] = normalized_string_list(item.get("depends_on_task_refs"))
+        item["constraints"] = normalized_string_list(item.get("constraints"))
+        item["read_scopes"] = normalized_string_list(item.get("read_scopes"))
+        item["write_scopes"] = normalized_string_list(item.get("write_scopes"))
+        item["artifacts"] = normalized_string_list(item.get("artifacts"))
+        item["acceptance_commands"] = normalized_string_list(item.get("acceptance_commands"))
+        item["rollback_hint"] = str(item.get("rollback_hint") or "").strip()
+        item["risk_notes_required"] = bool(item.get("risk_notes_required", True))
+        item["collaborators"] = normalized_string_list(item.get("collaborators"))
+        item["model_hint"] = str(item.get("model_hint") or "").strip() or None
+        item["source_refs"] = normalized_string_list(item.get("source_refs"))
+        item["plan_links"] = item.get("plan_links") if isinstance(item.get("plan_links"), list) else []
+        item["produces"] = normalized_string_list(item.get("produces"))
+        item["consumes"] = normalized_string_list(item.get("consumes"))
+        if requested_initiative and item["initiative_id"] != requested_initiative:
+            continue
+        normalized.append(item)
+    return normalized
+
+
+def resolve_task_source(args: argparse.Namespace) -> list[dict[str, Any]]:
+    if str(getattr(args, "source", "catalog") or "catalog").strip() == "initiative":
+        return load_initiative_tasks(resolve_path(args.initiative_tasks_file), getattr(args, "initiative_id", None))
+    return load_catalog_tasks(resolve_path(args.catalog))
+
+
+def approval_lookup(path: Path) -> dict[str, Any]:
+    return load_named_mapping(path, "approvals")
+
+
+def execution_batch_lookup(path: Path) -> dict[str, Any]:
+    return load_named_mapping(path, "batches")
+
+
+def initiative_lookup(path: Path) -> dict[str, Any]:
+    return load_named_mapping(path, "initiatives")
+
+
+def initiative_approval_status(task: dict[str, Any], approvals: dict[str, Any], initiatives: dict[str, Any]) -> str:
+    initiative_id = str(task.get("initiative_id") or "").strip()
+    if not initiative_id:
+        return "missing"
+    approval = approvals["approvals"].get(initiative_id, {}) if isinstance(approvals.get("approvals"), dict) else {}
+    if isinstance(approval, dict):
+        status = str(approval.get("status") or "").strip().lower()
+        if status:
+            return status
+    initiative = initiatives["initiatives"].get(initiative_id, {}) if isinstance(initiatives.get("initiatives"), dict) else {}
+    if isinstance(initiative, dict):
+        status = str(((initiative.get("approval") if isinstance(initiative.get("approval"), dict) else {}).get("status") or "")).strip().lower()
+        if status:
+            return status
+    return "missing"
 
 
 def existing_dispatch_count(task_id: str, broker_state: dict[str, Any], dispatches: list[dict[str, Any]]) -> int:
@@ -339,34 +489,81 @@ def task_readiness(task: dict[str, Any], tasks: list[dict[str, Any]], broker_sta
     }
 
 
+def task_dispatch_readiness(
+    task: dict[str, Any],
+    tasks: list[dict[str, Any]],
+    broker_state: dict[str, Any],
+    approvals: dict[str, Any],
+    initiatives: dict[str, Any],
+    execution_batches: dict[str, Any],
+) -> dict[str, Any]:
+    readiness = task_readiness(task, tasks, broker_state)
+    gate = approval_gate(task)
+    batch_id = str(task.get("batch_id") or "").strip()
+    approval_status = initiative_approval_status(task, approvals, initiatives)
+    blocked = list(readiness["blocked_reasons"])
+    if gate["required"] and gate["status"] != "approved":
+        if approval_status != "approved":
+            blocked.append(f"approval_not_granted={approval_status or 'missing'}")
+        if batch_id:
+            batch = execution_batches["batches"].get(batch_id, {}) if isinstance(execution_batches.get("batches"), dict) else {}
+            batch_status = str((batch.get("status") if isinstance(batch, dict) else "") or "").strip().lower()
+            if batch_status not in {"approved", "ready", "running"}:
+                blocked.append(f"batch_not_approved={batch_status or 'missing'}")
+        else:
+            blocked.append("missing_batch_id")
+    return {
+        **readiness,
+        "dispatch_ready": not blocked,
+        "blocked_reasons": blocked,
+        "approval_gate": gate,
+        "approval_status": approval_status,
+        "batch_id": batch_id or None,
+    }
+
+
 def seedable_tasks(args: argparse.Namespace, tasks: list[dict[str, Any]]) -> list[dict[str, Any]]:
     selected = tasks
     role = str(getattr(args, "role", "") or "").strip()
     task_refs = [str(item).strip() for item in getattr(args, "task_ref", []) if str(item).strip()]
+    initiative_id = str(getattr(args, "initiative_id", "") or "").strip()
+    batch_id = str(getattr(args, "batch_id", "") or "").strip()
 
     if role:
         selected = [task for task in selected if str(task.get("owner_role") or "").strip() == role]
+    if initiative_id:
+        selected = [task for task in selected if str(task.get("initiative_id") or "").strip() == initiative_id]
+    if batch_id:
+        selected = [task for task in selected if str(task.get("batch_id") or "").strip() == batch_id]
     if task_refs:
         wanted = set(task_refs)
         selected = [task for task in selected if str(task.get("task_ref") or "").strip() in wanted]
-    if not getattr(args, "all", False) and not task_refs and not role and getattr(args, "command", "") == "seed":
+    if not getattr(args, "all", False) and not task_refs and not role and not initiative_id and not batch_id and getattr(args, "command", "") == "seed":
         return []
     return selected
 
 
 def list_tasks(args: argparse.Namespace) -> dict[str, Any]:
     plan = load_json(resolve_path(args.plan))
-    tasks = load_catalog_tasks(resolve_path(args.catalog))
+    tasks = resolve_task_source(args)
     broker_state = ensure_broker_state(load_json(resolve_path(args.broker_state)))
+    approvals = approval_lookup(resolve_path(args.approvals_file))
+    initiatives = initiative_lookup(resolve_path(args.initiatives_file))
+    execution_batches = execution_batch_lookup(resolve_path(args.execution_batches_file))
 
     items: list[dict[str, Any]] = []
     for task in seedable_tasks(args, tasks):
         validation = validate_task(task, plan, tasks)
-        readiness = task_readiness(task, tasks, broker_state)
+        readiness = task_dispatch_readiness(task, tasks, broker_state, approvals, initiatives, execution_batches)
         items.append(
             {
                 "task_ref": task["task_ref"],
                 "task_id": task["task_id"],
+                "initiative_id": task.get("initiative_id"),
+                "task_type": task_type(task),
+                "phase": task_phase(task),
+                "approval_gate": approval_gate(task),
+                "batch_id": task.get("batch_id"),
                 "owner_role": task["owner_role"],
                 "shift_id": task.get("shift_id"),
                 "summary": task["summary"],
@@ -380,8 +577,11 @@ def list_tasks(args: argparse.Namespace) -> dict[str, Any]:
 
 def show_task(args: argparse.Namespace) -> dict[str, Any]:
     plan = load_json(resolve_path(args.plan))
-    tasks = load_catalog_tasks(resolve_path(args.catalog))
+    tasks = resolve_task_source(args)
     broker_state = ensure_broker_state(load_json(resolve_path(args.broker_state)))
+    approvals = approval_lookup(resolve_path(args.approvals_file))
+    initiatives = initiative_lookup(resolve_path(args.initiatives_file))
+    execution_batches = execution_batch_lookup(resolve_path(args.execution_batches_file))
     task = find_task(tasks, args.task_ref)
     if task is None:
         return {"status": "missing", "task_ref": str(args.task_ref)}
@@ -389,7 +589,7 @@ def show_task(args: argparse.Namespace) -> dict[str, Any]:
         "status": "ok",
         "task": task,
         "validation": validate_task(task, plan, tasks),
-        "readiness": task_readiness(task, tasks, broker_state),
+        "readiness": task_dispatch_readiness(task, tasks, broker_state, approvals, initiatives, execution_batches),
     }
 
 
@@ -398,6 +598,9 @@ def seed_one_task(
     task: dict[str, Any],
     catalog_tasks: list[dict[str, Any]],
     plan: dict[str, Any],
+    approvals: dict[str, Any],
+    initiatives: dict[str, Any],
+    execution_batches: dict[str, Any],
     broker_state: dict[str, Any],
     dispatches_path: Path,
     dispatches: list[dict[str, Any]],
@@ -407,11 +610,11 @@ def seed_one_task(
     dry_run: bool,
 ) -> dict[str, Any]:
     validation = validate_task(task, plan, catalog_tasks)
-    readiness = task_readiness(task, catalog_tasks, broker_state)
+    readiness = task_dispatch_readiness(task, catalog_tasks, broker_state, approvals, initiatives, execution_batches)
     if not validation["ok"]:
         return {"status": "invalid", "task_ref": task["task_ref"], "validation": validation, "readiness": readiness}
 
-    if not force and not readiness["ready"]:
+    if not force and not readiness["dispatch_ready"]:
         return {"status": "blocked", "task_ref": task["task_ref"], "validation": validation, "readiness": readiness}
 
     task_id = str(task.get("task_id") or "").strip()
@@ -442,12 +645,13 @@ def seed_one_task(
     payload = {
         "dispatch_id": dispatch_id,
         "task_id": task_id,
+        "initiative_id": task.get("initiative_id"),
         "owner_role": task["owner_role"],
         "summary": task["summary"],
         "task_ref": task["task_ref"],
         "shift_id": task.get("shift_id"),
         "delivery_mode": "codex_agent",
-        "task_contract_version": "v1",
+        "task_contract_version": "v2",
         "task_contract": task_contract(task),
         "executor_rule": "manual-codex-pilot-seed",
         "emitted_at": when.isoformat(),
@@ -455,10 +659,17 @@ def seed_one_task(
         "model_hint": task.get("model_hint"),
         "source_refs": task.get("source_refs"),
         "plan_links": task.get("plan_links"),
+        "batch_id": task.get("batch_id"),
     }
 
     work_order_payload = {
         "task_id": task_id,
+        "initiative_id": task.get("initiative_id"),
+        "parent_task_id": task.get("parent_task_id"),
+        "task_type": task_type(task),
+        "phase": task_phase(task),
+        "approval_gate": approval_gate(task),
+        "batch_id": task.get("batch_id"),
         "owner_role": task["owner_role"],
         "summary": task["summary"],
         "task_ref": task["task_ref"],
@@ -481,7 +692,7 @@ def seed_one_task(
         "last_result": None,
         "created_at": work_order.get("created_at") or when.isoformat(),
         "updated_at": when.isoformat(),
-        "task_source": "codex_pilot_catalog",
+        "task_source": "initiative_task_graph" if task.get("initiative_id") else "codex_pilot_catalog",
     }
 
     if not dry_run:
@@ -502,9 +713,12 @@ def seed_one_task(
 
 def seed_tasks(args: argparse.Namespace) -> dict[str, Any]:
     plan = load_json(resolve_path(args.plan))
-    tasks = load_catalog_tasks(resolve_path(args.catalog))
+    tasks = resolve_task_source(args)
     broker_state_path = resolve_path(args.broker_state)
     dispatches_path = resolve_path(args.dispatches_file)
+    approvals = approval_lookup(resolve_path(args.approvals_file))
+    initiatives = initiative_lookup(resolve_path(args.initiatives_file))
+    execution_batches = execution_batch_lookup(resolve_path(args.execution_batches_file))
     broker_state = ensure_broker_state(load_json(broker_state_path))
     dispatches = load_dispatches(dispatches_path)
     when = resolve_now(args.at)
@@ -513,7 +727,7 @@ def seed_tasks(args: argparse.Namespace) -> dict[str, Any]:
     if not selected:
         return {
             "status": "empty_selection",
-            "detail": "use --task-ref/--role/--all to select pilot tasks",
+            "detail": "use --task-ref/--role/--initiative-id/--batch-id/--all to select tasks",
         }
 
     results = [
@@ -521,6 +735,9 @@ def seed_tasks(args: argparse.Namespace) -> dict[str, Any]:
             task=task,
             catalog_tasks=tasks,
             plan=plan,
+            approvals=approvals,
+            initiatives=initiatives,
+            execution_batches=execution_batches,
             broker_state=broker_state,
             dispatches_path=dispatches_path,
             dispatches=dispatches,
@@ -538,6 +755,7 @@ def seed_tasks(args: argparse.Namespace) -> dict[str, Any]:
     seeded = [item for item in results if item["status"] in {"seeded", "preview"}]
     return {
         "status": "ok",
+        "source": str(getattr(args, "source", "catalog") or "catalog"),
         "selected_count": len(selected),
         "seeded_count": len(seeded),
         "results": results,

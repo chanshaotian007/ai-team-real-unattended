@@ -1,0 +1,17 @@
+{
+  "task_ref": "INIT-DEMO-002-PLAN",
+  "task_type": "planning",
+  "owner_role": "orchestrator",
+  "goal": "生成任务拆解、依赖和执行计划：Demo green flow",
+  "generated_at": "2026-05-25T15:17:58.163920+08:00",
+  "status": "completed",
+  "changed_files": [
+    "PLANS.md"
+  ],
+  "tests_run": [
+    {
+      "command": "python3 scripts/ai_team_plans_status_sync.py --json",
+      "status": "passed"
+    }
+  ]
+}

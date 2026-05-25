@@ -1,22 +1,38 @@
 {
-  "generated_at": "2026-04-07T17:11:33.916244+08:00",
+  "generated_at": "2026-05-25T16:14:17.563883+08:00",
   "staging": {
-    "artifact": "standalone-bundle",
-    "status": "promoted",
+    "artifact": "INIT-ENH-001-BATCH-001",
+    "status": "verified",
     "environment": "staging",
-    "verified_checks": []
+    "verified_checks": [
+      {
+        "check": "initiative:INIT-ENH-001",
+        "status": "passed",
+        "at": "2026-05-25T16:14:17.563920+08:00"
+      }
+    ]
   },
   "production": {
-    "artifact": null,
-    "status": "idle"
+    "artifact": "INIT-ENH-001-BATCH-001",
+    "status": "ready_for_release",
+    "environment": "production"
   },
   "history": [
     {
-      "at": "2026-04-07T17:11:34.224750+08:00",
+      "at": "2026-05-25T16:14:17.563926+08:00",
       "event": "promote-staging",
       "details": {
-        "artifact": "standalone-bundle",
-        "environment": "staging"
+        "artifact": "INIT-ENH-001-BATCH-001",
+        "initiative_id": "INIT-ENH-001"
+      }
+    },
+    {
+      "at": "2026-05-25T16:14:17.563931+08:00",
+      "event": "verify",
+      "details": {
+        "environment": "staging",
+        "check": "initiative:INIT-ENH-001",
+        "status": "passed"
       }
     }
   ]

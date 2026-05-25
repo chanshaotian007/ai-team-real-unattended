@@ -1,0 +1,95 @@
+{
+  "batches": {
+    "INIT-DEMO-001-BATCH-001": {
+      "batch_id": "INIT-DEMO-001-BATCH-001",
+      "initiative_id": "INIT-DEMO-001",
+      "approved_snapshot_id": "2026-05-25T14:58:42.305155+08:00",
+      "task_ids": [
+        "INIT-DEMO-001-ANALYSIS",
+        "INIT-DEMO-001-DESIGN",
+        "INIT-DEMO-001-IMPLEMENT",
+        "INIT-DEMO-001-PLAN",
+        "INIT-DEMO-001-VERIFY"
+      ],
+      "status": "integration_ready",
+      "triggered_by": "tester",
+      "triggered_at": "2026-05-25T14:58:42.305155+08:00",
+      "started_at": "2026-05-25T15:16:16.672685+08:00",
+      "completed_at": "2026-05-25T15:16:16.983038+08:00",
+      "verification_summary": {
+        "completed_task_count": 5,
+        "artifacts_updated": 6,
+        "mr_report": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/reports/MR_PLAN.json",
+        "release_state": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json"
+      }
+    },
+    "INIT-DEMO-002-BATCH-001": {
+      "batch_id": "INIT-DEMO-002-BATCH-001",
+      "initiative_id": "INIT-DEMO-002",
+      "approved_snapshot_id": "2026-05-25T15:17:57.930728+08:00",
+      "task_ids": [
+        "INIT-DEMO-002-ANALYSIS",
+        "INIT-DEMO-002-DESIGN",
+        "INIT-DEMO-002-IMPLEMENT",
+        "INIT-DEMO-002-PLAN",
+        "INIT-DEMO-002-VERIFY"
+      ],
+      "status": "integration_ready",
+      "triggered_by": "tester",
+      "triggered_at": "2026-05-25T15:17:57.930728+08:00",
+      "started_at": "2026-05-25T15:17:57.976938+08:00",
+      "completed_at": "2026-05-25T15:17:58.207489+08:00",
+      "verification_summary": {
+        "completed_task_count": 5,
+        "artifacts_updated": 8,
+        "mr_report": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/reports/MR_PLAN.json",
+        "release_state": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json"
+      }
+    },
+    "INIT-DEMO-003-BATCH-001": {
+      "batch_id": "INIT-DEMO-003-BATCH-001",
+      "initiative_id": "INIT-DEMO-003",
+      "approved_snapshot_id": "2026-05-25T15:19:18.219045+08:00",
+      "task_ids": [
+        "INIT-DEMO-003-ANALYSIS",
+        "INIT-DEMO-003-DESIGN",
+        "INIT-DEMO-003-IMPLEMENT",
+        "INIT-DEMO-003-PLAN",
+        "INIT-DEMO-003-VERIFY"
+      ],
+      "status": "integration_ready",
+      "triggered_by": "tester",
+      "triggered_at": "2026-05-25T15:19:18.219045+08:00",
+      "started_at": "2026-05-25T15:52:34.115919+08:00",
+      "completed_at": "2026-05-25T15:52:34.370803+08:00",
+      "verification_summary": {
+        "completed_task_count": 5,
+        "artifacts_updated": 5,
+        "mr_report": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/reports/MR_PLAN.json",
+        "release_state": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json"
+      }
+    },
+    "INIT-ENH-001-BATCH-001": {
+      "batch_id": "INIT-ENH-001-BATCH-001",
+      "initiative_id": "INIT-ENH-001",
+      "approved_snapshot_id": "2026-05-25T16:02:48.619855+08:00",
+      "task_ids": [
+        "INIT-ENH-001-ANALYSIS",
+        "INIT-ENH-001-DESIGN",
+        "INIT-ENH-001-IMPLEMENT",
+        "INIT-ENH-001-PLAN",
+        "INIT-ENH-001-VERIFY"
+      ],
+      "status": "completed",
+      "triggered_by": "tester",
+      "triggered_at": "2026-05-25T16:02:48.619855+08:00",
+      "started_at": "2026-05-25T16:18:14.336001+08:00",
+      "completed_at": "2026-05-25T16:18:14.572980+08:00",
+      "verification_summary": {
+        "completed_task_count": 5,
+        "artifacts_updated": 5
+      }
+    }
+  },
+  "updated_at": "2026-05-25T16:18:14.572980+08:00"
+}

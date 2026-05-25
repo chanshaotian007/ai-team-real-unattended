@@ -1,0 +1,45 @@
+{
+  "approvals": {
+    "INIT-DEMO-001": {
+      "initiative_id": "INIT-DEMO-001",
+      "status": "approved",
+      "approved_by": "tester",
+      "approved_at": "2026-05-25T14:58:42.305155+08:00",
+      "approval_notes": [
+        "approve demo"
+      ],
+      "batch_id": "INIT-DEMO-001-BATCH-001"
+    },
+    "INIT-DEMO-002": {
+      "initiative_id": "INIT-DEMO-002",
+      "status": "approved",
+      "approved_by": "tester",
+      "approved_at": "2026-05-25T15:17:57.930728+08:00",
+      "approval_notes": [
+        "approve green demo"
+      ],
+      "batch_id": "INIT-DEMO-002-BATCH-001"
+    },
+    "INIT-DEMO-003": {
+      "initiative_id": "INIT-DEMO-003",
+      "status": "approved",
+      "approved_by": "tester",
+      "approved_at": "2026-05-25T15:19:18.219045+08:00",
+      "approval_notes": [
+        "approve passing demo"
+      ],
+      "batch_id": "INIT-DEMO-003-BATCH-001"
+    },
+    "INIT-ENH-001": {
+      "initiative_id": "INIT-ENH-001",
+      "status": "approved",
+      "approved_by": "tester",
+      "approved_at": "2026-05-25T16:02:48.619855+08:00",
+      "approval_notes": [
+        "enhance demo"
+      ],
+      "batch_id": "INIT-ENH-001-BATCH-001"
+    }
+  },
+  "updated_at": "2026-05-25T16:02:48.619855+08:00"
+}

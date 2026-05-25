@@ -18,6 +18,7 @@ DEFAULT_NOTIFICATIONS = ROOT / "docs/ai-team/operations/M1_M2_72H_AGENT_NOTIFICA
 DEFAULT_STATE = ROOT / "docs/ai-team/operations/M1_M2_72H_CODEX_AGENT_RUNNER_STATE.json"
 DEFAULT_BROKER_STATE = ROOT / "docs/ai-team/operations/M1_M2_72H_AGENT_BROKER.json"
 DEFAULT_REPORT = ROOT / "docs/ai-team/reports/CODEX_UNATTENDED_ACCEPTANCE.json"
+DEFAULT_INITIATIVE_TASKS = ROOT / "docs/ai-team/operations/INITIATIVE_TASKS.json"
 
 
 def parse_args() -> argparse.Namespace:
@@ -28,10 +29,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--notifications-file", default=str(DEFAULT_NOTIFICATIONS))
     parser.add_argument("--state-file", default=str(DEFAULT_STATE))
     parser.add_argument("--broker-state", default=str(DEFAULT_BROKER_STATE))
+    parser.add_argument("--initiative-tasks-file", default=str(DEFAULT_INITIATIVE_TASKS))
     parser.add_argument("--report", default=str(DEFAULT_REPORT))
     parser.add_argument("--max-rounds", type=int, default=10)
     parser.add_argument("--round-sleep-seconds", type=float, default=2.0)
     parser.add_argument("--command-timeout", type=float, default=900.0)
+    parser.add_argument("--seed-source", choices=["catalog", "initiative"], default="catalog")
+    parser.add_argument("--batch-id")
     parser.add_argument("--json", action="store_true")
     return parser.parse_args()
 
@@ -190,12 +194,20 @@ def fail_dispatch(args: argparse.Namespace, dispatch_id: str, *, message: str, r
     return run_subprocess(command, timeout=args.command_timeout).get("parsed") or {}
 
 
-def list_pilot_tasks() -> dict[str, Any]:
-    return run_subprocess(pilot_seed_command("list", "--json"), timeout=120.0).get("parsed") or {}
+def list_pilot_tasks(args: argparse.Namespace) -> dict[str, Any]:
+    command = pilot_seed_command("list", "--source", str(getattr(args, "seed_source", "catalog") or "catalog"))
+    batch_id = str(getattr(args, "batch_id", "") or "").strip()
+    if batch_id:
+        command.extend(["--batch-id", batch_id])
+    command.append("--json")
+    return run_subprocess(command, timeout=120.0).get("parsed") or {}
 
 
-def seed_tasks(task_refs: list[str]) -> dict[str, Any]:
-    command = pilot_seed_command("seed")
+def seed_tasks(args: argparse.Namespace, task_refs: list[str]) -> dict[str, Any]:
+    command = pilot_seed_command("seed", "--source", str(getattr(args, "seed_source", "catalog") or "catalog"))
+    batch_id = str(getattr(args, "batch_id", "") or "").strip()
+    if batch_id:
+        command.extend(["--batch-id", batch_id])
     for task_ref in task_refs:
         command.extend(["--task-ref", task_ref])
     command.append("--json")
@@ -403,7 +415,7 @@ def select_ready_unseeded_tasks(payload: dict[str, Any]) -> list[str]:
         if str(item.get("broker_status") or "").strip().lower() != "unseeded":
             continue
         readiness = item.get("readiness", {})
-        if not isinstance(readiness, dict) or readiness.get("ready") is not True:
+        if not isinstance(readiness, dict) or readiness.get("dispatch_ready") is not True:
             continue
         task_ref = str(item.get("task_ref") or "").strip()
         if task_ref:
@@ -459,12 +471,12 @@ def unattended_round(args: argparse.Namespace) -> dict[str, Any]:
             continue
         executions.append(execute_dispatch(args, dispatch))
 
-    pilot_payload = list_pilot_tasks()
+    pilot_payload = list_pilot_tasks(args)
     ready_unseeded = select_ready_unseeded_tasks(pilot_payload)
-    seed_payload: dict[str, Any] = {"status": "idle", "requested": []}
+    seed_payload: dict[str, Any] = {"status": "idle", "requested": [], "source": str(getattr(args, "seed_source", "catalog") or "catalog")}
     if ready_unseeded:
         progress = True
-        seed_payload = seed_tasks(ready_unseeded)
+        seed_payload = seed_tasks(args, ready_unseeded)
         seed_payload["requested"] = ready_unseeded
 
     return {

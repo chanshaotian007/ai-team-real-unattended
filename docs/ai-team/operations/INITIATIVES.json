@@ -1,0 +1,162 @@
+{
+  "initiatives": {
+    "INIT-DEMO-001": {
+      "initiative_id": "INIT-DEMO-001",
+      "title": "Demo approved flow",
+      "request_text": "Add dashboard review flow and keep auditability",
+      "requester": "user",
+      "priority": "medium",
+      "risk_level": "medium",
+      "status": "integration_ready",
+      "constraints": [],
+      "acceptance_criteria": [
+        "board updated"
+      ],
+      "analysis_artifact_refs": [],
+      "design_artifact_refs": [],
+      "plan_artifact_refs": [
+        "PLANS.md",
+        "README.md",
+        "docs/ai-team/operations/init-demo-001_analysis.json",
+        "docs/ai-team/operations/init-demo-001_design.json",
+        "docs/ai-team/operations/init-demo-001_implementation.json",
+        "docs/ai-team/operations/init-demo-001_plan.json",
+        "docs/ai-team/operations/init-demo-001_verification.json",
+        "scripts/ai_team_generated_impl.py"
+      ],
+      "approval": {
+        "required": true,
+        "status": "approved",
+        "approved_by": "tester",
+        "approved_at": "2026-05-25T14:58:42.305155+08:00",
+        "approval_notes": [
+          "approve demo"
+        ]
+      },
+      "execution_batch_ids": [
+        "INIT-DEMO-001-BATCH-001"
+      ],
+      "created_at": "2026-05-25T14:58:42.206741+08:00",
+      "updated_at": "2026-05-25T15:16:17.029724+08:00"
+    },
+    "INIT-DEMO-002": {
+      "initiative_id": "INIT-DEMO-002",
+      "title": "Demo green flow",
+      "request_text": "Add dashboard review flow and keep auditability",
+      "requester": "user",
+      "priority": "medium",
+      "risk_level": "medium",
+      "status": "integration_ready",
+      "constraints": [],
+      "acceptance_criteria": [
+        "board updated"
+      ],
+      "analysis_artifact_refs": [],
+      "design_artifact_refs": [],
+      "plan_artifact_refs": [
+        "PLANS.md",
+        "README.md",
+        "docs/ai-team/operations/init-demo-002_analysis.json",
+        "docs/ai-team/operations/init-demo-002_design.json",
+        "docs/ai-team/operations/init-demo-002_implementation.json",
+        "docs/ai-team/operations/init-demo-002_plan.json",
+        "docs/ai-team/operations/init-demo-002_verification.json",
+        "scripts/ai_team_generated_impl.py"
+      ],
+      "approval": {
+        "required": true,
+        "status": "approved",
+        "approved_by": "tester",
+        "approved_at": "2026-05-25T15:17:57.930728+08:00",
+        "approval_notes": [
+          "approve green demo"
+        ]
+      },
+      "execution_batch_ids": [
+        "INIT-DEMO-002-BATCH-001"
+      ],
+      "created_at": "2026-05-25T15:17:57.881558+08:00",
+      "updated_at": "2026-05-25T15:17:58.247833+08:00"
+    },
+    "INIT-DEMO-003": {
+      "initiative_id": "INIT-DEMO-003",
+      "title": "Demo passing flow",
+      "request_text": "Add dashboard review flow and keep auditability",
+      "requester": "user",
+      "priority": "medium",
+      "risk_level": "medium",
+      "status": "integration_ready",
+      "constraints": [],
+      "acceptance_criteria": [
+        "board updated"
+      ],
+      "analysis_artifact_refs": [],
+      "design_artifact_refs": [],
+      "plan_artifact_refs": [
+        "PLANS.md",
+        "README.md",
+        "docs/ai-team/operations/init-demo-003_analysis.json",
+        "docs/ai-team/operations/init-demo-003_design.json",
+        "docs/ai-team/operations/init-demo-003_implementation.json",
+        "docs/ai-team/operations/init-demo-003_plan.json",
+        "docs/ai-team/operations/init-demo-003_verification.json",
+        "scripts/ai_team_generated_impl.py"
+      ],
+      "approval": {
+        "required": true,
+        "status": "approved",
+        "approved_by": "tester",
+        "approved_at": "2026-05-25T15:19:18.219045+08:00",
+        "approval_notes": [
+          "approve passing demo"
+        ]
+      },
+      "execution_batch_ids": [
+        "INIT-DEMO-003-BATCH-001"
+      ],
+      "created_at": "2026-05-25T15:19:18.178518+08:00",
+      "updated_at": "2026-05-25T15:53:12.486153+08:00"
+    },
+    "INIT-ENH-001": {
+      "initiative_id": "INIT-ENH-001",
+      "title": "Enhanced delivery flow",
+      "request_text": "Add frontend dashboard review with release readiness",
+      "requester": "user",
+      "priority": "medium",
+      "risk_level": "medium",
+      "status": "closed",
+      "constraints": [],
+      "acceptance_criteria": [
+        "ready for mr"
+      ],
+      "analysis_artifact_refs": [],
+      "design_artifact_refs": [],
+      "plan_artifact_refs": [
+        "PLANS.md",
+        "README.md",
+        "docs/ai-team/operations/init-enh-001_analysis.json",
+        "docs/ai-team/operations/init-enh-001_design.json",
+        "docs/ai-team/operations/init-enh-001_implementation.json",
+        "docs/ai-team/operations/init-enh-001_plan.json",
+        "docs/ai-team/operations/init-enh-001_verification.json",
+        "frontend/generated_feature.py",
+        "scripts/ai_team_generated_impl.py"
+      ],
+      "approval": {
+        "required": true,
+        "status": "approved",
+        "approved_by": "tester",
+        "approved_at": "2026-05-25T16:02:48.619855+08:00",
+        "approval_notes": [
+          "enhance demo"
+        ]
+      },
+      "execution_batch_ids": [
+        "INIT-ENH-001-BATCH-001"
+      ],
+      "created_at": "2026-05-25T16:02:48.573572+08:00",
+      "updated_at": "2026-05-25T16:18:14.572980+08:00"
+    }
+  },
+  "updated_at": "2026-05-25T16:18:14.572980+08:00"
+}

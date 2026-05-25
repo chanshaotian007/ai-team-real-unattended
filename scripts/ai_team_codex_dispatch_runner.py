@@ -18,6 +18,7 @@ DEFAULT_BROKER_STATE = ROOT / "docs/ai-team/operations/M1_M2_72H_AGENT_BROKER.js
 COMPLETED_WORK_ORDER_STATUSES = {"completed", "accepted", "closed"}
 ACTIVE_WORK_ORDER_STATUSES = {"claimed", "running"}
 QUEUED_WORK_ORDER_STATUSES = {"queued", "pending", "dispatched", "retry_scheduled"}
+APPROVAL_ALLOWED_STATUSES = {"approved", "not_required"}
 
 
 def parse_args() -> argparse.Namespace:
@@ -125,7 +126,29 @@ def ensure_broker_state(payload: dict[str, Any] | None = None) -> dict[str, Any]
     return state
 
 
-def broker_dispatch_view(entry: dict[str, Any], broker_state: dict[str, Any] | None) -> dict[str, Any]:
+def dispatch_contract(dispatch: dict[str, Any]) -> dict[str, Any]:
+    payload = dispatch.get("task_contract")
+    return payload if isinstance(payload, dict) else {}
+
+
+def approval_gate_status(dispatch: dict[str, Any], broker_work_order: dict[str, Any] | None = None) -> str:
+    contract = dispatch_contract(dispatch)
+    gate = contract.get("approval_gate") if isinstance(contract.get("approval_gate"), dict) else {}
+    if isinstance(broker_work_order, dict):
+        broker_gate = broker_work_order.get("approval_gate") if isinstance(broker_work_order.get("approval_gate"), dict) else {}
+        if broker_gate:
+            gate = broker_gate
+    required = bool(gate.get("required", False))
+    if not required:
+        return "not_required"
+    return str(gate.get("status") or "pending").strip().lower() or "pending"
+
+
+def task_type(dispatch: dict[str, Any]) -> str:
+    contract = dispatch_contract(dispatch)
+    return str(contract.get("task_type") or dispatch.get("task_type") or "implementation").strip().lower() or "implementation"
+
+
     state = ensure_broker_state(broker_state)
     task_id = str(entry.get("task_id") or "").strip()
     dispatch_id = str(entry.get("dispatch_id") or "").strip()
@@ -143,6 +166,7 @@ def broker_dispatch_view(entry: dict[str, Any], broker_state: dict[str, Any] | N
         "status": str(work_order.get("status") or "").strip().lower(),
         "last_work_order_id": last_work_order_id or None,
         "delivery_gate_status": gate_status or None,
+        "approval_gate_status": approval_gate_status(entry, work_order),
         "completion_rejected": gate_status == "rejected" or int(work_order.get("completion_rejected_count", 0) or 0) > 0,
     }
 
@@ -163,6 +187,8 @@ def effective_dispatch_status(
     broker_status = broker_view["status"]
     if broker_view["completion_rejected"] and raw_status == "completed":
         return "reopened", broker_view
+    if broker_view.get("approval_gate_status") not in APPROVAL_ALLOWED_STATUSES and raw_status in {"queued", "pending"}:
+        return "awaiting_approval", broker_view
     if broker_status in COMPLETED_WORK_ORDER_STATUSES:
         return "completed", broker_view
     if broker_status == "errored":
@@ -208,6 +234,12 @@ def sync_broker_work_order(
             "created_at": when.isoformat(),
         }
 
+    work_order["task_type"] = task_type(dispatch)
+    work_order["approval_gate"] = dispatch_contract(dispatch).get("approval_gate") if isinstance(dispatch_contract(dispatch).get("approval_gate"), dict) else work_order.get("approval_gate")
+    work_order["initiative_id"] = str(dispatch.get("initiative_id") or work_order.get("initiative_id") or "").strip() or None
+    work_order["batch_id"] = str(dispatch.get("batch_id") or dispatch_contract(dispatch).get("batch_id") or work_order.get("batch_id") or "").strip() or None
+    if dispatch_contract(dispatch).get("phase"):
+        work_order["phase"] = str(dispatch_contract(dispatch).get("phase") or "").strip() or None
     work_order["status"] = status
     work_order["updated_at"] = when.isoformat()
     work_order["dispatch_channel"] = "codex_agent"
@@ -390,6 +422,9 @@ def claim_dispatch(args: argparse.Namespace) -> dict[str, Any]:
         status = str(dispatch_state.get("status") or "").strip().lower()
         if status in {"claimed", "completed", "errored"}:
             continue
+        broker_view = broker_dispatch_view(entry, ensure_broker_state(load_json(broker_state_path)))
+        if broker_view.get("approval_gate_status") not in APPROVAL_ALLOWED_STATUSES:
+            continue
         dispatch_state.update(
             {
                 "status": "claimed",
@@ -466,6 +501,8 @@ def list_dispatches(args: argparse.Namespace) -> dict[str, Any]:
                 "task_id": str(entry.get("task_id") or "").strip(),
                 "task_ref": str(entry.get("task_ref") or "").strip(),
                 "summary": str(entry.get("summary") or "").strip(),
+                "task_type": task_type(entry),
+                "approval_gate_status": broker_view["approval_gate_status"],
                 "status": effective_status,
                 "runner_status": str(dispatch_state.get("status") or "queued").strip() or "queued",
                 "broker_status": broker_view["status"] or None,
@@ -488,7 +525,7 @@ def list_dispatches(args: argparse.Namespace) -> dict[str, Any]:
 
 def status_dispatches(args: argparse.Namespace) -> dict[str, Any]:
     listing = list_dispatches(args)
-    counts = {"pending": 0, "queued": 0, "claimed": 0, "completed": 0, "errored": 0, "reopened": 0, "other": 0}
+    counts = {"pending": 0, "queued": 0, "claimed": 0, "completed": 0, "errored": 0, "reopened": 0, "awaiting_approval": 0, "other": 0}
     for item in listing["dispatches"]:
         status = str(item.get("status") or "").strip().lower()
         if status in {"queued", "pending"}:

@@ -1,0 +1,704 @@
+{
+  "status": "ok",
+  "column_count": 12,
+  "columns": {
+    "Intake": [],
+    "Analysis": [],
+    "Design": [],
+    "Plan": [],
+    "Awaiting Approval": [],
+    "Approved": [
+      {
+        "initiative_id": "INIT-ENH-001",
+        "task_id": "INIT-ENH-001-IMPLEMENT",
+        "task_ref": "INIT-ENH-001-IMPLEMENT",
+        "title": "Enhanced delivery flow",
+        "summary": "Enhanced delivery flow implementation",
+        "owner_role": "frontend-agent",
+        "task_type": "implementation",
+        "approval": {
+          "initiative_id": "INIT-ENH-001",
+          "status": "approved",
+          "approved_by": "tester",
+          "approved_at": "2026-05-25T16:02:48.619855+08:00",
+          "approval_notes": [
+            "enhance demo"
+          ],
+          "batch_id": "INIT-ENH-001-BATCH-001"
+        },
+        "batch_id": "INIT-ENH-001-BATCH-001",
+        "batch": {
+          "batch_id": "INIT-ENH-001-BATCH-001",
+          "initiative_id": "INIT-ENH-001",
+          "approved_snapshot_id": "2026-05-25T16:02:48.619855+08:00",
+          "task_ids": [
+            "INIT-ENH-001-ANALYSIS",
+            "INIT-ENH-001-DESIGN",
+            "INIT-ENH-001-IMPLEMENT",
+            "INIT-ENH-001-PLAN",
+            "INIT-ENH-001-VERIFY"
+          ],
+          "status": "completed",
+          "triggered_by": "tester",
+          "triggered_at": "2026-05-25T16:02:48.619855+08:00",
+          "started_at": "2026-05-25T16:14:17.248130+08:00",
+          "completed_at": "2026-05-25T16:14:17.507871+08:00",
+          "verification_summary": {
+            "completed_task_count": 5,
+            "artifacts_updated": 5
+          }
+        },
+        "work_order_status": "unseeded",
+        "write_scopes": [
+          "frontend/**",
+          "scripts/ai_team_generated_impl.py"
+        ]
+      }
+    ],
+    "Coding": [],
+    "QA/Compliance": [
+      {
+        "initiative_id": "INIT-ENH-001",
+        "task_id": "INIT-ENH-001-VERIFY",
+        "task_ref": "INIT-ENH-001-VERIFY",
+        "title": "Enhanced delivery flow",
+        "summary": "Enhanced delivery flow verification",
+        "owner_role": "qa-agent",
+        "task_type": "qa",
+        "approval": {
+          "initiative_id": "INIT-ENH-001",
+          "status": "approved",
+          "approved_by": "tester",
+          "approved_at": "2026-05-25T16:02:48.619855+08:00",
+          "approval_notes": [
+            "enhance demo"
+          ],
+          "batch_id": "INIT-ENH-001-BATCH-001"
+        },
+        "batch_id": "INIT-ENH-001-BATCH-001",
+        "batch": {
+          "batch_id": "INIT-ENH-001-BATCH-001",
+          "initiative_id": "INIT-ENH-001",
+          "approved_snapshot_id": "2026-05-25T16:02:48.619855+08:00",
+          "task_ids": [
+            "INIT-ENH-001-ANALYSIS",
+            "INIT-ENH-001-DESIGN",
+            "INIT-ENH-001-IMPLEMENT",
+            "INIT-ENH-001-PLAN",
+            "INIT-ENH-001-VERIFY"
+          ],
+          "status": "completed",
+          "triggered_by": "tester",
+          "triggered_at": "2026-05-25T16:02:48.619855+08:00",
+          "started_at": "2026-05-25T16:14:17.248130+08:00",
+          "completed_at": "2026-05-25T16:14:17.507871+08:00",
+          "verification_summary": {
+            "completed_task_count": 5,
+            "artifacts_updated": 5
+          }
+        },
+        "work_order_status": "unseeded",
+        "write_scopes": [
+          "tests/**",
+          "docs/ai-team/reviews/qa/**"
+        ]
+      }
+    ],
+    "Ready for MR": [
+      {
+        "initiative_id": "INIT-DEMO-001",
+        "task_id": "INIT-DEMO-001-IMPLEMENT",
+        "task_ref": "INIT-DEMO-001-IMPLEMENT",
+        "title": "Demo approved flow",
+        "summary": "Demo approved flow implementation",
+        "owner_role": "frontend-agent",
+        "task_type": "implementation",
+        "approval": {
+          "initiative_id": "INIT-DEMO-001",
+          "status": "approved",
+          "approved_by": "tester",
+          "approved_at": "2026-05-25T14:58:42.305155+08:00",
+          "approval_notes": [
+            "approve demo"
+          ],
+          "batch_id": "INIT-DEMO-001-BATCH-001"
+        },
+        "batch_id": "INIT-DEMO-001-BATCH-001",
+        "batch": {
+          "batch_id": "INIT-DEMO-001-BATCH-001",
+          "initiative_id": "INIT-DEMO-001",
+          "approved_snapshot_id": "2026-05-25T14:58:42.305155+08:00",
+          "task_ids": [
+            "INIT-DEMO-001-ANALYSIS",
+            "INIT-DEMO-001-DESIGN",
+            "INIT-DEMO-001-IMPLEMENT",
+            "INIT-DEMO-001-PLAN",
+            "INIT-DEMO-001-VERIFY"
+          ],
+          "status": "integration_ready",
+          "triggered_by": "tester",
+          "triggered_at": "2026-05-25T14:58:42.305155+08:00",
+          "started_at": "2026-05-25T15:16:16.672685+08:00",
+          "completed_at": "2026-05-25T15:16:16.983038+08:00",
+          "verification_summary": {
+            "completed_task_count": 5,
+            "artifacts_updated": 6,
+            "mr_report": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/reports/MR_PLAN.json",
+            "release_state": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json"
+          }
+        },
+        "work_order_status": "unseeded",
+        "write_scopes": [
+          "frontend/**"
+        ]
+      },
+      {
+        "initiative_id": "INIT-DEMO-002",
+        "task_id": "INIT-DEMO-002-IMPLEMENT",
+        "task_ref": "INIT-DEMO-002-IMPLEMENT",
+        "title": "Demo green flow",
+        "summary": "Demo green flow implementation",
+        "owner_role": "frontend-agent",
+        "task_type": "implementation",
+        "approval": {
+          "initiative_id": "INIT-DEMO-002",
+          "status": "approved",
+          "approved_by": "tester",
+          "approved_at": "2026-05-25T15:17:57.930728+08:00",
+          "approval_notes": [
+            "approve green demo"
+          ],
+          "batch_id": "INIT-DEMO-002-BATCH-001"
+        },
+        "batch_id": "INIT-DEMO-002-BATCH-001",
+        "batch": {
+          "batch_id": "INIT-DEMO-002-BATCH-001",
+          "initiative_id": "INIT-DEMO-002",
+          "approved_snapshot_id": "2026-05-25T15:17:57.930728+08:00",
+          "task_ids": [
+            "INIT-DEMO-002-ANALYSIS",
+            "INIT-DEMO-002-DESIGN",
+            "INIT-DEMO-002-IMPLEMENT",
+            "INIT-DEMO-002-PLAN",
+            "INIT-DEMO-002-VERIFY"
+          ],
+          "status": "integration_ready",
+          "triggered_by": "tester",
+          "triggered_at": "2026-05-25T15:17:57.930728+08:00",
+          "started_at": "2026-05-25T15:17:57.976938+08:00",
+          "completed_at": "2026-05-25T15:17:58.207489+08:00",
+          "verification_summary": {
+            "completed_task_count": 5,
+            "artifacts_updated": 8,
+            "mr_report": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/reports/MR_PLAN.json",
+            "release_state": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json"
+          }
+        },
+        "work_order_status": "unseeded",
+        "write_scopes": [
+          "frontend/**"
+        ]
+      },
+      {
+        "initiative_id": "INIT-DEMO-003",
+        "task_id": "INIT-DEMO-003-IMPLEMENT",
+        "task_ref": "INIT-DEMO-003-IMPLEMENT",
+        "title": "Demo passing flow",
+        "summary": "Demo passing flow implementation",
+        "owner_role": "frontend-agent",
+        "task_type": "implementation",
+        "approval": {
+          "initiative_id": "INIT-DEMO-003",
+          "status": "approved",
+          "approved_by": "tester",
+          "approved_at": "2026-05-25T15:19:18.219045+08:00",
+          "approval_notes": [
+            "approve passing demo"
+          ],
+          "batch_id": "INIT-DEMO-003-BATCH-001"
+        },
+        "batch_id": "INIT-DEMO-003-BATCH-001",
+        "batch": {
+          "batch_id": "INIT-DEMO-003-BATCH-001",
+          "initiative_id": "INIT-DEMO-003",
+          "approved_snapshot_id": "2026-05-25T15:19:18.219045+08:00",
+          "task_ids": [
+            "INIT-DEMO-003-ANALYSIS",
+            "INIT-DEMO-003-DESIGN",
+            "INIT-DEMO-003-IMPLEMENT",
+            "INIT-DEMO-003-PLAN",
+            "INIT-DEMO-003-VERIFY"
+          ],
+          "status": "integration_ready",
+          "triggered_by": "tester",
+          "triggered_at": "2026-05-25T15:19:18.219045+08:00",
+          "started_at": "2026-05-25T15:52:34.115919+08:00",
+          "completed_at": "2026-05-25T15:52:34.370803+08:00",
+          "verification_summary": {
+            "completed_task_count": 5,
+            "artifacts_updated": 5,
+            "mr_report": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/reports/MR_PLAN.json",
+            "release_state": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json"
+          }
+        },
+        "work_order_status": "unseeded",
+        "write_scopes": [
+          "frontend/**"
+        ]
+      }
+    ],
+    "Ready for Release": [
+      {
+        "initiative_id": "INIT-DEMO-001",
+        "task_id": "INIT-DEMO-001-VERIFY",
+        "task_ref": "INIT-DEMO-001-VERIFY",
+        "title": "Demo approved flow",
+        "summary": "Demo approved flow verification",
+        "owner_role": "qa-agent",
+        "task_type": "qa",
+        "approval": {
+          "initiative_id": "INIT-DEMO-001",
+          "status": "approved",
+          "approved_by": "tester",
+          "approved_at": "2026-05-25T14:58:42.305155+08:00",
+          "approval_notes": [
+            "approve demo"
+          ],
+          "batch_id": "INIT-DEMO-001-BATCH-001"
+        },
+        "batch_id": "INIT-DEMO-001-BATCH-001",
+        "batch": {
+          "batch_id": "INIT-DEMO-001-BATCH-001",
+          "initiative_id": "INIT-DEMO-001",
+          "approved_snapshot_id": "2026-05-25T14:58:42.305155+08:00",
+          "task_ids": [
+            "INIT-DEMO-001-ANALYSIS",
+            "INIT-DEMO-001-DESIGN",
+            "INIT-DEMO-001-IMPLEMENT",
+            "INIT-DEMO-001-PLAN",
+            "INIT-DEMO-001-VERIFY"
+          ],
+          "status": "integration_ready",
+          "triggered_by": "tester",
+          "triggered_at": "2026-05-25T14:58:42.305155+08:00",
+          "started_at": "2026-05-25T15:16:16.672685+08:00",
+          "completed_at": "2026-05-25T15:16:16.983038+08:00",
+          "verification_summary": {
+            "completed_task_count": 5,
+            "artifacts_updated": 6,
+            "mr_report": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/reports/MR_PLAN.json",
+            "release_state": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json"
+          }
+        },
+        "work_order_status": "unseeded",
+        "write_scopes": [
+          "tests/**",
+          "docs/ai-team/reviews/qa/**"
+        ]
+      },
+      {
+        "initiative_id": "INIT-DEMO-002",
+        "task_id": "INIT-DEMO-002-VERIFY",
+        "task_ref": "INIT-DEMO-002-VERIFY",
+        "title": "Demo green flow",
+        "summary": "Demo green flow verification",
+        "owner_role": "qa-agent",
+        "task_type": "qa",
+        "approval": {
+          "initiative_id": "INIT-DEMO-002",
+          "status": "approved",
+          "approved_by": "tester",
+          "approved_at": "2026-05-25T15:17:57.930728+08:00",
+          "approval_notes": [
+            "approve green demo"
+          ],
+          "batch_id": "INIT-DEMO-002-BATCH-001"
+        },
+        "batch_id": "INIT-DEMO-002-BATCH-001",
+        "batch": {
+          "batch_id": "INIT-DEMO-002-BATCH-001",
+          "initiative_id": "INIT-DEMO-002",
+          "approved_snapshot_id": "2026-05-25T15:17:57.930728+08:00",
+          "task_ids": [
+            "INIT-DEMO-002-ANALYSIS",
+            "INIT-DEMO-002-DESIGN",
+            "INIT-DEMO-002-IMPLEMENT",
+            "INIT-DEMO-002-PLAN",
+            "INIT-DEMO-002-VERIFY"
+          ],
+          "status": "integration_ready",
+          "triggered_by": "tester",
+          "triggered_at": "2026-05-25T15:17:57.930728+08:00",
+          "started_at": "2026-05-25T15:17:57.976938+08:00",
+          "completed_at": "2026-05-25T15:17:58.207489+08:00",
+          "verification_summary": {
+            "completed_task_count": 5,
+            "artifacts_updated": 8,
+            "mr_report": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/reports/MR_PLAN.json",
+            "release_state": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json"
+          }
+        },
+        "work_order_status": "unseeded",
+        "write_scopes": [
+          "tests/**",
+          "docs/ai-team/reviews/qa/**"
+        ]
+      },
+      {
+        "initiative_id": "INIT-DEMO-003",
+        "task_id": "INIT-DEMO-003-VERIFY",
+        "task_ref": "INIT-DEMO-003-VERIFY",
+        "title": "Demo passing flow",
+        "summary": "Demo passing flow verification",
+        "owner_role": "qa-agent",
+        "task_type": "qa",
+        "approval": {
+          "initiative_id": "INIT-DEMO-003",
+          "status": "approved",
+          "approved_by": "tester",
+          "approved_at": "2026-05-25T15:19:18.219045+08:00",
+          "approval_notes": [
+            "approve passing demo"
+          ],
+          "batch_id": "INIT-DEMO-003-BATCH-001"
+        },
+        "batch_id": "INIT-DEMO-003-BATCH-001",
+        "batch": {
+          "batch_id": "INIT-DEMO-003-BATCH-001",
+          "initiative_id": "INIT-DEMO-003",
+          "approved_snapshot_id": "2026-05-25T15:19:18.219045+08:00",
+          "task_ids": [
+            "INIT-DEMO-003-ANALYSIS",
+            "INIT-DEMO-003-DESIGN",
+            "INIT-DEMO-003-IMPLEMENT",
+            "INIT-DEMO-003-PLAN",
+            "INIT-DEMO-003-VERIFY"
+          ],
+          "status": "integration_ready",
+          "triggered_by": "tester",
+          "triggered_at": "2026-05-25T15:19:18.219045+08:00",
+          "started_at": "2026-05-25T15:52:34.115919+08:00",
+          "completed_at": "2026-05-25T15:52:34.370803+08:00",
+          "verification_summary": {
+            "completed_task_count": 5,
+            "artifacts_updated": 5,
+            "mr_report": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/reports/MR_PLAN.json",
+            "release_state": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json"
+          }
+        },
+        "work_order_status": "unseeded",
+        "write_scopes": [
+          "tests/**",
+          "docs/ai-team/reviews/qa/**"
+        ]
+      }
+    ],
+    "Done": [
+      {
+        "initiative_id": "INIT-DEMO-001",
+        "task_id": "INIT-DEMO-001-ANALYSIS",
+        "task_ref": "INIT-DEMO-001-ANALYSIS",
+        "title": "Demo approved flow",
+        "summary": "Demo approved flow requirement analysis",
+        "owner_role": "orchestrator",
+        "task_type": "analysis",
+        "approval": {
+          "initiative_id": "INIT-DEMO-001",
+          "status": "approved",
+          "approved_by": "tester",
+          "approved_at": "2026-05-25T14:58:42.305155+08:00",
+          "approval_notes": [
+            "approve demo"
+          ],
+          "batch_id": "INIT-DEMO-001-BATCH-001"
+        },
+        "batch_id": null,
+        "batch": null,
+        "work_order_status": "unseeded",
+        "write_scopes": [
+          "docs/ai-team/operations/**"
+        ]
+      },
+      {
+        "initiative_id": "INIT-DEMO-001",
+        "task_id": "INIT-DEMO-001-DESIGN",
+        "task_ref": "INIT-DEMO-001-DESIGN",
+        "title": "Demo approved flow",
+        "summary": "Demo approved flow system design",
+        "owner_role": "orchestrator",
+        "task_type": "design",
+        "approval": {
+          "initiative_id": "INIT-DEMO-001",
+          "status": "approved",
+          "approved_by": "tester",
+          "approved_at": "2026-05-25T14:58:42.305155+08:00",
+          "approval_notes": [
+            "approve demo"
+          ],
+          "batch_id": "INIT-DEMO-001-BATCH-001"
+        },
+        "batch_id": null,
+        "batch": null,
+        "work_order_status": "unseeded",
+        "write_scopes": [
+          "docs/ai-team/operations/**"
+        ]
+      },
+      {
+        "initiative_id": "INIT-DEMO-001",
+        "task_id": "INIT-DEMO-001-PLAN",
+        "task_ref": "INIT-DEMO-001-PLAN",
+        "title": "Demo approved flow",
+        "summary": "Demo approved flow execution planning",
+        "owner_role": "orchestrator",
+        "task_type": "planning",
+        "approval": {
+          "initiative_id": "INIT-DEMO-001",
+          "status": "approved",
+          "approved_by": "tester",
+          "approved_at": "2026-05-25T14:58:42.305155+08:00",
+          "approval_notes": [
+            "approve demo"
+          ],
+          "batch_id": "INIT-DEMO-001-BATCH-001"
+        },
+        "batch_id": null,
+        "batch": null,
+        "work_order_status": "unseeded",
+        "write_scopes": [
+          "docs/ai-team/operations/**",
+          "PLANS.md"
+        ]
+      },
+      {
+        "initiative_id": "INIT-DEMO-002",
+        "task_id": "INIT-DEMO-002-ANALYSIS",
+        "task_ref": "INIT-DEMO-002-ANALYSIS",
+        "title": "Demo green flow",
+        "summary": "Demo green flow requirement analysis",
+        "owner_role": "orchestrator",
+        "task_type": "analysis",
+        "approval": {
+          "initiative_id": "INIT-DEMO-002",
+          "status": "approved",
+          "approved_by": "tester",
+          "approved_at": "2026-05-25T15:17:57.930728+08:00",
+          "approval_notes": [
+            "approve green demo"
+          ],
+          "batch_id": "INIT-DEMO-002-BATCH-001"
+        },
+        "batch_id": null,
+        "batch": null,
+        "work_order_status": "unseeded",
+        "write_scopes": [
+          "docs/ai-team/operations/**"
+        ]
+      },
+      {
+        "initiative_id": "INIT-DEMO-002",
+        "task_id": "INIT-DEMO-002-DESIGN",
+        "task_ref": "INIT-DEMO-002-DESIGN",
+        "title": "Demo green flow",
+        "summary": "Demo green flow system design",
+        "owner_role": "orchestrator",
+        "task_type": "design",
+        "approval": {
+          "initiative_id": "INIT-DEMO-002",
+          "status": "approved",
+          "approved_by": "tester",
+          "approved_at": "2026-05-25T15:17:57.930728+08:00",
+          "approval_notes": [
+            "approve green demo"
+          ],
+          "batch_id": "INIT-DEMO-002-BATCH-001"
+        },
+        "batch_id": null,
+        "batch": null,
+        "work_order_status": "unseeded",
+        "write_scopes": [
+          "docs/ai-team/operations/**"
+        ]
+      },
+      {
+        "initiative_id": "INIT-DEMO-002",
+        "task_id": "INIT-DEMO-002-PLAN",
+        "task_ref": "INIT-DEMO-002-PLAN",
+        "title": "Demo green flow",
+        "summary": "Demo green flow execution planning",
+        "owner_role": "orchestrator",
+        "task_type": "planning",
+        "approval": {
+          "initiative_id": "INIT-DEMO-002",
+          "status": "approved",
+          "approved_by": "tester",
+          "approved_at": "2026-05-25T15:17:57.930728+08:00",
+          "approval_notes": [
+            "approve green demo"
+          ],
+          "batch_id": "INIT-DEMO-002-BATCH-001"
+        },
+        "batch_id": null,
+        "batch": null,
+        "work_order_status": "unseeded",
+        "write_scopes": [
+          "docs/ai-team/operations/**",
+          "PLANS.md"
+        ]
+      },
+      {
+        "initiative_id": "INIT-DEMO-003",
+        "task_id": "INIT-DEMO-003-ANALYSIS",
+        "task_ref": "INIT-DEMO-003-ANALYSIS",
+        "title": "Demo passing flow",
+        "summary": "Demo passing flow requirement analysis",
+        "owner_role": "orchestrator",
+        "task_type": "analysis",
+        "approval": {
+          "initiative_id": "INIT-DEMO-003",
+          "status": "approved",
+          "approved_by": "tester",
+          "approved_at": "2026-05-25T15:19:18.219045+08:00",
+          "approval_notes": [
+            "approve passing demo"
+          ],
+          "batch_id": "INIT-DEMO-003-BATCH-001"
+        },
+        "batch_id": null,
+        "batch": null,
+        "work_order_status": "unseeded",
+        "write_scopes": [
+          "docs/ai-team/operations/**"
+        ]
+      },
+      {
+        "initiative_id": "INIT-DEMO-003",
+        "task_id": "INIT-DEMO-003-DESIGN",
+        "task_ref": "INIT-DEMO-003-DESIGN",
+        "title": "Demo passing flow",
+        "summary": "Demo passing flow system design",
+        "owner_role": "orchestrator",
+        "task_type": "design",
+        "approval": {
+          "initiative_id": "INIT-DEMO-003",
+          "status": "approved",
+          "approved_by": "tester",
+          "approved_at": "2026-05-25T15:19:18.219045+08:00",
+          "approval_notes": [
+            "approve passing demo"
+          ],
+          "batch_id": "INIT-DEMO-003-BATCH-001"
+        },
+        "batch_id": null,
+        "batch": null,
+        "work_order_status": "unseeded",
+        "write_scopes": [
+          "docs/ai-team/operations/**"
+        ]
+      },
+      {
+        "initiative_id": "INIT-DEMO-003",
+        "task_id": "INIT-DEMO-003-PLAN",
+        "task_ref": "INIT-DEMO-003-PLAN",
+        "title": "Demo passing flow",
+        "summary": "Demo passing flow execution planning",
+        "owner_role": "orchestrator",
+        "task_type": "planning",
+        "approval": {
+          "initiative_id": "INIT-DEMO-003",
+          "status": "approved",
+          "approved_by": "tester",
+          "approved_at": "2026-05-25T15:19:18.219045+08:00",
+          "approval_notes": [
+            "approve passing demo"
+          ],
+          "batch_id": "INIT-DEMO-003-BATCH-001"
+        },
+        "batch_id": null,
+        "batch": null,
+        "work_order_status": "unseeded",
+        "write_scopes": [
+          "docs/ai-team/operations/**",
+          "PLANS.md"
+        ]
+      },
+      {
+        "initiative_id": "INIT-ENH-001",
+        "task_id": "INIT-ENH-001-ANALYSIS",
+        "task_ref": "INIT-ENH-001-ANALYSIS",
+        "title": "Enhanced delivery flow",
+        "summary": "Enhanced delivery flow requirement analysis",
+        "owner_role": "orchestrator",
+        "task_type": "analysis",
+        "approval": {
+          "initiative_id": "INIT-ENH-001",
+          "status": "approved",
+          "approved_by": "tester",
+          "approved_at": "2026-05-25T16:02:48.619855+08:00",
+          "approval_notes": [
+            "enhance demo"
+          ],
+          "batch_id": "INIT-ENH-001-BATCH-001"
+        },
+        "batch_id": null,
+        "batch": null,
+        "work_order_status": "unseeded",
+        "write_scopes": [
+          "docs/ai-team/operations/**"
+        ]
+      },
+      {
+        "initiative_id": "INIT-ENH-001",
+        "task_id": "INIT-ENH-001-DESIGN",
+        "task_ref": "INIT-ENH-001-DESIGN",
+        "title": "Enhanced delivery flow",
+        "summary": "Enhanced delivery flow system design",
+        "owner_role": "orchestrator",
+        "task_type": "design",
+        "approval": {
+          "initiative_id": "INIT-ENH-001",
+          "status": "approved",
+          "approved_by": "tester",
+          "approved_at": "2026-05-25T16:02:48.619855+08:00",
+          "approval_notes": [
+            "enhance demo"
+          ],
+          "batch_id": "INIT-ENH-001-BATCH-001"
+        },
+        "batch_id": null,
+        "batch": null,
+        "work_order_status": "unseeded",
+        "write_scopes": [
+          "docs/ai-team/operations/**"
+        ]
+      },
+      {
+        "initiative_id": "INIT-ENH-001",
+        "task_id": "INIT-ENH-001-PLAN",
+        "task_ref": "INIT-ENH-001-PLAN",
+        "title": "Enhanced delivery flow",
+        "summary": "Enhanced delivery flow execution planning",
+        "owner_role": "orchestrator",
+        "task_type": "planning",
+        "approval": {
+          "initiative_id": "INIT-ENH-001",
+          "status": "approved",
+          "approved_by": "tester",
+          "approved_at": "2026-05-25T16:02:48.619855+08:00",
+          "approval_notes": [
+            "enhance demo"
+          ],
+          "batch_id": "INIT-ENH-001-BATCH-001"
+        },
+        "batch_id": null,
+        "batch": null,
+        "work_order_status": "unseeded",
+        "write_scopes": [
+          "docs/ai-team/operations/**",
+          "PLANS.md"
+        ]
+      }
+    ],
+    "Blocked": []
+  }
+}

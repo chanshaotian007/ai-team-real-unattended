@@ -11,3 +11,14 @@
 | 5.5 | Staging / Release / Rollback Gate | `scripts/ai_team_release_controller.py`、release state | devops-agent | 可记录 staging、验活、release、rollback 状态链 | Verified-Local |
 | 5.6 | QA/UAT Baseline | `tests/`、`scripts/ai_team_codex_unattended.py` | qa-agent | 无人值守回归可跑通并产出 review | Verified-Local |
 | 5.7 | PLANS Sync Report | `scripts/ai_team_plans_status_sync.py`、reports | orchestrator | 可根据 broker/evidence 生成 closeout 报告 | Verified-Local |
+
+## 5. Initiative Execution Plans
+
+<!-- ai-team:INIT-DEMO-001-PLAN -->
+- INIT-DEMO-001-PLAN — 生成任务拆解、依赖和执行计划：Demo approved flow
+<!-- ai-team:INIT-DEMO-002-PLAN -->
+- INIT-DEMO-002-PLAN — 生成任务拆解、依赖和执行计划：Demo green flow
+AI_TEAM_MARKER_INIT_DEMO_003_PLAN
+- INIT-DEMO-003-PLAN — 生成任务拆解、依赖和执行计划：Demo passing flow
+AI_TEAM_MARKER_INIT_ENH_001_PLAN
+- INIT-ENH-001-PLAN — 生成任务拆解、依赖和执行计划：Enhanced delivery flow

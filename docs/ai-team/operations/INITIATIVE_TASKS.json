@@ -1,0 +1,1306 @@
+{
+  "tasks": {
+    "INIT-DEMO-001-ANALYSIS": {
+      "task_id": "INIT-DEMO-001-ANALYSIS",
+      "task_ref": "INIT-DEMO-001-ANALYSIS",
+      "initiative_id": "INIT-DEMO-001",
+      "parent_task_id": "INIT-DEMO-001",
+      "owner_role": "orchestrator",
+      "priority": 100,
+      "summary": "Demo approved flow requirement analysis",
+      "goal": "将需求整理为结构化分析：Demo approved flow",
+      "task_type": "analysis",
+      "phase": "planning",
+      "approval_gate": {
+        "required": false,
+        "status": "approved",
+        "reason": null
+      },
+      "execution_mode": "codex_agent",
+      "batch_id": null,
+      "depends_on_task_refs": [],
+      "constraints": [],
+      "read_scopes": [
+        "docs/**",
+        "scripts/**",
+        "AGENTS.md",
+        "PLANS.md"
+      ],
+      "write_scopes": [
+        "docs/ai-team/operations/**"
+      ],
+      "artifacts": [
+        "docs/ai-team/operations/init-demo-001_analysis.json"
+      ],
+      "acceptance_commands": [
+        "python3 scripts/ai_team_plans_status_sync.py --json"
+      ],
+      "rollback_hint": "revisit Demo approved flow requirement analysis output if evidence becomes stale",
+      "risk_notes_required": true,
+      "collaborators": [],
+      "model_hint": null,
+      "source_refs": [
+        "INIT-DEMO-001"
+      ],
+      "plan_links": [
+        "PLANS.md"
+      ],
+      "produces": [
+        "analysis"
+      ],
+      "consumes": [],
+      "runtime_status": "completed",
+      "tests_run": [
+        {
+          "command": "python3 scripts/ai_team_plans_status_sync.py --json",
+          "status": "passed"
+        }
+      ],
+      "changed_files": [
+        "docs/ai-team/operations/init-demo-001_analysis.json"
+      ]
+    },
+    "INIT-DEMO-001-DESIGN": {
+      "task_id": "INIT-DEMO-001-DESIGN",
+      "task_ref": "INIT-DEMO-001-DESIGN",
+      "initiative_id": "INIT-DEMO-001",
+      "parent_task_id": "INIT-DEMO-001",
+      "owner_role": "orchestrator",
+      "priority": 100,
+      "summary": "Demo approved flow system design",
+      "goal": "整理系统设计与影响范围：Demo approved flow",
+      "task_type": "design",
+      "phase": "planning",
+      "approval_gate": {
+        "required": false,
+        "status": "approved",
+        "reason": null
+      },
+      "execution_mode": "codex_agent",
+      "batch_id": null,
+      "depends_on_task_refs": [
+        "INIT-DEMO-001-ANALYSIS"
+      ],
+      "constraints": [],
+      "read_scopes": [
+        "docs/**",
+        "scripts/**",
+        "AGENTS.md",
+        "PLANS.md"
+      ],
+      "write_scopes": [
+        "docs/ai-team/operations/**"
+      ],
+      "artifacts": [
+        "docs/ai-team/operations/init-demo-001_design.json"
+      ],
+      "acceptance_commands": [
+        "python3 scripts/ai_team_plans_status_sync.py --json"
+      ],
+      "rollback_hint": "revisit Demo approved flow system design output if evidence becomes stale",
+      "risk_notes_required": true,
+      "collaborators": [],
+      "model_hint": null,
+      "source_refs": [
+        "INIT-DEMO-001"
+      ],
+      "plan_links": [
+        "PLANS.md"
+      ],
+      "produces": [
+        "design"
+      ],
+      "consumes": [
+        "INIT-DEMO-001-ANALYSIS"
+      ],
+      "runtime_status": "completed",
+      "tests_run": [
+        {
+          "command": "python3 scripts/ai_team_plans_status_sync.py --json",
+          "status": "passed"
+        }
+      ],
+      "changed_files": [
+        "docs/ai-team/operations/init-demo-001_design.json"
+      ]
+    },
+    "INIT-DEMO-001-PLAN": {
+      "task_id": "INIT-DEMO-001-PLAN",
+      "task_ref": "INIT-DEMO-001-PLAN",
+      "initiative_id": "INIT-DEMO-001",
+      "parent_task_id": "INIT-DEMO-001",
+      "owner_role": "orchestrator",
+      "priority": 100,
+      "summary": "Demo approved flow execution planning",
+      "goal": "生成任务拆解、依赖和执行计划：Demo approved flow",
+      "task_type": "planning",
+      "phase": "planning",
+      "approval_gate": {
+        "required": false,
+        "status": "approved",
+        "reason": null
+      },
+      "execution_mode": "codex_agent",
+      "batch_id": null,
+      "depends_on_task_refs": [
+        "INIT-DEMO-001-DESIGN"
+      ],
+      "constraints": [],
+      "read_scopes": [
+        "docs/**",
+        "scripts/**",
+        "AGENTS.md",
+        "PLANS.md"
+      ],
+      "write_scopes": [
+        "docs/ai-team/operations/**",
+        "PLANS.md"
+      ],
+      "artifacts": [
+        "docs/ai-team/operations/init-demo-001_plan.json"
+      ],
+      "acceptance_commands": [
+        "python3 scripts/ai_team_plans_status_sync.py --json"
+      ],
+      "rollback_hint": "revisit Demo approved flow execution planning output if evidence becomes stale",
+      "risk_notes_required": true,
+      "collaborators": [],
+      "model_hint": null,
+      "source_refs": [
+        "INIT-DEMO-001"
+      ],
+      "plan_links": [
+        "PLANS.md"
+      ],
+      "produces": [
+        "planning"
+      ],
+      "consumes": [
+        "INIT-DEMO-001-DESIGN"
+      ],
+      "runtime_status": "completed",
+      "tests_run": [
+        {
+          "command": "python3 scripts/ai_team_plans_status_sync.py --json",
+          "status": "passed"
+        }
+      ],
+      "changed_files": [
+        "docs/ai-team/operations/init-demo-001_plan.json"
+      ]
+    },
+    "INIT-DEMO-001-IMPLEMENT": {
+      "task_id": "INIT-DEMO-001-IMPLEMENT",
+      "task_ref": "INIT-DEMO-001-IMPLEMENT",
+      "initiative_id": "INIT-DEMO-001",
+      "parent_task_id": "INIT-DEMO-001",
+      "owner_role": "frontend-agent",
+      "priority": 100,
+      "summary": "Demo approved flow implementation",
+      "goal": "按计划完成首轮实现：Demo approved flow",
+      "task_type": "implementation",
+      "phase": "execution",
+      "approval_gate": {
+        "required": true,
+        "status": "approved",
+        "reason": null
+      },
+      "execution_mode": "codex_agent",
+      "batch_id": "INIT-DEMO-001-BATCH-001",
+      "depends_on_task_refs": [
+        "INIT-DEMO-001-PLAN"
+      ],
+      "constraints": [],
+      "read_scopes": [
+        "docs/**",
+        "scripts/**",
+        "AGENTS.md",
+        "PLANS.md"
+      ],
+      "write_scopes": [
+        "frontend/**"
+      ],
+      "artifacts": [
+        "docs/ai-team/operations/init-demo-001_implementation.json"
+      ],
+      "acceptance_commands": [
+        "python3 scripts/ai_team_codex_dispatch_runner.py status --json"
+      ],
+      "rollback_hint": "revisit Demo approved flow implementation output if evidence becomes stale",
+      "risk_notes_required": true,
+      "collaborators": [
+        "orchestrator"
+      ],
+      "model_hint": null,
+      "source_refs": [
+        "INIT-DEMO-001"
+      ],
+      "plan_links": [
+        "PLANS.md"
+      ],
+      "produces": [
+        "implementation"
+      ],
+      "consumes": [
+        "INIT-DEMO-001-PLAN"
+      ],
+      "runtime_status": "completed",
+      "tests_run": [
+        {
+          "command": "python3 scripts/ai_team_codex_dispatch_runner.py status --json",
+          "status": "failed"
+        }
+      ],
+      "changed_files": [
+        "scripts/ai_team_generated_impl.py",
+        "docs/ai-team/operations/init-demo-001_implementation.json"
+      ]
+    },
+    "INIT-DEMO-001-VERIFY": {
+      "task_id": "INIT-DEMO-001-VERIFY",
+      "task_ref": "INIT-DEMO-001-VERIFY",
+      "initiative_id": "INIT-DEMO-001",
+      "parent_task_id": "INIT-DEMO-001",
+      "owner_role": "qa-agent",
+      "priority": 100,
+      "summary": "Demo approved flow verification",
+      "goal": "验证实现产物、测试和风险说明：Demo approved flow",
+      "task_type": "qa",
+      "phase": "verification",
+      "approval_gate": {
+        "required": true,
+        "status": "approved",
+        "reason": null
+      },
+      "execution_mode": "codex_agent",
+      "batch_id": "INIT-DEMO-001-BATCH-001",
+      "depends_on_task_refs": [
+        "INIT-DEMO-001-IMPLEMENT"
+      ],
+      "constraints": [],
+      "read_scopes": [
+        "docs/**",
+        "scripts/**",
+        "AGENTS.md",
+        "PLANS.md"
+      ],
+      "write_scopes": [
+        "tests/**",
+        "docs/ai-team/reviews/qa/**"
+      ],
+      "artifacts": [
+        "docs/ai-team/operations/init-demo-001_verification.json"
+      ],
+      "acceptance_commands": [
+        "pytest tests -q"
+      ],
+      "rollback_hint": "revisit Demo approved flow verification output if evidence becomes stale",
+      "risk_notes_required": true,
+      "collaborators": [
+        "orchestrator"
+      ],
+      "model_hint": null,
+      "source_refs": [
+        "INIT-DEMO-001"
+      ],
+      "plan_links": [
+        "PLANS.md"
+      ],
+      "produces": [
+        "qa"
+      ],
+      "consumes": [
+        "INIT-DEMO-001-IMPLEMENT"
+      ],
+      "runtime_status": "completed",
+      "tests_run": [
+        {
+          "command": "pytest tests -q",
+          "status": "failed"
+        }
+      ],
+      "changed_files": [
+        "docs/ai-team/operations/init-demo-001_verification.json"
+      ]
+    },
+    "INIT-DEMO-002-ANALYSIS": {
+      "task_id": "INIT-DEMO-002-ANALYSIS",
+      "task_ref": "INIT-DEMO-002-ANALYSIS",
+      "initiative_id": "INIT-DEMO-002",
+      "parent_task_id": "INIT-DEMO-002",
+      "owner_role": "orchestrator",
+      "priority": 100,
+      "summary": "Demo green flow requirement analysis",
+      "goal": "将需求整理为结构化分析：Demo green flow",
+      "task_type": "analysis",
+      "phase": "planning",
+      "approval_gate": {
+        "required": false,
+        "status": "approved",
+        "reason": null
+      },
+      "execution_mode": "codex_agent",
+      "batch_id": null,
+      "depends_on_task_refs": [],
+      "constraints": [],
+      "read_scopes": [
+        "docs/**",
+        "scripts/**",
+        "AGENTS.md",
+        "PLANS.md"
+      ],
+      "write_scopes": [
+        "docs/ai-team/operations/**"
+      ],
+      "artifacts": [
+        "docs/ai-team/operations/init-demo-002_analysis.json"
+      ],
+      "acceptance_commands": [
+        "python3 scripts/ai_team_plans_status_sync.py --json"
+      ],
+      "rollback_hint": "revisit Demo green flow requirement analysis output if evidence becomes stale",
+      "risk_notes_required": true,
+      "collaborators": [],
+      "model_hint": null,
+      "source_refs": [
+        "INIT-DEMO-002"
+      ],
+      "plan_links": [
+        "PLANS.md"
+      ],
+      "produces": [
+        "analysis"
+      ],
+      "consumes": [],
+      "runtime_status": "completed",
+      "tests_run": [
+        {
+          "command": "python3 scripts/ai_team_plans_status_sync.py --json",
+          "status": "passed"
+        }
+      ],
+      "changed_files": [
+        "docs/ai-team/operations/init-demo-002_analysis.json"
+      ]
+    },
+    "INIT-DEMO-002-DESIGN": {
+      "task_id": "INIT-DEMO-002-DESIGN",
+      "task_ref": "INIT-DEMO-002-DESIGN",
+      "initiative_id": "INIT-DEMO-002",
+      "parent_task_id": "INIT-DEMO-002",
+      "owner_role": "orchestrator",
+      "priority": 100,
+      "summary": "Demo green flow system design",
+      "goal": "整理系统设计与影响范围：Demo green flow",
+      "task_type": "design",
+      "phase": "planning",
+      "approval_gate": {
+        "required": false,
+        "status": "approved",
+        "reason": null
+      },
+      "execution_mode": "codex_agent",
+      "batch_id": null,
+      "depends_on_task_refs": [
+        "INIT-DEMO-002-ANALYSIS"
+      ],
+      "constraints": [],
+      "read_scopes": [
+        "docs/**",
+        "scripts/**",
+        "AGENTS.md",
+        "PLANS.md"
+      ],
+      "write_scopes": [
+        "docs/ai-team/operations/**"
+      ],
+      "artifacts": [
+        "docs/ai-team/operations/init-demo-002_design.json"
+      ],
+      "acceptance_commands": [
+        "python3 scripts/ai_team_plans_status_sync.py --json"
+      ],
+      "rollback_hint": "revisit Demo green flow system design output if evidence becomes stale",
+      "risk_notes_required": true,
+      "collaborators": [],
+      "model_hint": null,
+      "source_refs": [
+        "INIT-DEMO-002"
+      ],
+      "plan_links": [
+        "PLANS.md"
+      ],
+      "produces": [
+        "design"
+      ],
+      "consumes": [
+        "INIT-DEMO-002-ANALYSIS"
+      ],
+      "runtime_status": "completed",
+      "tests_run": [
+        {
+          "command": "python3 scripts/ai_team_plans_status_sync.py --json",
+          "status": "passed"
+        }
+      ],
+      "changed_files": [
+        "docs/ai-team/operations/init-demo-002_design.json"
+      ]
+    },
+    "INIT-DEMO-002-PLAN": {
+      "task_id": "INIT-DEMO-002-PLAN",
+      "task_ref": "INIT-DEMO-002-PLAN",
+      "initiative_id": "INIT-DEMO-002",
+      "parent_task_id": "INIT-DEMO-002",
+      "owner_role": "orchestrator",
+      "priority": 100,
+      "summary": "Demo green flow execution planning",
+      "goal": "生成任务拆解、依赖和执行计划：Demo green flow",
+      "task_type": "planning",
+      "phase": "planning",
+      "approval_gate": {
+        "required": false,
+        "status": "approved",
+        "reason": null
+      },
+      "execution_mode": "codex_agent",
+      "batch_id": null,
+      "depends_on_task_refs": [
+        "INIT-DEMO-002-DESIGN"
+      ],
+      "constraints": [],
+      "read_scopes": [
+        "docs/**",
+        "scripts/**",
+        "AGENTS.md",
+        "PLANS.md"
+      ],
+      "write_scopes": [
+        "docs/ai-team/operations/**",
+        "PLANS.md"
+      ],
+      "artifacts": [
+        "docs/ai-team/operations/init-demo-002_plan.json"
+      ],
+      "acceptance_commands": [
+        "python3 scripts/ai_team_plans_status_sync.py --json"
+      ],
+      "rollback_hint": "revisit Demo green flow execution planning output if evidence becomes stale",
+      "risk_notes_required": true,
+      "collaborators": [],
+      "model_hint": null,
+      "source_refs": [
+        "INIT-DEMO-002"
+      ],
+      "plan_links": [
+        "PLANS.md"
+      ],
+      "produces": [
+        "planning"
+      ],
+      "consumes": [
+        "INIT-DEMO-002-DESIGN"
+      ],
+      "runtime_status": "completed",
+      "tests_run": [
+        {
+          "command": "python3 scripts/ai_team_plans_status_sync.py --json",
+          "status": "passed"
+        }
+      ],
+      "changed_files": [
+        "PLANS.md",
+        "docs/ai-team/operations/init-demo-002_plan.json"
+      ]
+    },
+    "INIT-DEMO-002-IMPLEMENT": {
+      "task_id": "INIT-DEMO-002-IMPLEMENT",
+      "task_ref": "INIT-DEMO-002-IMPLEMENT",
+      "initiative_id": "INIT-DEMO-002",
+      "parent_task_id": "INIT-DEMO-002",
+      "owner_role": "frontend-agent",
+      "priority": 100,
+      "summary": "Demo green flow implementation",
+      "goal": "按计划完成首轮实现：Demo green flow",
+      "task_type": "implementation",
+      "phase": "execution",
+      "approval_gate": {
+        "required": true,
+        "status": "approved",
+        "reason": null
+      },
+      "execution_mode": "codex_agent",
+      "batch_id": "INIT-DEMO-002-BATCH-001",
+      "depends_on_task_refs": [
+        "INIT-DEMO-002-PLAN"
+      ],
+      "constraints": [],
+      "read_scopes": [
+        "docs/**",
+        "scripts/**",
+        "AGENTS.md",
+        "PLANS.md"
+      ],
+      "write_scopes": [
+        "frontend/**"
+      ],
+      "artifacts": [
+        "docs/ai-team/operations/init-demo-002_implementation.json"
+      ],
+      "acceptance_commands": [
+        "python3 -m py_compile scripts/ai_team_generated_impl.py"
+      ],
+      "rollback_hint": "revisit Demo green flow implementation output if evidence becomes stale",
+      "risk_notes_required": true,
+      "collaborators": [
+        "orchestrator"
+      ],
+      "model_hint": null,
+      "source_refs": [
+        "INIT-DEMO-002"
+      ],
+      "plan_links": [
+        "PLANS.md"
+      ],
+      "produces": [
+        "implementation"
+      ],
+      "consumes": [
+        "INIT-DEMO-002-PLAN"
+      ],
+      "runtime_status": "completed",
+      "tests_run": [
+        {
+          "command": "python3 -m py_compile scripts/ai_team_generated_impl.py",
+          "status": "failed"
+        }
+      ],
+      "changed_files": [
+        "README.md",
+        "scripts/ai_team_generated_impl.py",
+        "docs/ai-team/operations/init-demo-002_implementation.json"
+      ]
+    },
+    "INIT-DEMO-002-VERIFY": {
+      "task_id": "INIT-DEMO-002-VERIFY",
+      "task_ref": "INIT-DEMO-002-VERIFY",
+      "initiative_id": "INIT-DEMO-002",
+      "parent_task_id": "INIT-DEMO-002",
+      "owner_role": "qa-agent",
+      "priority": 100,
+      "summary": "Demo green flow verification",
+      "goal": "验证实现产物、测试和风险说明：Demo green flow",
+      "task_type": "qa",
+      "phase": "verification",
+      "approval_gate": {
+        "required": true,
+        "status": "approved",
+        "reason": null
+      },
+      "execution_mode": "codex_agent",
+      "batch_id": "INIT-DEMO-002-BATCH-001",
+      "depends_on_task_refs": [
+        "INIT-DEMO-002-IMPLEMENT"
+      ],
+      "constraints": [],
+      "read_scopes": [
+        "docs/**",
+        "scripts/**",
+        "AGENTS.md",
+        "PLANS.md"
+      ],
+      "write_scopes": [
+        "tests/**",
+        "docs/ai-team/reviews/qa/**"
+      ],
+      "artifacts": [
+        "docs/ai-team/operations/init-demo-002_verification.json"
+      ],
+      "acceptance_commands": [
+        "python3 -m py_compile scripts/ai_team_generated_impl.py"
+      ],
+      "rollback_hint": "revisit Demo green flow verification output if evidence becomes stale",
+      "risk_notes_required": true,
+      "collaborators": [
+        "orchestrator"
+      ],
+      "model_hint": null,
+      "source_refs": [
+        "INIT-DEMO-002"
+      ],
+      "plan_links": [
+        "PLANS.md"
+      ],
+      "produces": [
+        "qa"
+      ],
+      "consumes": [
+        "INIT-DEMO-002-IMPLEMENT"
+      ],
+      "runtime_status": "completed",
+      "tests_run": [
+        {
+          "command": "python3 -m py_compile scripts/ai_team_generated_impl.py",
+          "status": "failed"
+        }
+      ],
+      "changed_files": [
+        "docs/ai-team/operations/init-demo-002_verification.json"
+      ]
+    },
+    "INIT-DEMO-003-ANALYSIS": {
+      "task_id": "INIT-DEMO-003-ANALYSIS",
+      "task_ref": "INIT-DEMO-003-ANALYSIS",
+      "initiative_id": "INIT-DEMO-003",
+      "parent_task_id": "INIT-DEMO-003",
+      "owner_role": "orchestrator",
+      "priority": 100,
+      "summary": "Demo passing flow requirement analysis",
+      "goal": "将需求整理为结构化分析：Demo passing flow",
+      "task_type": "analysis",
+      "phase": "planning",
+      "approval_gate": {
+        "required": false,
+        "status": "approved",
+        "reason": null
+      },
+      "execution_mode": "codex_agent",
+      "batch_id": null,
+      "depends_on_task_refs": [],
+      "constraints": [],
+      "read_scopes": [
+        "docs/**",
+        "scripts/**",
+        "AGENTS.md",
+        "PLANS.md"
+      ],
+      "write_scopes": [
+        "docs/ai-team/operations/**"
+      ],
+      "artifacts": [
+        "docs/ai-team/operations/init-demo-003_analysis.json"
+      ],
+      "acceptance_commands": [
+        "python3 scripts/ai_team_plans_status_sync.py --json"
+      ],
+      "rollback_hint": "revisit Demo passing flow requirement analysis output if evidence becomes stale",
+      "risk_notes_required": true,
+      "collaborators": [],
+      "model_hint": null,
+      "source_refs": [
+        "INIT-DEMO-003"
+      ],
+      "plan_links": [
+        "PLANS.md"
+      ],
+      "produces": [
+        "analysis"
+      ],
+      "consumes": [],
+      "runtime_status": "completed",
+      "tests_run": [
+        {
+          "command": "python3 scripts/ai_team_plans_status_sync.py --json",
+          "status": "passed"
+        }
+      ],
+      "changed_files": [
+        "docs/ai-team/operations/init-demo-003_analysis.json"
+      ]
+    },
+    "INIT-DEMO-003-DESIGN": {
+      "task_id": "INIT-DEMO-003-DESIGN",
+      "task_ref": "INIT-DEMO-003-DESIGN",
+      "initiative_id": "INIT-DEMO-003",
+      "parent_task_id": "INIT-DEMO-003",
+      "owner_role": "orchestrator",
+      "priority": 100,
+      "summary": "Demo passing flow system design",
+      "goal": "整理系统设计与影响范围：Demo passing flow",
+      "task_type": "design",
+      "phase": "planning",
+      "approval_gate": {
+        "required": false,
+        "status": "approved",
+        "reason": null
+      },
+      "execution_mode": "codex_agent",
+      "batch_id": null,
+      "depends_on_task_refs": [
+        "INIT-DEMO-003-ANALYSIS"
+      ],
+      "constraints": [],
+      "read_scopes": [
+        "docs/**",
+        "scripts/**",
+        "AGENTS.md",
+        "PLANS.md"
+      ],
+      "write_scopes": [
+        "docs/ai-team/operations/**"
+      ],
+      "artifacts": [
+        "docs/ai-team/operations/init-demo-003_design.json"
+      ],
+      "acceptance_commands": [
+        "python3 scripts/ai_team_plans_status_sync.py --json"
+      ],
+      "rollback_hint": "revisit Demo passing flow system design output if evidence becomes stale",
+      "risk_notes_required": true,
+      "collaborators": [],
+      "model_hint": null,
+      "source_refs": [
+        "INIT-DEMO-003"
+      ],
+      "plan_links": [
+        "PLANS.md"
+      ],
+      "produces": [
+        "design"
+      ],
+      "consumes": [
+        "INIT-DEMO-003-ANALYSIS"
+      ],
+      "runtime_status": "completed",
+      "tests_run": [
+        {
+          "command": "python3 scripts/ai_team_plans_status_sync.py --json",
+          "status": "passed"
+        }
+      ],
+      "changed_files": [
+        "docs/ai-team/operations/init-demo-003_design.json"
+      ]
+    },
+    "INIT-DEMO-003-PLAN": {
+      "task_id": "INIT-DEMO-003-PLAN",
+      "task_ref": "INIT-DEMO-003-PLAN",
+      "initiative_id": "INIT-DEMO-003",
+      "parent_task_id": "INIT-DEMO-003",
+      "owner_role": "orchestrator",
+      "priority": 100,
+      "summary": "Demo passing flow execution planning",
+      "goal": "生成任务拆解、依赖和执行计划：Demo passing flow",
+      "task_type": "planning",
+      "phase": "planning",
+      "approval_gate": {
+        "required": false,
+        "status": "approved",
+        "reason": null
+      },
+      "execution_mode": "codex_agent",
+      "batch_id": null,
+      "depends_on_task_refs": [
+        "INIT-DEMO-003-DESIGN"
+      ],
+      "constraints": [],
+      "read_scopes": [
+        "docs/**",
+        "scripts/**",
+        "AGENTS.md",
+        "PLANS.md"
+      ],
+      "write_scopes": [
+        "docs/ai-team/operations/**",
+        "PLANS.md"
+      ],
+      "artifacts": [
+        "docs/ai-team/operations/init-demo-003_plan.json"
+      ],
+      "acceptance_commands": [
+        "python3 scripts/ai_team_plans_status_sync.py --json"
+      ],
+      "rollback_hint": "revisit Demo passing flow execution planning output if evidence becomes stale",
+      "risk_notes_required": true,
+      "collaborators": [],
+      "model_hint": null,
+      "source_refs": [
+        "INIT-DEMO-003"
+      ],
+      "plan_links": [
+        "PLANS.md"
+      ],
+      "produces": [
+        "planning"
+      ],
+      "consumes": [
+        "INIT-DEMO-003-DESIGN"
+      ],
+      "runtime_status": "completed",
+      "tests_run": [
+        {
+          "command": "python3 scripts/ai_team_plans_status_sync.py --json",
+          "status": "passed"
+        }
+      ],
+      "changed_files": [
+        "docs/ai-team/operations/init-demo-003_plan.json"
+      ]
+    },
+    "INIT-DEMO-003-IMPLEMENT": {
+      "task_id": "INIT-DEMO-003-IMPLEMENT",
+      "task_ref": "INIT-DEMO-003-IMPLEMENT",
+      "initiative_id": "INIT-DEMO-003",
+      "parent_task_id": "INIT-DEMO-003",
+      "owner_role": "frontend-agent",
+      "priority": 100,
+      "summary": "Demo passing flow implementation",
+      "goal": "按计划完成首轮实现：Demo passing flow",
+      "task_type": "implementation",
+      "phase": "execution",
+      "approval_gate": {
+        "required": true,
+        "status": "approved",
+        "reason": null
+      },
+      "execution_mode": "codex_agent",
+      "batch_id": "INIT-DEMO-003-BATCH-001",
+      "depends_on_task_refs": [
+        "INIT-DEMO-003-PLAN"
+      ],
+      "constraints": [],
+      "read_scopes": [
+        "docs/**",
+        "scripts/**",
+        "AGENTS.md",
+        "PLANS.md"
+      ],
+      "write_scopes": [
+        "frontend/**"
+      ],
+      "artifacts": [
+        "docs/ai-team/operations/init-demo-003_implementation.json"
+      ],
+      "acceptance_commands": [
+        "python3 -m py_compile scripts/ai_team_generated_impl.py"
+      ],
+      "rollback_hint": "revisit Demo passing flow implementation output if evidence becomes stale",
+      "risk_notes_required": true,
+      "collaborators": [
+        "orchestrator"
+      ],
+      "model_hint": null,
+      "source_refs": [
+        "INIT-DEMO-003"
+      ],
+      "plan_links": [
+        "PLANS.md"
+      ],
+      "produces": [
+        "implementation"
+      ],
+      "consumes": [
+        "INIT-DEMO-003-PLAN"
+      ],
+      "runtime_status": "completed",
+      "tests_run": [
+        {
+          "command": "python3 -m py_compile scripts/ai_team_generated_impl.py",
+          "status": "passed"
+        }
+      ],
+      "changed_files": [
+        "docs/ai-team/operations/init-demo-003_implementation.json"
+      ]
+    },
+    "INIT-DEMO-003-VERIFY": {
+      "task_id": "INIT-DEMO-003-VERIFY",
+      "task_ref": "INIT-DEMO-003-VERIFY",
+      "initiative_id": "INIT-DEMO-003",
+      "parent_task_id": "INIT-DEMO-003",
+      "owner_role": "qa-agent",
+      "priority": 100,
+      "summary": "Demo passing flow verification",
+      "goal": "验证实现产物、测试和风险说明：Demo passing flow",
+      "task_type": "qa",
+      "phase": "verification",
+      "approval_gate": {
+        "required": true,
+        "status": "approved",
+        "reason": null
+      },
+      "execution_mode": "codex_agent",
+      "batch_id": "INIT-DEMO-003-BATCH-001",
+      "depends_on_task_refs": [
+        "INIT-DEMO-003-IMPLEMENT"
+      ],
+      "constraints": [],
+      "read_scopes": [
+        "docs/**",
+        "scripts/**",
+        "AGENTS.md",
+        "PLANS.md"
+      ],
+      "write_scopes": [
+        "tests/**",
+        "docs/ai-team/reviews/qa/**"
+      ],
+      "artifacts": [
+        "docs/ai-team/operations/init-demo-003_verification.json"
+      ],
+      "acceptance_commands": [
+        "python3 -m py_compile scripts/ai_team_generated_impl.py"
+      ],
+      "rollback_hint": "revisit Demo passing flow verification output if evidence becomes stale",
+      "risk_notes_required": true,
+      "collaborators": [
+        "orchestrator"
+      ],
+      "model_hint": null,
+      "source_refs": [
+        "INIT-DEMO-003"
+      ],
+      "plan_links": [
+        "PLANS.md"
+      ],
+      "produces": [
+        "qa"
+      ],
+      "consumes": [
+        "INIT-DEMO-003-IMPLEMENT"
+      ],
+      "runtime_status": "completed",
+      "tests_run": [
+        {
+          "command": "python3 -m py_compile scripts/ai_team_generated_impl.py",
+          "status": "passed"
+        }
+      ],
+      "changed_files": [
+        "docs/ai-team/operations/init-demo-003_verification.json"
+      ]
+    },
+    "INIT-ENH-001-ANALYSIS": {
+      "task_id": "INIT-ENH-001-ANALYSIS",
+      "task_ref": "INIT-ENH-001-ANALYSIS",
+      "initiative_id": "INIT-ENH-001",
+      "parent_task_id": "INIT-ENH-001",
+      "owner_role": "orchestrator",
+      "priority": 100,
+      "summary": "Enhanced delivery flow requirement analysis",
+      "goal": "将需求整理为结构化分析：Enhanced delivery flow",
+      "task_type": "analysis",
+      "phase": "planning",
+      "business_paths": [],
+      "approval_gate": {
+        "required": false,
+        "status": "approved",
+        "reason": null
+      },
+      "execution_mode": "codex_agent",
+      "batch_id": null,
+      "depends_on_task_refs": [],
+      "constraints": [],
+      "read_scopes": [
+        "docs/**",
+        "scripts/**",
+        "AGENTS.md",
+        "PLANS.md"
+      ],
+      "write_scopes": [
+        "docs/ai-team/operations/**"
+      ],
+      "artifacts": [
+        "docs/ai-team/operations/init-enh-001_analysis.json"
+      ],
+      "acceptance_commands": [
+        "python3 scripts/ai_team_plans_status_sync.py --json"
+      ],
+      "rollback_hint": "revisit Enhanced delivery flow requirement analysis output if evidence becomes stale",
+      "risk_notes_required": true,
+      "collaborators": [],
+      "model_hint": null,
+      "source_refs": [
+        "INIT-ENH-001"
+      ],
+      "plan_links": [
+        "PLANS.md"
+      ],
+      "produces": [
+        "analysis"
+      ],
+      "consumes": [],
+      "runtime_status": "completed",
+      "tests_run": [
+        {
+          "command": "python3 scripts/ai_team_plans_status_sync.py --json",
+          "status": "passed"
+        }
+      ],
+      "changed_files": [
+        "docs/ai-team/operations/init-enh-001_analysis.json"
+      ]
+    },
+    "INIT-ENH-001-DESIGN": {
+      "task_id": "INIT-ENH-001-DESIGN",
+      "task_ref": "INIT-ENH-001-DESIGN",
+      "initiative_id": "INIT-ENH-001",
+      "parent_task_id": "INIT-ENH-001",
+      "owner_role": "orchestrator",
+      "priority": 100,
+      "summary": "Enhanced delivery flow system design",
+      "goal": "整理系统设计与影响范围：Enhanced delivery flow",
+      "task_type": "design",
+      "phase": "planning",
+      "business_paths": [],
+      "approval_gate": {
+        "required": false,
+        "status": "approved",
+        "reason": null
+      },
+      "execution_mode": "codex_agent",
+      "batch_id": null,
+      "depends_on_task_refs": [
+        "INIT-ENH-001-ANALYSIS"
+      ],
+      "constraints": [],
+      "read_scopes": [
+        "docs/**",
+        "scripts/**",
+        "AGENTS.md",
+        "PLANS.md"
+      ],
+      "write_scopes": [
+        "docs/ai-team/operations/**"
+      ],
+      "artifacts": [
+        "docs/ai-team/operations/init-enh-001_design.json"
+      ],
+      "acceptance_commands": [
+        "python3 scripts/ai_team_plans_status_sync.py --json"
+      ],
+      "rollback_hint": "revisit Enhanced delivery flow system design output if evidence becomes stale",
+      "risk_notes_required": true,
+      "collaborators": [],
+      "model_hint": null,
+      "source_refs": [
+        "INIT-ENH-001"
+      ],
+      "plan_links": [
+        "PLANS.md"
+      ],
+      "produces": [
+        "design"
+      ],
+      "consumes": [
+        "INIT-ENH-001-ANALYSIS"
+      ],
+      "runtime_status": "completed",
+      "tests_run": [
+        {
+          "command": "python3 scripts/ai_team_plans_status_sync.py --json",
+          "status": "passed"
+        }
+      ],
+      "changed_files": [
+        "docs/ai-team/operations/init-enh-001_design.json"
+      ]
+    },
+    "INIT-ENH-001-PLAN": {
+      "task_id": "INIT-ENH-001-PLAN",
+      "task_ref": "INIT-ENH-001-PLAN",
+      "initiative_id": "INIT-ENH-001",
+      "parent_task_id": "INIT-ENH-001",
+      "owner_role": "orchestrator",
+      "priority": 100,
+      "summary": "Enhanced delivery flow execution planning",
+      "goal": "生成任务拆解、依赖和执行计划：Enhanced delivery flow",
+      "task_type": "planning",
+      "phase": "planning",
+      "business_paths": [],
+      "approval_gate": {
+        "required": false,
+        "status": "approved",
+        "reason": null
+      },
+      "execution_mode": "codex_agent",
+      "batch_id": null,
+      "depends_on_task_refs": [
+        "INIT-ENH-001-DESIGN"
+      ],
+      "constraints": [],
+      "read_scopes": [
+        "docs/**",
+        "scripts/**",
+        "AGENTS.md",
+        "PLANS.md"
+      ],
+      "write_scopes": [
+        "docs/ai-team/operations/**",
+        "PLANS.md"
+      ],
+      "artifacts": [
+        "docs/ai-team/operations/init-enh-001_plan.json"
+      ],
+      "acceptance_commands": [
+        "python3 scripts/ai_team_plans_status_sync.py --json"
+      ],
+      "rollback_hint": "revisit Enhanced delivery flow execution planning output if evidence becomes stale",
+      "risk_notes_required": true,
+      "collaborators": [],
+      "model_hint": null,
+      "source_refs": [
+        "INIT-ENH-001"
+      ],
+      "plan_links": [
+        "PLANS.md"
+      ],
+      "produces": [
+        "planning"
+      ],
+      "consumes": [
+        "INIT-ENH-001-DESIGN"
+      ],
+      "runtime_status": "completed",
+      "tests_run": [
+        {
+          "command": "python3 scripts/ai_team_plans_status_sync.py --json",
+          "status": "passed"
+        }
+      ],
+      "changed_files": [
+        "docs/ai-team/operations/init-enh-001_plan.json"
+      ]
+    },
+    "INIT-ENH-001-IMPLEMENT": {
+      "task_id": "INIT-ENH-001-IMPLEMENT",
+      "task_ref": "INIT-ENH-001-IMPLEMENT",
+      "initiative_id": "INIT-ENH-001",
+      "parent_task_id": "INIT-ENH-001",
+      "owner_role": "frontend-agent",
+      "priority": 100,
+      "summary": "Enhanced delivery flow implementation",
+      "goal": "按计划完成首轮实现：Enhanced delivery flow",
+      "task_type": "implementation",
+      "phase": "execution",
+      "business_paths": [
+        "frontend/generated_feature.py",
+        "scripts/ai_team_generated_impl.py"
+      ],
+      "approval_gate": {
+        "required": true,
+        "status": "approved",
+        "reason": null
+      },
+      "execution_mode": "codex_agent",
+      "batch_id": "INIT-ENH-001-BATCH-001",
+      "depends_on_task_refs": [
+        "INIT-ENH-001-PLAN"
+      ],
+      "constraints": [],
+      "read_scopes": [
+        "docs/**",
+        "scripts/**",
+        "AGENTS.md",
+        "PLANS.md"
+      ],
+      "write_scopes": [
+        "frontend/**",
+        "scripts/ai_team_generated_impl.py"
+      ],
+      "artifacts": [
+        "docs/ai-team/operations/init-enh-001_implementation.json"
+      ],
+      "acceptance_commands": [
+        "python3 -m py_compile scripts/ai_team_generated_impl.py"
+      ],
+      "rollback_hint": "revisit Enhanced delivery flow implementation output if evidence becomes stale",
+      "risk_notes_required": true,
+      "collaborators": [
+        "orchestrator"
+      ],
+      "model_hint": null,
+      "source_refs": [
+        "INIT-ENH-001"
+      ],
+      "plan_links": [
+        "PLANS.md"
+      ],
+      "produces": [
+        "implementation"
+      ],
+      "consumes": [
+        "INIT-ENH-001-PLAN"
+      ],
+      "runtime_status": "completed",
+      "tests_run": [
+        {
+          "command": "python3 -m py_compile scripts/ai_team_generated_impl.py",
+          "status": "passed"
+        }
+      ],
+      "changed_files": [
+        "docs/ai-team/operations/init-enh-001_implementation.json"
+      ]
+    },
+    "INIT-ENH-001-VERIFY": {
+      "task_id": "INIT-ENH-001-VERIFY",
+      "task_ref": "INIT-ENH-001-VERIFY",
+      "initiative_id": "INIT-ENH-001",
+      "parent_task_id": "INIT-ENH-001",
+      "owner_role": "qa-agent",
+      "priority": 100,
+      "summary": "Enhanced delivery flow verification",
+      "goal": "验证实现产物、测试和风险说明：Enhanced delivery flow",
+      "task_type": "qa",
+      "phase": "verification",
+      "business_paths": [],
+      "approval_gate": {
+        "required": true,
+        "status": "approved",
+        "reason": null
+      },
+      "execution_mode": "codex_agent",
+      "batch_id": "INIT-ENH-001-BATCH-001",
+      "depends_on_task_refs": [
+        "INIT-ENH-001-IMPLEMENT"
+      ],
+      "constraints": [],
+      "read_scopes": [
+        "docs/**",
+        "scripts/**",
+        "AGENTS.md",
+        "PLANS.md"
+      ],
+      "write_scopes": [
+        "tests/**",
+        "docs/ai-team/reviews/qa/**"
+      ],
+      "artifacts": [
+        "docs/ai-team/operations/init-enh-001_verification.json"
+      ],
+      "acceptance_commands": [
+        "python3 -m py_compile scripts/ai_team_generated_impl.py"
+      ],
+      "rollback_hint": "revisit Enhanced delivery flow verification output if evidence becomes stale",
+      "risk_notes_required": true,
+      "collaborators": [
+        "orchestrator"
+      ],
+      "model_hint": null,
+      "source_refs": [
+        "INIT-ENH-001"
+      ],
+      "plan_links": [
+        "PLANS.md"
+      ],
+      "produces": [
+        "qa"
+      ],
+      "consumes": [
+        "INIT-ENH-001-IMPLEMENT"
+      ],
+      "runtime_status": "completed",
+      "tests_run": [
+        {
+          "command": "python3 -m py_compile scripts/ai_team_generated_impl.py",
+          "status": "passed"
+        }
+      ],
+      "changed_files": [
+        "docs/ai-team/operations/init-enh-001_verification.json"
+      ]
+    }
+  },
+  "updated_at": "2026-05-25T16:18:14.572980+08:00"
+}

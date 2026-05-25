@@ -1,15 +1,33 @@
 {
-  "status": "ok",
-  "project_path": "chenjihui/kernel-sense",
-  "gitlab_base_url": "http://192.168.0.186:80",
-  "source_branch": "",
-  "target_branch": "main",
-  "payload": {
-    "source_branch": "",
-    "target_branch": "main",
-    "title": "ai-team: merge",
-    "description": "Automated ai-team delivery for branch ``.",
-    "remove_source_branch": "false",
-    "labels": "ai-team:auto,ai-team:review"
-  }
+  "status": "ready",
+  "initiative_id": "INIT-ENH-001",
+  "batch_id": "INIT-ENH-001-BATCH-001",
+  "title": "ai-team: integrate init-enh-001",
+  "description": "Automated ai-team delivery for INIT-ENH-001 via batch INIT-ENH-001-BATCH-001.",
+  "board_columns": {
+    "Intake": 0,
+    "Analysis": 0,
+    "Design": 0,
+    "Plan": 0,
+    "Awaiting Approval": 0,
+    "Approved": 1,
+    "Coding": 0,
+    "QA/Compliance": 1,
+    "Ready for MR": 3,
+    "Ready for Release": 3,
+    "Done": 12,
+    "Blocked": 0
+  },
+  "workflow_summary": {
+    "completed_task_count": 5,
+    "artifacts_updated": 5
+  },
+  "changed_files": [
+    "docs/ai-team/operations/init-enh-001_implementation.json",
+    "docs/ai-team/operations/init-enh-001_analysis.json",
+    "docs/ai-team/operations/init-enh-001_design.json",
+    "docs/ai-team/operations/init-enh-001_plan.json",
+    "docs/ai-team/operations/init-enh-001_verification.json"
+  ],
+  "mr_status": "planned"
 }

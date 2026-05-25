@@ -1,0 +1,15 @@
+{
+  "task_ref": "INIT-DEMO-002-DESIGN",
+  "task_type": "design",
+  "owner_role": "orchestrator",
+  "goal": "整理系统设计与影响范围：Demo green flow",
+  "generated_at": "2026-05-25T15:17:58.112173+08:00",
+  "status": "completed",
+  "changed_files": [],
+  "tests_run": [
+    {
+      "command": "python3 scripts/ai_team_plans_status_sync.py --json",
+      "status": "passed"
+    }
+  ]
+}

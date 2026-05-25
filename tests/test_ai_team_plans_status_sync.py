@@ -20,6 +20,9 @@ def test_sync_updates_ready_row(tmp_path: Path) -> None:
     mapping = tmp_path / "map.yaml"
     broker = tmp_path / "broker.json"
     evidence = tmp_path / "evidence.txt"
+    initiatives = tmp_path / "initiatives.json"
+    approvals = tmp_path / "approvals.json"
+    batches = tmp_path / "batches.json"
 
     plans.write_text("| 5.1 | dispatch | x | x | x | Pending |\n", encoding="utf-8")
     evidence.write_text("ok\n", encoding="utf-8")
@@ -35,6 +38,9 @@ def test_sync_updates_ready_row(tmp_path: Path) -> None:
         json.dumps({"work_orders": {"TASK-TEAM-DISPATCH-001": {"status": "completed", "task_ref": "TASK-TEAM-DISPATCH-001"}}}),
         encoding="utf-8",
     )
+    initiatives.write_text(json.dumps({"initiatives": {"INIT-1": {"status": "approved_for_execution"}}}), encoding="utf-8")
+    approvals.write_text(json.dumps({"approvals": {"INIT-1": {"status": "approved"}}}), encoding="utf-8")
+    batches.write_text(json.dumps({"batches": {"INIT-1-BATCH-001": {"status": "approved"}}}), encoding="utf-8")
 
     payload = MODULE.sync_statuses(
         type(
@@ -44,6 +50,9 @@ def test_sync_updates_ready_row(tmp_path: Path) -> None:
                 "plans": str(plans),
                 "mapping": str(mapping),
                 "broker_state": str(broker),
+                "initiatives_file": str(initiatives),
+                "approvals_file": str(approvals),
+                "execution_batches_file": str(batches),
                 "apply": True,
                 "write_report": None,
                 "json": True,
@@ -52,4 +61,7 @@ def test_sync_updates_ready_row(tmp_path: Path) -> None:
     )
 
     assert payload["summary"]["updated_count"] == 1
+    assert payload["initiative_summary"]["initiative_count"] == 1
+    assert payload["initiative_summary"]["approval_count"] == 1
+    assert payload["initiative_summary"]["batch_count"] == 1
     assert "Verified-Local" in plans.read_text(encoding="utf-8")

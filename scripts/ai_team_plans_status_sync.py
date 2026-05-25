@@ -13,6 +13,9 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_PLANS = ROOT / "PLANS.md"
 DEFAULT_MAPPING = ROOT / "docs/ai-team/operations/PLANS_CLOSURE_MAP.yaml"
 DEFAULT_BROKER = ROOT / "docs/ai-team/operations/M1_M2_72H_AGENT_BROKER.json"
+DEFAULT_INITIATIVES = ROOT / "docs/ai-team/operations/INITIATIVES.json"
+DEFAULT_APPROVALS = ROOT / "docs/ai-team/operations/APPROVALS.json"
+DEFAULT_EXECUTION_BATCHES = ROOT / "docs/ai-team/operations/EXECUTION_BATCHES.json"
 COMPLETED_WORK_ORDER_STATUSES = {"completed", "accepted", "closed"}
 STATUS_PRIORITY = {
     "completed": 50,
@@ -35,6 +38,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--plans", default=str(DEFAULT_PLANS))
     parser.add_argument("--mapping", default=str(DEFAULT_MAPPING))
     parser.add_argument("--broker-state", default=str(DEFAULT_BROKER))
+    parser.add_argument("--initiatives-file", default=str(DEFAULT_INITIATIVES))
+    parser.add_argument("--approvals-file", default=str(DEFAULT_APPROVALS))
+    parser.add_argument("--execution-batches-file", default=str(DEFAULT_EXECUTION_BATCHES))
     parser.add_argument("--apply", action="store_true")
     parser.add_argument("--write-report")
     parser.add_argument("--json", action="store_true")
@@ -155,7 +161,27 @@ def item_report(item: dict[str, Any], plan_rows: dict[str, dict[str, Any]], task
     }
 
 
-def apply_updates(plans_path: Path, reports: list[dict[str, Any]]) -> list[str]:
+def initiative_summary(path: Path, approvals_path: Path, batches_path: Path) -> dict[str, Any]:
+    initiatives = load_json(path)
+    approvals = load_json(approvals_path)
+    batches = load_json(batches_path)
+    initiative_items = initiatives.get("initiatives") if isinstance(initiatives.get("initiatives"), dict) else {}
+    approval_items = approvals.get("approvals") if isinstance(approvals.get("approvals"), dict) else {}
+    batch_items = batches.get("batches") if isinstance(batches.get("batches"), dict) else {}
+    status_counts: dict[str, int] = {}
+    for payload in initiative_items.values():
+        if not isinstance(payload, dict):
+            continue
+        status = str(payload.get("status") or "unknown").strip().lower() or "unknown"
+        status_counts[status] = status_counts.get(status, 0) + 1
+    return {
+        "initiative_count": len(initiative_items),
+        "approval_count": len(approval_items),
+        "batch_count": len(batch_items),
+        "status_counts": status_counts,
+    }
+
+
     text = plans_path.read_text(encoding="utf-8")
     lines = text.splitlines()
     updated_refs: list[str] = []
@@ -186,6 +212,9 @@ def sync_statuses(args: argparse.Namespace) -> dict[str, Any]:
     plans_path = resolve_path(args.plans)
     mapping_path = resolve_path(args.mapping)
     broker_path = resolve_path(args.broker_state)
+    initiatives_path = resolve_path(args.initiatives_file)
+    approvals_path = resolve_path(args.approvals_file)
+    batches_path = resolve_path(args.execution_batches_file)
 
     plans_text = plans_path.read_text(encoding="utf-8")
     mapping_items = load_mapping_items(mapping_path)
@@ -201,6 +230,7 @@ def sync_statuses(args: argparse.Namespace) -> dict[str, Any]:
         "plans_path": str(plans_path),
         "mapping_path": str(mapping_path),
         "broker_state_path": str(broker_path),
+        "initiative_summary": initiative_summary(initiatives_path, approvals_path, batches_path),
         "summary": {
             "mapped_count": len(reports),
             "ready_count": sum(1 for item in reports if item["ready"]),
