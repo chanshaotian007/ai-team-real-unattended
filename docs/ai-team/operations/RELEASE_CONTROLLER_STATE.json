@@ -1,13 +1,78 @@
 {
-  "generated_at": "2026-05-25T17:59:35.966470+08:00",
+  "generated_at": "2026-05-25T18:08:00.171918+08:00",
   "staging": {
-    "artifact": null,
-    "status": "idle",
-    "verified_checks": []
+    "artifact": "INIT-ENH-001-BATCH-001",
+    "status": "verified",
+    "environment": "staging",
+    "verified_checks": [
+      {
+        "check": "initiative:INIT-ENH-001",
+        "status": "passed",
+        "at": "2026-05-25T18:08:00.356154+08:00"
+      }
+    ]
   },
   "production": {
     "artifact": null,
-    "status": "idle"
+    "status": "rolled_back",
+    "rollback_reason": "release_gate=blocked",
+    "rolled_back_at": "2026-05-25T18:08:00.544220+08:00"
   },
-  "history": []
+  "history": [
+    {
+      "at": "2026-05-25T18:08:00.262803+08:00",
+      "event": "promote-staging",
+      "details": {
+        "artifact": "INIT-ENH-001-BATCH-001",
+        "environment": "staging",
+        "command_result": {
+          "command": "python3 -m py_compile scripts/ai_team_generated_impl.py",
+          "returncode": 0,
+          "stdout_tail": [],
+          "stderr_tail": [],
+          "parsed": null
+        }
+      }
+    },
+    {
+      "at": "2026-05-25T18:08:00.356194+08:00",
+      "event": "verify",
+      "details": {
+        "environment": "staging",
+        "check": "initiative:INIT-ENH-001",
+        "status": "passed"
+      }
+    },
+    {
+      "at": "2026-05-25T18:08:00.356461+08:00",
+      "event": "run-check",
+      "details": {
+        "status": "passed",
+        "environment": "staging",
+        "check": "initiative:INIT-ENH-001",
+        "command_result": {
+          "command": "python3 -m py_compile scripts/ai_team_generated_impl.py",
+          "returncode": 0,
+          "stdout_tail": [],
+          "stderr_tail": [],
+          "parsed": null
+        }
+      }
+    },
+    {
+      "at": "2026-05-25T18:08:00.544257+08:00",
+      "event": "rollback",
+      "details": {
+        "environment": "production",
+        "reason": "release_gate=blocked",
+        "command_result": {
+          "command": "python3 -m py_compile scripts/ai_team_generated_impl.py",
+          "returncode": 0,
+          "stdout_tail": [],
+          "stderr_tail": [],
+          "parsed": null
+        }
+      }
+    }
+  ]
 }

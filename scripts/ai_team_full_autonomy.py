@@ -243,9 +243,14 @@ def build_mr_report(initiative_id: str, batch_id: str, board: dict[str, Any], wo
         elif mr_live_status in {"open", "created", "existing"}:
             resolved_status = mr_live_status
         elif mr_live_status in {"missing_token", "missing_context"}:
-            resolved_status = mr_live_status
+            resolved_status = "blocked_missing_context"
     elif save_status in {"saved", "saved-and-pushed", "noop"}:
-        resolved_status = str(mr_plan.get("status") or "planned_only").strip().lower() or "planned_only"
+        if ensure_state == "failed" and mr_live_status in {"missing_token", "missing_context"}:
+            resolved_status = "planned_only"
+        elif str(mr_plan.get("status") or "").strip().lower() == "ok":
+            resolved_status = "planned_only"
+        else:
+            resolved_status = str(mr_plan.get("status") or "planned_only").strip().lower() or "planned_only"
     return {
         "status": "ready",
         "initiative_id": initiative_id,

@@ -42,15 +42,20 @@ python3 scripts/ai_team_board.py --json
 
 ## Lifecycle
 
-The standalone ai-team now supports a minimal requirement-driven lifecycle:
+The standalone ai-team now supports a requirement-driven lifecycle with two operating modes:
 
 1. create initiative from requirement text
 2. generate analysis / design / planning / implementation / verification tasks
 3. wait for explicit approval
 4. create an execution batch on approval
 5. seed only dispatch-ready tasks
-6. run unattended execution against approved work
+6. run full autonomy against approved work
 7. project board / PLANS / MR / release reports
+
+### Modes
+
+- **local simulation**: no external GitLab token / project / deploy context; the system may emit `planned_only` or `blocked_missing_context` while still producing local artifacts and batch evidence.
+- **external lifecycle**: with valid remote / GitLab / deploy commands, the system can progress through push, ensure-mr, mr-status, pipeline-status, staging verification, and release/rollback actions.
 
 ## Compatibility
 

@@ -29,21 +29,18 @@
     "docs/ai-team/operations/init-enh-001_plan.json",
     "docs/ai-team/operations/init-enh-001_verification.json"
   ],
-  "mr_status": "blocked",
+  "mr_status": "ok",
   "git_save": {
-    "status": "failed",
-    "command": [
-      "/usr/bin/python3",
-      "/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_git_repo_manager.py",
-      "save",
-      "--all",
-      "--message",
-      "chore: ai-team autonomy checkpoint",
-      "--json"
-    ],
-    "returncode": 1,
-    "stdout": "",
-    "stderr": "Traceback (most recent call last):\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_git_repo_manager.py\", line 310, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_git_repo_manager.py\", line 277, in main\n    payload = save_repo(repo, args.message, list(args.path), bool(args.all), args.user_name, args.user_email)\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_git_repo_manager.py\", line 209, in save_repo\n    \"branch\": current_branch(repo),\n              ^^^^^^^^^^^^^^\nNameError: name 'current_branch' is not defined",
+    "status": "saved",
+    "repo": "/home/hya-chenu/AIWS/ai-team-real-unattended",
+    "branch": "main",
+    "commit": "cc996fdeb904978076dab607e2b43e6a172979ef",
+    "staged": {
+      "mode": "all",
+      "paths": []
+    },
+    "identity_updated": {},
+    "working_tree": [],
     "push": {
       "status": "failed",
       "command": [
@@ -57,7 +54,7 @@
       ],
       "returncode": 1,
       "stdout": "",
-      "stderr": "Traceback (most recent call last):\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_git_repo_manager.py\", line 310, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_git_repo_manager.py\", line 279, in main\n    payload = push_repo(\n        repo,\n    ...<5 lines>...\n        http_token=args.http_token,\n    )\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_git_repo_manager.py\", line 232, in push_repo\n    branch_result = ensure_branch(repo, push_branch) if ensure_branch_exists else {\"status\": \"skipped\", \"branch\": push_branch}\n                    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_git_repo_manager.py\", line 120, in ensure_branch\n    current = current_branch(repo)\n              ^^^^^^^^^^^^^^\nNameError: name 'current_branch' is not defined. Did you mean: 'target_branch'?"
+      "stderr": "Traceback (most recent call last):\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_git_repo_manager.py\", line 315, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_git_repo_manager.py\", line 284, in main\n    payload = push_repo(\n        repo,\n    ...<5 lines>...\n        http_token=args.http_token,\n    )\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_git_repo_manager.py\", line 240, in push_repo\n    run_git(repo, \"push\", \"-u\", target_for_push, push_branch)\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_git_repo_manager.py\", line 72, in run_git\n    return subprocess.run(\n           ~~~~~~~~~~~~~~^\n        [\"git\", *args],\n        ^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        check=check,\n        ^^^^^^^^^^^^\n    )\n    ^\n  File \"/usr/lib/python3.14/subprocess.py\", line 578, in run\n    raise CalledProcessError(retcode, process.args,\n                             output=stdout, stderr=stderr)\nsubprocess.CalledProcessError: Command '['git', 'push', '-u', 'origin', 'ai-team/init-enh-001/init-enh-001-batch-001']' returned non-zero exit status 128."
     }
   },
   "mr_plan": {
