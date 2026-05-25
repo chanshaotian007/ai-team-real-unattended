@@ -29,6 +29,7 @@ def parse_args() -> argparse.Namespace:
     stage_cmd = subparsers.add_parser("promote-staging")
     stage_cmd.add_argument("--artifact", required=True)
     stage_cmd.add_argument("--environment", default="staging")
+    stage_cmd.add_argument("--command", dest="command_text")
     stage_cmd.add_argument("--json", action="store_true")
 
     verify_cmd = subparsers.add_parser("verify")
@@ -46,6 +47,7 @@ def parse_args() -> argparse.Namespace:
     release_cmd = subparsers.add_parser("promote-release")
     release_cmd.add_argument("--artifact", required=True)
     release_cmd.add_argument("--environment", default="production")
+    release_cmd.add_argument("--command", dest="command_text")
     release_cmd.add_argument("--json", action="store_true")
 
     rollback_cmd = subparsers.add_parser("rollback")
@@ -157,12 +159,17 @@ def init_state(path: Path) -> dict[str, Any]:
     return {"status": "initialized", "state_file": str(path), "state": state}
 
 
-def staging_promote(path: Path, artifact: str, environment: str) -> dict[str, Any]:
+def staging_promote(path: Path, artifact: str, environment: str, command: str | None = None) -> dict[str, Any]:
     state = load_state(path)
+    command_result = run_shell_command(command) if command else None
+    if command_result is not None and not command_passed(command_result):
+        append_history(state, "promote-staging-failed", {"artifact": artifact, "environment": environment, "command_result": command_result})
+        write_state(path, state)
+        return {"status": "failed", "stage": "staging", "artifact": artifact, "environment": environment, "command_result": command_result}
     state["staging"] = {"artifact": artifact, "status": "promoted", "environment": environment, "verified_checks": []}
-    append_history(state, "promote-staging", {"artifact": artifact, "environment": environment})
+    append_history(state, "promote-staging", {"artifact": artifact, "environment": environment, "command_result": command_result})
     write_state(path, state)
-    return {"status": "promoted", "stage": "staging", "artifact": artifact, "environment": environment}
+    return {"status": "promoted", "stage": "staging", "artifact": artifact, "environment": environment, "command_result": command_result}
 
 
 def verify_environment(path: Path, environment: str, check: str, status: str) -> dict[str, Any]:
@@ -198,15 +205,20 @@ def run_check(path: Path, environment: str, check: str, command: str) -> dict[st
     return payload
 
 
-def promote_release(path: Path, artifact: str, environment: str) -> dict[str, Any]:
+def promote_release(path: Path, artifact: str, environment: str, command: str | None = None) -> dict[str, Any]:
     state = load_state(path)
     staging = state.get("staging")
     if not isinstance(staging, dict) or staging.get("status") != "verified":
         raise RuntimeError("staging_not_verified")
+    command_result = run_shell_command(command) if command else None
+    if command_result is not None and not command_passed(command_result):
+        append_history(state, "promote-release-failed", {"artifact": artifact, "environment": environment, "command_result": command_result})
+        write_state(path, state)
+        return {"status": "failed", "environment": environment, "artifact": artifact, "command_result": command_result}
     state["production"] = {"artifact": artifact, "status": "released", "environment": environment}
-    append_history(state, "promote-release", {"artifact": artifact, "environment": environment})
+    append_history(state, "promote-release", {"artifact": artifact, "environment": environment, "command_result": command_result})
     write_state(path, state)
-    return {"status": "released", "environment": environment, "artifact": artifact}
+    return {"status": "released", "environment": environment, "artifact": artifact, "command_result": command_result}
 
 
 def rollback_release(path: Path, environment: str, reason: str, command: str | None = None) -> dict[str, Any]:
@@ -248,13 +260,13 @@ def main() -> int:
     elif args.command == "status":
         payload = status_state(path)
     elif args.command == "promote-staging":
-        payload = staging_promote(path, args.artifact, args.environment)
+        payload = staging_promote(path, args.artifact, args.environment, args.command_text)
     elif args.command == "verify":
         payload = verify_environment(path, args.environment, args.check, args.status)
     elif args.command == "run-check":
         payload = run_check(path, args.environment, args.check, args.command_text)
     elif args.command == "promote-release":
-        payload = promote_release(path, args.artifact, args.environment)
+        payload = promote_release(path, args.artifact, args.environment, args.command_text)
     elif args.command == "rollback":
         payload = rollback_release(path, args.environment, args.reason, args.command_text)
     else:

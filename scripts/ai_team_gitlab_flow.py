@@ -166,11 +166,32 @@ def gitlab_base_url(config: dict[str, str]) -> str:
     return f"http://{host}:{port}".rstrip("/")
 
 
-def project_api_path(project_path: str) -> str:
-    return urllib.parse.quote(project_path, safe="")
+def resolved_gitlab_context(
+    repo: Path,
+    config: dict[str, str],
+    *,
+    source_branch: Optional[str],
+    target_branch: Optional[str],
+) -> dict[str, str]:
+    planned = planned_mr_payload(
+        repo,
+        config,
+        source_branch=source_branch,
+        target_branch=target_branch,
+        title=None,
+        description=None,
+        remove_source_branch=False,
+        draft=False,
+    )
+    return {
+        "token": str(config.get("GITLAB_TOKEN") or "").strip(),
+        "base_url": str(planned.get("gitlab_base_url") or "").strip(),
+        "project_path": str(planned.get("project_path") or "").strip(),
+        "source_branch": str(planned.get("source_branch") or "").strip(),
+        "target_branch": str(planned.get("target_branch") or "").strip(),
+    }
 
 
-def request_json(method: str, url: str, token: str, payload: Optional[dict[str, Any]] = None) -> Any:
     data = None
     headers = {"PRIVATE-TOKEN": token}
     if payload is not None:
@@ -381,16 +402,17 @@ def ensure_merge_request(
         remove_source_branch=remove_source_branch,
         draft=draft,
     )
-    token = (config.get("GITLAB_TOKEN") or "").strip()
+    context = resolved_gitlab_context(repo, config, source_branch=source_branch, target_branch=target_branch)
+    token = context["token"]
     if not token:
         raise RuntimeError("missing GITLAB_TOKEN")
-    base_url = str(planned["gitlab_base_url"]).strip()
-    project_path = str(planned["project_path"]).strip()
+    base_url = context["base_url"]
+    project_path = context["project_path"]
     if not base_url or not project_path:
         raise RuntimeError("missing gitlab base url or project path")
     encoded_project = project_api_path(project_path)
-    source = str(planned["source_branch"])
-    target = str(planned["target_branch"])
+    source = context["source_branch"]
+    target = context["target_branch"]
     existing = api_get(
         base_url,
         token,
@@ -428,21 +450,12 @@ def find_open_merge_request(
     source_branch: Optional[str],
     target_branch: Optional[str],
 ) -> dict[str, Any]:
-    planned = planned_mr_payload(
-        repo,
-        config,
-        source_branch=source_branch,
-        target_branch=target_branch,
-        title=None,
-        description=None,
-        remove_source_branch=False,
-        draft=False,
-    )
-    token = (config.get("GITLAB_TOKEN") or "").strip()
+    context = resolved_gitlab_context(repo, config, source_branch=source_branch, target_branch=target_branch)
+    token = context["token"]
     if not token:
         return {}
-    base_url = str(planned["gitlab_base_url"]).strip()
-    project_path = str(planned["project_path"]).strip()
+    base_url = context["base_url"]
+    project_path = context["project_path"]
     encoded_project = project_api_path(project_path)
     existing = api_get(
         base_url,
@@ -450,8 +463,8 @@ def find_open_merge_request(
         f"/api/v4/projects/{encoded_project}/merge_requests",
         {
             "state": "opened",
-            "source_branch": planned["source_branch"],
-            "target_branch": planned["target_branch"],
+            "source_branch": context["source_branch"],
+            "target_branch": context["target_branch"],
         },
     )
     if isinstance(existing, list) and existing:
@@ -466,22 +479,13 @@ def merge_request_status(
     source_branch: Optional[str],
     target_branch: Optional[str],
 ) -> dict[str, Any]:
-    token = (config.get("GITLAB_TOKEN") or "").strip()
-    planned = planned_mr_payload(
-        repo,
-        config,
-        source_branch=source_branch,
-        target_branch=target_branch,
-        title=None,
-        description=None,
-        remove_source_branch=False,
-        draft=False,
-    )
+    context = resolved_gitlab_context(repo, config, source_branch=source_branch, target_branch=target_branch)
+    token = context["token"]
     if not token:
-        return {"status": "missing_token", "source_branch": planned["source_branch"], "target_branch": planned["target_branch"]}
+        return {"status": "missing_token", "source_branch": context["source_branch"], "target_branch": context["target_branch"]}
     mr = find_open_merge_request(repo, config, source_branch=source_branch, target_branch=target_branch)
     if mr:
-        pipeline_summary = latest_pipeline_for_ref(repo, config, ref=str(planned["source_branch"]))
+        pipeline_summary = latest_pipeline_for_ref(repo, config, ref=context["source_branch"])
         return {
             "status": "open",
             "iid": mr.get("iid"),
@@ -490,7 +494,7 @@ def merge_request_status(
             "state": mr.get("state"),
             "pipeline": pipeline_summary,
         }
-    return {"status": "missing", "source_branch": planned["source_branch"], "target_branch": planned["target_branch"]}
+    return {"status": "missing", "source_branch": context["source_branch"], "target_branch": context["target_branch"]}
 
 
 def latest_pipeline_for_ref(repo: Path, config: dict[str, str], *, ref: Optional[str], pipeline_id: Optional[int] = None) -> dict[str, Any]:
