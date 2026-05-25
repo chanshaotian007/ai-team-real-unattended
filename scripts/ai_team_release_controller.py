@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import subprocess
 from datetime import datetime
 from pathlib import Path
@@ -103,6 +104,7 @@ def append_history(state: dict[str, Any], event: str, details: dict[str, Any]) -
 
 
 def run_shell_command(command: str) -> dict[str, Any]:
+    shell_path = os.getenv("SHELL", "/bin/bash")
     proc = subprocess.run(
         command,
         shell=True,
@@ -110,7 +112,7 @@ def run_shell_command(command: str) -> dict[str, Any]:
         text=True,
         capture_output=True,
         check=False,
-        executable="/bin/zsh",
+        executable=shell_path,
     )
     stdout_text = (proc.stdout or "").strip()
     parsed: Any = None

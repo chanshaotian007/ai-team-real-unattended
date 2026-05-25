@@ -100,6 +100,14 @@ def ensure_repo(repo: Path) -> None:
     repo.mkdir(parents=True, exist_ok=True)
 
 
+def current_branch(repo: Path) -> str:
+    return git_output(repo, "branch", "--show-current")
+
+
+def remote_url(repo: Path, remote: str) -> str:
+    return git_output(repo, "remote", "get-url", remote)
+
+
 def ensure_identity(repo: Path, user_name: str, user_email: str) -> dict[str, str]:
     name = git_output(repo, "config", "user.name")
     email = git_output(repo, "config", "user.email")
@@ -126,9 +134,6 @@ def ensure_branch(repo: Path, branch: str) -> dict[str, Any]:
         return {"status": "checked_out", "branch": target_branch}
     run_git(repo, "checkout", "-b", target_branch)
     return {"status": "created", "branch": target_branch}
-
-
-    return git_output(repo, "remote", "get-url", remote)
 
 
 def authenticated_remote_url(raw_remote_url: str, http_user: Optional[str], http_token: Optional[str]) -> str:

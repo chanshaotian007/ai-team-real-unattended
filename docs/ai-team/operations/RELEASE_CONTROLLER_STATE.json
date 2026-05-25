@@ -1,35 +1,13 @@
 {
-  "generated_at": "2026-05-25T17:45:26.852910+08:00",
+  "generated_at": "2026-05-25T17:59:35.966470+08:00",
   "staging": {
-    "artifact": "INIT-ENH-001-BATCH-001",
-    "status": "promoted",
-    "environment": "staging",
+    "artifact": null,
+    "status": "idle",
     "verified_checks": []
   },
   "production": {
     "artifact": null,
-    "status": "rolled_back",
-    "rollback_reason": "release_gate=blocked",
-    "rolled_back_at": "2026-05-25T17:45:27.155755+08:00"
+    "status": "idle"
   },
-  "history": [
-    {
-      "at": "2026-05-25T17:45:26.905329+08:00",
-      "event": "promote-staging",
-      "details": {
-        "artifact": "INIT-ENH-001-BATCH-001",
-        "environment": "staging",
-        "command_result": null
-      }
-    },
-    {
-      "at": "2026-05-25T17:45:27.155808+08:00",
-      "event": "rollback",
-      "details": {
-        "environment": "production",
-        "reason": "release_gate=blocked",
-        "command_result": null
-      }
-    }
-  ]
+  "history": []
 }
