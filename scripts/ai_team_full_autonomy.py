@@ -200,13 +200,20 @@ def build_mr_report(initiative_id: str, batch_id: str, board: dict[str, Any], wo
     completed_tasks = workflow.get("completed_tasks", []) if isinstance(workflow.get("completed_tasks"), list) else []
     changed_files = [path for task in completed_tasks if isinstance(task, dict) for path in task.get("changed_files", []) if isinstance(path, str)]
     live_status = mr_plan.get("mr_status_live") if isinstance(mr_plan.get("mr_status_live"), dict) else {}
+    ensure_status = mr_plan.get("mr_ensure") if isinstance(mr_plan.get("mr_ensure"), dict) else {}
     push_payload = git_save.get("push") if isinstance(git_save.get("push"), dict) else {}
     save_status = str(git_save.get("status") or "").strip().lower()
     push_status = str(push_payload.get("status") or "").strip().lower()
     mr_live_status = str((live_status.get("status") if isinstance(live_status, dict) else "") or "").strip().lower()
+    ensure_state = str((ensure_status.get("status") if isinstance(ensure_status, dict) else "") or "").strip().lower()
     resolved_status = "blocked"
-    if push_status == "pushed" and mr_live_status in {"open", "missing", "created", "existing"}:
-        resolved_status = mr_live_status or "created"
+    if push_status == "pushed":
+        if ensure_state in {"created", "existing"}:
+            resolved_status = ensure_state
+        elif mr_live_status in {"open", "created", "existing"}:
+            resolved_status = mr_live_status
+        elif mr_live_status in {"missing_token", "missing_context"}:
+            resolved_status = mr_live_status
     elif save_status in {"saved", "saved-and-pushed", "noop"}:
         resolved_status = str(mr_plan.get("status") or "planned_only").strip().lower() or "planned_only"
     return {
@@ -221,6 +228,7 @@ def build_mr_report(initiative_id: str, batch_id: str, board: dict[str, Any], wo
         "mr_status": resolved_status,
         "git_save": git_save,
         "mr_plan": mr_plan,
+        "mr_ensure": ensure_status,
     }
 
 

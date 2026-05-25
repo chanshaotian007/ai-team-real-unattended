@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T16:42:42.803926+08:00",
+  "generated_at": "2026-05-25T16:45:15.138299+08:00",
   "staging": {
     "artifact": "INIT-ENH-001-BATCH-001",
     "status": "promoted",
@@ -12,7 +12,7 @@
   },
   "history": [
     {
-      "at": "2026-05-25T16:42:42.853087+08:00",
+      "at": "2026-05-25T16:45:15.178959+08:00",
       "event": "promote-staging",
       "details": {
         "artifact": "INIT-ENH-001-BATCH-001",

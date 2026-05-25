@@ -100,14 +100,15 @@ def column_for(task: dict[str, Any], initiative: dict[str, Any], work_order: dic
     if task_type == "implementation":
         mr_status = str(verification.get("mr_status") or "").strip().lower()
         push_status = str(((verification.get("git_save") if isinstance(verification.get("git_save"), dict) else {}).get("push") if isinstance((verification.get("git_save") if isinstance(verification.get("git_save"), dict) else {}).get("push"), dict) else {}).get("status") or "").strip().lower()
-        if mr_status in {"open", "created", "existing", "planned_only", "missing_token"} and push_status in {"pushed", "failed", "missing_context", "missing"}:
+        if push_status == "pushed" and mr_status in {"created", "existing", "open", "missing_token", "missing_context"}:
             return "Ready for MR"
         if work_status == "completed" or batch_status in {"completed", "integration_ready"}:
             return "Approved"
         return "Coding" if work_status in {"claimed", "running", "dispatched"} else "Approved"
     if task_type in {"qa", "compliance"}:
         release_gate = str(verification.get("release_gate") or "").strip().lower()
-        if release_gate == "ready_for_release":
+        pipeline_status = str(verification.get("pipeline_status") or "").strip().lower()
+        if release_gate == "ready_for_release" and pipeline_status in {"", "passed", "success", "ok", "missing_context", "missing"}:
             return "Ready for Release"
         return "QA/Compliance"
     if task_type in {"release", "devops"}:
