@@ -98,13 +98,15 @@ def column_for(task: dict[str, Any], initiative: dict[str, Any], work_order: dic
     if approval_status != "approved":
         return "Awaiting Approval"
     if task_type == "implementation":
-        if verification.get("mr_report"):
+        mr_status = str(verification.get("mr_status") or "").strip().lower()
+        if mr_status in {"planned", "planned_only", "created", "existing", "ready", "missing_token"}:
             return "Ready for MR"
         if work_status == "completed" or batch_status in {"completed", "integration_ready"}:
             return "Approved"
         return "Coding" if work_status in {"claimed", "running", "dispatched"} else "Approved"
     if task_type in {"qa", "compliance"}:
-        if verification.get("release_state"):
+        release_gate = str(verification.get("release_gate") or "").strip().lower()
+        if release_gate == "ready_for_release":
             return "Ready for Release"
         return "QA/Compliance"
     if task_type in {"release", "devops"}:

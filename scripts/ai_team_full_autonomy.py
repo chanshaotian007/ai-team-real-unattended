@@ -208,10 +208,17 @@ def build_release_state(initiative_id: str, batch_id: str) -> dict[str, Any]:
     }
 
 
-def workflow_now() -> str:
-    from datetime import datetime
-
-    return datetime.now().astimezone().isoformat()
+def release_gate_status(mr_report: dict[str, Any], release_state_payload: dict[str, Any]) -> tuple[str, str]:
+    mr_status = str(mr_report.get("mr_status") or "").strip().lower()
+    staging = release_state_payload.get("staging") if isinstance(release_state_payload.get("staging"), dict) else {}
+    production = release_state_payload.get("production") if isinstance(release_state_payload.get("production"), dict) else {}
+    staging_status = str(staging.get("status") or "").strip().lower()
+    production_status = str(production.get("status") or "").strip().lower()
+    if mr_status not in {"ready", "planned", "planned_only", "created", "existing", "missing_token"}:
+        return "blocked", production_status or "unknown"
+    if staging_status != "verified":
+        return "blocked", production_status or staging_status or "unknown"
+    return "ready_for_release", production_status or "ready_for_release"
 
 
 def finalize_lifecycle(args: argparse.Namespace) -> dict[str, Any]:
@@ -251,16 +258,18 @@ def finalize_lifecycle(args: argparse.Namespace) -> dict[str, Any]:
     write_json(mr_report_path, mr_report)
 
     release_state_payload = load_json(release_state_path)
+    release_gate, release_status = release_gate_status(mr_report, release_state_payload)
 
-    initiative["status"] = "integration_ready"
+    initiative["status"] = "integration_ready" if release_gate == "ready_for_release" else "approved_for_execution"
     initiative["updated_at"] = workflow_now()
-    batch["status"] = "integration_ready"
+    batch["status"] = "integration_ready" if release_gate == "ready_for_release" else "completed"
     batch["verification_summary"] = {
         **(batch.get("verification_summary") if isinstance(batch.get("verification_summary"), dict) else {}),
         "mr_report": str(mr_report_path),
         "release_state": str(release_state_path),
         "mr_status": mr_report.get("mr_status"),
-        "release_status": release_state_payload.get("production", {}).get("status"),
+        "release_gate": release_gate,
+        "release_status": release_status,
         "git_save": {**git_save, "push": git_push},
         "mr_plan": mr_plan,
         "mr_status_live": mr_status,

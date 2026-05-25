@@ -34,16 +34,25 @@
     "status": "saved",
     "repo": "/home/hya-chenu/AIWS/ai-team-real-unattended",
     "branch": "main",
-    "commit": "c7c2b9177b2774fd22a6b95f4856a21a3f4d1bab",
+    "commit": "36b3ab891edcefc58d996f6d0698d3301e0d4955",
     "staged": {
       "mode": "all",
       "paths": []
     },
-    "identity_updated": {
-      "user.name": "ai-team-bot",
-      "user.email": "ai-team@example.invalid"
-    },
-    "working_tree": []
+    "identity_updated": {},
+    "working_tree": [],
+    "push": {
+      "status": "failed",
+      "command": [
+        "/usr/bin/python3",
+        "/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_git_repo_manager.py",
+        "push",
+        "--json"
+      ],
+      "returncode": 1,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_git_repo_manager.py\", line 295, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_git_repo_manager.py\", line 265, in main\n    payload = push_repo(\n        repo,\n    ...<4 lines>...\n        http_token=args.http_token,\n    )\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_git_repo_manager.py\", line 222, in push_repo\n    run_git(repo, \"push\", \"-u\", target_for_push, push_branch)\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_git_repo_manager.py\", line 71, in run_git\n    return subprocess.run(\n           ~~~~~~~~~~~~~~^\n        [\"git\", *args],\n        ^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        check=check,\n        ^^^^^^^^^^^^\n    )\n    ^\n  File \"/usr/lib/python3.14/subprocess.py\", line 578, in run\n    raise CalledProcessError(retcode, process.args,\n                             output=stdout, stderr=stderr)\nsubprocess.CalledProcessError: Command '['git', 'push', '-u', 'origin', 'main']' returned non-zero exit status 128."
+    }
   },
   "mr_plan": {
     "status": "ok",
@@ -58,6 +67,11 @@
       "description": "Automated ai-team delivery for branch `main`.",
       "remove_source_branch": "false",
       "labels": "ai-team:review"
+    },
+    "mr_status_live": {
+      "status": "missing_token",
+      "source_branch": "main",
+      "target_branch": "main"
     }
   }
 }
