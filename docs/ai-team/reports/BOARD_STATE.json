@@ -179,209 +179,14 @@
             "INIT-ENH-001-PLAN",
             "INIT-ENH-001-VERIFY"
           ],
-          "status": "integration_ready",
+          "status": "completed",
           "triggered_by": "tester",
           "triggered_at": "2026-05-25T16:02:48.619855+08:00",
-          "started_at": "2026-05-25T18:11:43.812970+08:00",
-          "completed_at": "2026-05-25T18:11:44.048182+08:00",
+          "started_at": "2026-05-26T13:39:17.546633+08:00",
+          "completed_at": "2026-05-26T13:39:17.879415+08:00",
           "verification_summary": {
             "completed_task_count": 5,
-            "artifacts_updated": 5,
-            "mr_report": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/reports/MR_PLAN.json",
-            "release_state": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json",
-            "mr_status": "planned_only",
-            "pipeline_status": "",
-            "release_gate": "ready_for_release",
-            "release_status": "released",
-            "git_save": {
-              "status": "saved",
-              "repo": "/home/hya-chenu/AIWS/ai-team-real-unattended",
-              "branch": "ai-team/init-enh-001/init-enh-001-batch-001",
-              "commit": "468dfb2b90ad0f413bb4813917c22ca8f6128ef1",
-              "staged": {
-                "mode": "all",
-                "paths": []
-              },
-              "identity_updated": {},
-              "working_tree": [],
-              "push": {
-                "status": "failed",
-                "command": [
-                  "/usr/bin/python3",
-                  "/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_git_repo_manager.py",
-                  "push",
-                  "--branch",
-                  "ai-team/init-enh-001/init-enh-001-batch-001",
-                  "--ensure-branch",
-                  "--json"
-                ],
-                "returncode": 1,
-                "stdout": "",
-                "stderr": "Traceback (most recent call last):\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_git_repo_manager.py\", line 315, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_git_repo_manager.py\", line 284, in main\n    payload = push_repo(\n        repo,\n    ...<5 lines>...\n        http_token=args.http_token,\n    )\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_git_repo_manager.py\", line 240, in push_repo\n    run_git(repo, \"push\", \"-u\", target_for_push, push_branch)\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_git_repo_manager.py\", line 72, in run_git\n    return subprocess.run(\n           ~~~~~~~~~~~~~~^\n        [\"git\", *args],\n        ^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        check=check,\n        ^^^^^^^^^^^^\n    )\n    ^\n  File \"/usr/lib/python3.14/subprocess.py\", line 578, in run\n    raise CalledProcessError(retcode, process.args,\n                             output=stdout, stderr=stderr)\nsubprocess.CalledProcessError: Command '['git', 'push', '-u', 'origin', 'ai-team/init-enh-001/init-enh-001-batch-001']' returned non-zero exit status 128."
-              }
-            },
-            "mr_plan": {
-              "status": "ok",
-              "project_path": "chenjihui/ai-team-real-unattended",
-              "gitlab_base_url": "",
-              "source_branch": "ai-team/init-enh-001/init-enh-001-batch-001",
-              "target_branch": "main",
-              "payload": {
-                "source_branch": "ai-team/init-enh-001/init-enh-001-batch-001",
-                "target_branch": "main",
-                "title": "ai-team: merge ai-team/init-enh-001/init-enh-001-batch-001",
-                "description": "Automated ai-team delivery for branch `ai-team/init-enh-001/init-enh-001-batch-001`.",
-                "remove_source_branch": "false",
-                "labels": "ai-team:review"
-              }
-            },
-            "mr_status_live": {
-              "status": "missing_token",
-              "source_branch": "ai-team/init-enh-001/init-enh-001-batch-001",
-              "target_branch": "main"
-            },
-            "mr_ensure": {
-              "status": "failed",
-              "command": [
-                "/usr/bin/python3",
-                "/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_gitlab_flow.py",
-                "ensure-mr",
-                "--source-branch",
-                "ai-team/init-enh-001/init-enh-001-batch-001",
-                "--target-branch",
-                "main",
-                "--write-report",
-                "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/reports/MR_PLAN.json",
-                "--json"
-              ],
-              "returncode": 1,
-              "stdout": "",
-              "stderr": "Traceback (most recent call last):\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_gitlab_flow.py\", line 671, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_gitlab_flow.py\", line 633, in main\n    payload = ensure_merge_request(\n        repo,\n    ...<6 lines>...\n        draft=bool(args.draft),\n    )\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_gitlab_flow.py\", line 408, in ensure_merge_request\n    raise RuntimeError(\"missing GITLAB_TOKEN\")\nRuntimeError: missing GITLAB_TOKEN"
-            },
-            "release_steps": {
-              "init": {
-                "status": "initialized",
-                "state_file": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json",
-                "state": {
-                  "generated_at": "2026-05-25T18:11:44.543355+08:00",
-                  "staging": {
-                    "artifact": null,
-                    "status": "idle",
-                    "verified_checks": []
-                  },
-                  "production": {
-                    "artifact": null,
-                    "status": "idle"
-                  },
-                  "history": []
-                }
-              },
-              "promote": {
-                "status": "promoted",
-                "stage": "staging",
-                "artifact": "INIT-ENH-001-BATCH-001",
-                "environment": "staging",
-                "command_result": {
-                  "command": "python3 -m py_compile scripts/ai_team_generated_impl.py",
-                  "returncode": 0,
-                  "stdout_tail": [],
-                  "stderr_tail": [],
-                  "parsed": null
-                }
-              },
-              "run_check": {
-                "status": "passed",
-                "environment": "staging",
-                "check": "initiative:INIT-ENH-001",
-                "command_result": {
-                  "command": "python3 -m py_compile scripts/ai_team_generated_impl.py",
-                  "returncode": 0,
-                  "stdout_tail": [],
-                  "stderr_tail": [],
-                  "parsed": null
-                }
-              },
-              "status": {
-                "status": "ok",
-                "state_file": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json",
-                "state": {
-                  "generated_at": "2026-05-25T18:11:44.543355+08:00",
-                  "staging": {
-                    "artifact": "INIT-ENH-001-BATCH-001",
-                    "status": "verified",
-                    "environment": "staging",
-                    "verified_checks": [
-                      {
-                        "check": "initiative:INIT-ENH-001",
-                        "status": "passed",
-                        "at": "2026-05-25T18:11:44.716201+08:00"
-                      }
-                    ]
-                  },
-                  "production": {
-                    "artifact": null,
-                    "status": "idle"
-                  },
-                  "history": [
-                    {
-                      "at": "2026-05-25T18:11:44.632351+08:00",
-                      "event": "promote-staging",
-                      "details": {
-                        "artifact": "INIT-ENH-001-BATCH-001",
-                        "environment": "staging",
-                        "command_result": {
-                          "command": "python3 -m py_compile scripts/ai_team_generated_impl.py",
-                          "returncode": 0,
-                          "stdout_tail": [],
-                          "stderr_tail": [],
-                          "parsed": null
-                        }
-                      }
-                    },
-                    {
-                      "at": "2026-05-25T18:11:44.716234+08:00",
-                      "event": "verify",
-                      "details": {
-                        "environment": "staging",
-                        "check": "initiative:INIT-ENH-001",
-                        "status": "passed"
-                      }
-                    },
-                    {
-                      "at": "2026-05-25T18:11:44.716420+08:00",
-                      "event": "run-check",
-                      "details": {
-                        "status": "passed",
-                        "environment": "staging",
-                        "check": "initiative:INIT-ENH-001",
-                        "command_result": {
-                          "command": "python3 -m py_compile scripts/ai_team_generated_impl.py",
-                          "returncode": 0,
-                          "stdout_tail": [],
-                          "stderr_tail": [],
-                          "parsed": null
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            },
-            "release_action": {
-              "action": "promote-release",
-              "result": {
-                "status": "released",
-                "environment": "production",
-                "artifact": "INIT-ENH-001-BATCH-001",
-                "command_result": {
-                  "command": "python3 -m py_compile scripts/ai_team_generated_impl.py",
-                  "returncode": 0,
-                  "stdout_tail": [],
-                  "stderr_tail": [],
-                  "parsed": null
-                }
-              }
-            }
+            "artifacts_updated": 5
           }
         },
         "work_order_status": "unseeded",
@@ -536,10 +341,7 @@
           "tests/**",
           "docs/ai-team/reviews/qa/**"
         ]
-      }
-    ],
-    "Ready for MR": [],
-    "Ready for Release": [
+      },
       {
         "initiative_id": "INIT-ENH-001",
         "task_id": "INIT-ENH-001-VERIFY",
@@ -570,209 +372,14 @@
             "INIT-ENH-001-PLAN",
             "INIT-ENH-001-VERIFY"
           ],
-          "status": "integration_ready",
+          "status": "completed",
           "triggered_by": "tester",
           "triggered_at": "2026-05-25T16:02:48.619855+08:00",
-          "started_at": "2026-05-25T18:11:43.812970+08:00",
-          "completed_at": "2026-05-25T18:11:44.048182+08:00",
+          "started_at": "2026-05-26T13:39:17.546633+08:00",
+          "completed_at": "2026-05-26T13:39:17.879415+08:00",
           "verification_summary": {
             "completed_task_count": 5,
-            "artifacts_updated": 5,
-            "mr_report": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/reports/MR_PLAN.json",
-            "release_state": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json",
-            "mr_status": "planned_only",
-            "pipeline_status": "",
-            "release_gate": "ready_for_release",
-            "release_status": "released",
-            "git_save": {
-              "status": "saved",
-              "repo": "/home/hya-chenu/AIWS/ai-team-real-unattended",
-              "branch": "ai-team/init-enh-001/init-enh-001-batch-001",
-              "commit": "468dfb2b90ad0f413bb4813917c22ca8f6128ef1",
-              "staged": {
-                "mode": "all",
-                "paths": []
-              },
-              "identity_updated": {},
-              "working_tree": [],
-              "push": {
-                "status": "failed",
-                "command": [
-                  "/usr/bin/python3",
-                  "/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_git_repo_manager.py",
-                  "push",
-                  "--branch",
-                  "ai-team/init-enh-001/init-enh-001-batch-001",
-                  "--ensure-branch",
-                  "--json"
-                ],
-                "returncode": 1,
-                "stdout": "",
-                "stderr": "Traceback (most recent call last):\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_git_repo_manager.py\", line 315, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_git_repo_manager.py\", line 284, in main\n    payload = push_repo(\n        repo,\n    ...<5 lines>...\n        http_token=args.http_token,\n    )\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_git_repo_manager.py\", line 240, in push_repo\n    run_git(repo, \"push\", \"-u\", target_for_push, push_branch)\n    ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_git_repo_manager.py\", line 72, in run_git\n    return subprocess.run(\n           ~~~~~~~~~~~~~~^\n        [\"git\", *args],\n        ^^^^^^^^^^^^^^^\n    ...<3 lines>...\n        check=check,\n        ^^^^^^^^^^^^\n    )\n    ^\n  File \"/usr/lib/python3.14/subprocess.py\", line 578, in run\n    raise CalledProcessError(retcode, process.args,\n                             output=stdout, stderr=stderr)\nsubprocess.CalledProcessError: Command '['git', 'push', '-u', 'origin', 'ai-team/init-enh-001/init-enh-001-batch-001']' returned non-zero exit status 128."
-              }
-            },
-            "mr_plan": {
-              "status": "ok",
-              "project_path": "chenjihui/ai-team-real-unattended",
-              "gitlab_base_url": "",
-              "source_branch": "ai-team/init-enh-001/init-enh-001-batch-001",
-              "target_branch": "main",
-              "payload": {
-                "source_branch": "ai-team/init-enh-001/init-enh-001-batch-001",
-                "target_branch": "main",
-                "title": "ai-team: merge ai-team/init-enh-001/init-enh-001-batch-001",
-                "description": "Automated ai-team delivery for branch `ai-team/init-enh-001/init-enh-001-batch-001`.",
-                "remove_source_branch": "false",
-                "labels": "ai-team:review"
-              }
-            },
-            "mr_status_live": {
-              "status": "missing_token",
-              "source_branch": "ai-team/init-enh-001/init-enh-001-batch-001",
-              "target_branch": "main"
-            },
-            "mr_ensure": {
-              "status": "failed",
-              "command": [
-                "/usr/bin/python3",
-                "/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_gitlab_flow.py",
-                "ensure-mr",
-                "--source-branch",
-                "ai-team/init-enh-001/init-enh-001-batch-001",
-                "--target-branch",
-                "main",
-                "--write-report",
-                "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/reports/MR_PLAN.json",
-                "--json"
-              ],
-              "returncode": 1,
-              "stdout": "",
-              "stderr": "Traceback (most recent call last):\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_gitlab_flow.py\", line 671, in <module>\n    raise SystemExit(main())\n                     ~~~~^^\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_gitlab_flow.py\", line 633, in main\n    payload = ensure_merge_request(\n        repo,\n    ...<6 lines>...\n        draft=bool(args.draft),\n    )\n  File \"/home/hya-chenu/AIWS/ai-team-real-unattended/scripts/ai_team_gitlab_flow.py\", line 408, in ensure_merge_request\n    raise RuntimeError(\"missing GITLAB_TOKEN\")\nRuntimeError: missing GITLAB_TOKEN"
-            },
-            "release_steps": {
-              "init": {
-                "status": "initialized",
-                "state_file": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json",
-                "state": {
-                  "generated_at": "2026-05-25T18:11:44.543355+08:00",
-                  "staging": {
-                    "artifact": null,
-                    "status": "idle",
-                    "verified_checks": []
-                  },
-                  "production": {
-                    "artifact": null,
-                    "status": "idle"
-                  },
-                  "history": []
-                }
-              },
-              "promote": {
-                "status": "promoted",
-                "stage": "staging",
-                "artifact": "INIT-ENH-001-BATCH-001",
-                "environment": "staging",
-                "command_result": {
-                  "command": "python3 -m py_compile scripts/ai_team_generated_impl.py",
-                  "returncode": 0,
-                  "stdout_tail": [],
-                  "stderr_tail": [],
-                  "parsed": null
-                }
-              },
-              "run_check": {
-                "status": "passed",
-                "environment": "staging",
-                "check": "initiative:INIT-ENH-001",
-                "command_result": {
-                  "command": "python3 -m py_compile scripts/ai_team_generated_impl.py",
-                  "returncode": 0,
-                  "stdout_tail": [],
-                  "stderr_tail": [],
-                  "parsed": null
-                }
-              },
-              "status": {
-                "status": "ok",
-                "state_file": "/home/hya-chenu/AIWS/ai-team-real-unattended/docs/ai-team/operations/RELEASE_CONTROLLER_STATE.json",
-                "state": {
-                  "generated_at": "2026-05-25T18:11:44.543355+08:00",
-                  "staging": {
-                    "artifact": "INIT-ENH-001-BATCH-001",
-                    "status": "verified",
-                    "environment": "staging",
-                    "verified_checks": [
-                      {
-                        "check": "initiative:INIT-ENH-001",
-                        "status": "passed",
-                        "at": "2026-05-25T18:11:44.716201+08:00"
-                      }
-                    ]
-                  },
-                  "production": {
-                    "artifact": null,
-                    "status": "idle"
-                  },
-                  "history": [
-                    {
-                      "at": "2026-05-25T18:11:44.632351+08:00",
-                      "event": "promote-staging",
-                      "details": {
-                        "artifact": "INIT-ENH-001-BATCH-001",
-                        "environment": "staging",
-                        "command_result": {
-                          "command": "python3 -m py_compile scripts/ai_team_generated_impl.py",
-                          "returncode": 0,
-                          "stdout_tail": [],
-                          "stderr_tail": [],
-                          "parsed": null
-                        }
-                      }
-                    },
-                    {
-                      "at": "2026-05-25T18:11:44.716234+08:00",
-                      "event": "verify",
-                      "details": {
-                        "environment": "staging",
-                        "check": "initiative:INIT-ENH-001",
-                        "status": "passed"
-                      }
-                    },
-                    {
-                      "at": "2026-05-25T18:11:44.716420+08:00",
-                      "event": "run-check",
-                      "details": {
-                        "status": "passed",
-                        "environment": "staging",
-                        "check": "initiative:INIT-ENH-001",
-                        "command_result": {
-                          "command": "python3 -m py_compile scripts/ai_team_generated_impl.py",
-                          "returncode": 0,
-                          "stdout_tail": [],
-                          "stderr_tail": [],
-                          "parsed": null
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            },
-            "release_action": {
-              "action": "promote-release",
-              "result": {
-                "status": "released",
-                "environment": "production",
-                "artifact": "INIT-ENH-001-BATCH-001",
-                "command_result": {
-                  "command": "python3 -m py_compile scripts/ai_team_generated_impl.py",
-                  "returncode": 0,
-                  "stdout_tail": [],
-                  "stderr_tail": [],
-                  "parsed": null
-                }
-              }
-            }
+            "artifacts_updated": 5
           }
         },
         "work_order_status": "unseeded",
@@ -782,6 +389,8 @@
         ]
       }
     ],
+    "Ready for MR": [],
+    "Ready for Release": [],
     "Done": [
       {
         "initiative_id": "INIT-DEMO-001",
