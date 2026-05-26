@@ -83,6 +83,12 @@
   - 表示该 dispatch 属于哪个已冻结的执行批次。
 - `task_contract`
   - 仍是面向真实 agent 的主协议，必须完整表达目标、边界和验收。
+- `write_scopes`
+  - implementation 类任务应尽量指向真实业务代码路径，而不是只改文档或控制脚本。
+- `acceptance_commands`
+  - 在 local simulation 模式下可以使用本地可执行命令；在 external lifecycle 模式下应逐步升级为真实 deploy / verify / pipeline 命令。
+- `source_branch` / `target_branch`
+  - 进入高保真外部系统模式后，应由 full runner 显式规划并传递，不再依赖当前分支的隐式默认值。
 
 ## 5. 控制平面责任
 

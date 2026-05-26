@@ -95,3 +95,6 @@
 - 对 implementation / qa / compliance / release 类任务，未获批准的 dispatch 不得认领。
 - 对 planning 类任务，允许在未批准整体 initiative 时先行回写分析、设计和计划产物。
 - 若需要下游角色继续接手，优先通过 `handover_notes` 回写交接摘要。
+- 在 local simulation 模式下，`tests_run` 可以由本地可执行校验命令组成，并允许出现 `planned_only` / `blocked_missing_context` 这类外部上下文不足语义。
+- 在 external lifecycle 模式下，`tests_run`、`changed_files`、`artifacts_produced` 应逐步对应真实的 branch、MR、pipeline、deploy、verify 结果。
+- 交付结果若进入 `blocked`、`blocked_missing_context`、`planned_only`，应在 batch / board / report 中保留明确原因，而不是只给出笼统失败。

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-25T18:08:00.171918+08:00",
+  "generated_at": "2026-05-25T18:11:44.543355+08:00",
   "staging": {
     "artifact": "INIT-ENH-001-BATCH-001",
     "status": "verified",
@@ -8,19 +8,18 @@
       {
         "check": "initiative:INIT-ENH-001",
         "status": "passed",
-        "at": "2026-05-25T18:08:00.356154+08:00"
+        "at": "2026-05-25T18:11:44.716201+08:00"
       }
     ]
   },
   "production": {
-    "artifact": null,
-    "status": "rolled_back",
-    "rollback_reason": "release_gate=blocked",
-    "rolled_back_at": "2026-05-25T18:08:00.544220+08:00"
+    "artifact": "INIT-ENH-001-BATCH-001",
+    "status": "released",
+    "environment": "production"
   },
   "history": [
     {
-      "at": "2026-05-25T18:08:00.262803+08:00",
+      "at": "2026-05-25T18:11:44.632351+08:00",
       "event": "promote-staging",
       "details": {
         "artifact": "INIT-ENH-001-BATCH-001",
@@ -35,7 +34,7 @@
       }
     },
     {
-      "at": "2026-05-25T18:08:00.356194+08:00",
+      "at": "2026-05-25T18:11:44.716234+08:00",
       "event": "verify",
       "details": {
         "environment": "staging",
@@ -44,7 +43,7 @@
       }
     },
     {
-      "at": "2026-05-25T18:08:00.356461+08:00",
+      "at": "2026-05-25T18:11:44.716420+08:00",
       "event": "run-check",
       "details": {
         "status": "passed",
@@ -60,11 +59,11 @@
       }
     },
     {
-      "at": "2026-05-25T18:08:00.544257+08:00",
-      "event": "rollback",
+      "at": "2026-05-25T18:11:44.882042+08:00",
+      "event": "promote-release",
       "details": {
+        "artifact": "INIT-ENH-001-BATCH-001",
         "environment": "production",
-        "reason": "release_gate=blocked",
         "command_result": {
           "command": "python3 -m py_compile scripts/ai_team_generated_impl.py",
           "returncode": 0,

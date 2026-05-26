@@ -29,12 +29,12 @@
     "docs/ai-team/operations/init-enh-001_plan.json",
     "docs/ai-team/operations/init-enh-001_verification.json"
   ],
-  "mr_status": "ok",
+  "mr_status": "planned_only",
   "git_save": {
     "status": "saved",
     "repo": "/home/hya-chenu/AIWS/ai-team-real-unattended",
-    "branch": "main",
-    "commit": "cc996fdeb904978076dab607e2b43e6a172979ef",
+    "branch": "ai-team/init-enh-001/init-enh-001-batch-001",
+    "commit": "468dfb2b90ad0f413bb4813917c22ca8f6128ef1",
     "staged": {
       "mode": "all",
       "paths": []
