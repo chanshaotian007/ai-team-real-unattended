@@ -86,6 +86,20 @@ def run_autonomous_workflow(args: argparse.Namespace) -> dict[str, Any]:
     )
 
 
+def run_supervised_workflow(args: argparse.Namespace) -> dict[str, Any]:
+    return run_json_command(
+        [
+            sys.executable,
+            str(ROOT / "scripts/ai_team_codex_unattended.py"),
+            "--seed-source",
+            "initiative",
+            "--batch-id",
+            str(args.batch_id),
+            "--json",
+        ]
+    )
+
+
 def refresh_board(args: argparse.Namespace) -> dict[str, Any]:
     return run_json_command([sys.executable, str(ROOT / "scripts/ai_team_board.py"), "--json"])
 
@@ -350,8 +364,9 @@ def finalize_lifecycle(args: argparse.Namespace) -> dict[str, Any]:
     mr_report_path = resolve_path(args.mr_report)
     release_state_path = resolve_path(args.release_state)
 
-    workflow = run_autonomous_workflow(args)
-    if str(workflow.get("status") or "").strip().lower() != "completed":
+    workflow = run_supervised_workflow(args)
+    workflow_status = str(workflow.get("status") or "").strip().lower()
+    if workflow_status not in {"ok", "completed", "conditional"}:
         return {"status": "workflow_failed", "workflow": workflow}
     verification_command = "python3 -m py_compile scripts/ai_team_generated_impl.py"
     git_save = run_git_save()

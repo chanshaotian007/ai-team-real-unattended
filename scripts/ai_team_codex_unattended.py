@@ -3,8 +3,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import os
-import subprocess
 import sys
 import time
 from datetime import datetime
@@ -20,10 +18,15 @@ DEFAULT_BROKER_STATE = ROOT / "docs/ai-team/operations/M1_M2_72H_AGENT_BROKER.js
 DEFAULT_REPORT = ROOT / "docs/ai-team/reports/CODEX_UNATTENDED_ACCEPTANCE.json"
 DEFAULT_INITIATIVE_TASKS = ROOT / "docs/ai-team/operations/INITIATIVE_TASKS.json"
 
+if str(ROOT / "scripts") not in sys.path:
+    sys.path.insert(0, str(ROOT / "scripts"))
+
+from ai_team_worker_supervisor import run_json_command
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Drive Codex pilot tasks unattended: claim, validate, complete/fail, then seed downstream tasks."
+        description="Drive Codex pilot tasks unattended in supervisor-backed mode: run workers, observe status, then seed downstream tasks."
     )
     parser.add_argument("--dispatches-file", default=str(DEFAULT_DISPATCHES))
     parser.add_argument("--notifications-file", default=str(DEFAULT_NOTIFICATIONS))
@@ -52,6 +55,29 @@ def resolve_now() -> datetime:
 def write_json(path: Path, payload: dict[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def supervisor_command(args: argparse.Namespace, role: str) -> list[str]:
+    return [
+        sys.executable,
+        str(ROOT / "scripts/ai_team_worker_supervisor.py"),
+        "--dispatches-file",
+        str(resolve_path(args.dispatches_file)),
+        "--notifications-file",
+        str(resolve_path(args.notifications_file)),
+        "--state-file",
+        str(resolve_path(args.state_file)),
+        "--broker-state",
+        str(resolve_path(args.broker_state)),
+        "--role",
+        role,
+        "--once",
+        "--json",
+    ]
+
+
+def run_supervisor(args: argparse.Namespace, role: str) -> dict[str, Any]:
+    return run_json_command(supervisor_command(args, role))
 
 
 def run_subprocess(command: list[str], *, timeout: float) -> dict[str, Any]:
@@ -327,80 +353,30 @@ def risk_notes_for(dispatch: dict[str, Any], *, synthesized_files: list[str]) ->
 
 
 def execute_dispatch(args: argparse.Namespace, dispatch: dict[str, Any]) -> dict[str, Any]:
-    dispatch_id = str(dispatch.get("dispatch_id") or "").strip()
-    contract = dispatch.get("task_contract", {}) if isinstance(dispatch.get("task_contract"), dict) else {}
-    commands = contract.get("acceptance_commands", [])
-    command_results: list[dict[str, Any]] = []
-    if isinstance(commands, list):
-        for raw in commands:
-            command = str(raw or "").strip()
-            if not command:
-                continue
-            result = run_shell_command(command, timeout=args.command_timeout)
-            command_results.append(result)
-            if not acceptance_passed(result):
-                failure = fail_dispatch(
-                    args,
-                    dispatch_id,
-                    message=f"unattended acceptance failed for {dispatch_id}",
-                    risk_notes=[
-                        f"failed command: {command}",
-                        str(contract.get("rollback_hint") or "").strip() or "review failing acceptance output before requeue",
-                    ],
-                )
-                return {
-                    "dispatch_id": dispatch_id,
-                    "task_ref": str(dispatch.get("task_ref") or "").strip(),
-                    "owner_role": str(dispatch.get("owner_role") or "").strip(),
-                    "result": "failed",
-                    "command_results": command_results,
-                    "runner_result": failure,
-                }
-
-    generated_at = resolve_now()
-    changed_files, artifacts = ensure_artifacts(dispatch, command_results, generated_at=generated_at)
-    expected_artifacts = contract.get("artifacts", []) if isinstance(contract.get("artifacts"), list) else []
-    missing_artifacts = [str(item).strip() for item in expected_artifacts if str(item).strip() and str(item).strip() not in artifacts]
-    if missing_artifacts:
-        failure = fail_dispatch(
-            args,
-            dispatch_id,
-            message=f"unattended artifact check failed for {dispatch_id}",
-            risk_notes=[f"missing artifacts: {', '.join(missing_artifacts)}"],
-        )
+    role = str(dispatch.get("owner_role") or "").strip()
+    payload = run_supervisor(args, role)
+    if str(payload.get("status") or "") == "blocked":
         return {
-            "dispatch_id": dispatch_id,
+            "dispatch_id": str(dispatch.get("dispatch_id") or "").strip(),
             "task_ref": str(dispatch.get("task_ref") or "").strip(),
-            "owner_role": str(dispatch.get("owner_role") or "").strip(),
-            "result": "failed",
-            "command_results": command_results,
-            "runner_result": failure,
+            "owner_role": role,
+            "result": "blocked",
+            "runner_result": payload,
         }
-
-    complete = complete_dispatch(
-        args,
-        dispatch_id,
-        message=f"unattended acceptance completed for {dispatch_id}",
-        changed_files=changed_files,
-        artifacts=artifacts,
-        risk_notes=risk_notes_for(dispatch, synthesized_files=changed_files),
-        test_results=[
-            {
-                "command": str(item.get("command") or "").strip(),
-                "status": "passed" if acceptance_passed(item) else "failed",
-            }
-            for item in command_results
-        ],
-    )
+    if str(payload.get("status") or "") != "claimed":
+        return {
+            "dispatch_id": str(dispatch.get("dispatch_id") or "").strip(),
+            "task_ref": str(dispatch.get("task_ref") or "").strip(),
+            "owner_role": role,
+            "result": "idle",
+            "runner_result": payload,
+        }
     return {
-        "dispatch_id": dispatch_id,
+        "dispatch_id": str(dispatch.get("dispatch_id") or payload.get("dispatch_id") or "").strip(),
         "task_ref": str(dispatch.get("task_ref") or "").strip(),
-        "owner_role": str(dispatch.get("owner_role") or "").strip(),
-        "result": "completed",
-        "changed_files": changed_files,
-        "artifacts": artifacts,
-        "command_results": command_results,
-        "runner_result": complete,
+        "owner_role": role,
+        "result": "supervised",
+        "runner_result": payload,
     }
 
 

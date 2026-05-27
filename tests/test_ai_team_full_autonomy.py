@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import subprocess
 import sys
 from pathlib import Path
 
@@ -44,12 +45,39 @@ def test_finalize_lifecycle_marks_integration_ready(tmp_path: Path) -> None:
         },
     )()
 
-    payload = MODULE.finalize_lifecycle(args)
+    original_run_supervised_workflow = MODULE.run_supervised_workflow
+    original_run_git_save = MODULE.run_git_save
+    original_run_git_push = MODULE.run_git_push
+    original_run_mr_plan = MODULE.run_mr_plan
+    original_run_mr_ensure = MODULE.run_mr_ensure
+    original_run_mr_status = MODULE.run_mr_status
+    original_run_release_state = MODULE.run_release_state
+    original_refresh_board = MODULE.refresh_board
+    try:
+        MODULE.run_supervised_workflow = lambda args: {"status": "ok", "completed_tasks": [{"changed_files": ["scripts/x.py"], "tests_run": [{"command": "python3 -m py_compile scripts/ai_team_generated_impl.py", "status": "passed"}], "risk_notes": [], "handover_notes": []}], "verification_summary": {"completed_task_count": 2}}
+        MODULE.run_git_save = lambda: {"status": "saved"}
+        MODULE.run_git_push = lambda args: {"status": "pushed"}
+        MODULE.run_mr_plan = lambda args: {"status": "ok"}
+        MODULE.run_mr_ensure = lambda args: {"status": "created"}
+        MODULE.run_mr_status = lambda args: {"status": "open", "pipeline": {"pipeline_status": "passed"}}
+        MODULE.run_release_state = lambda args, verification_command: {"status": {"status": "ok"}}
+        MODULE.refresh_board = lambda args: {"status": "ok", "columns": {"Done": [{"task_ref": "INIT-1-IMPLEMENT"}]}}
+
+        payload = MODULE.finalize_lifecycle(args)
+    finally:
+        MODULE.run_supervised_workflow = original_run_supervised_workflow
+        MODULE.run_git_save = original_run_git_save
+        MODULE.run_git_push = original_run_git_push
+        MODULE.run_mr_plan = original_run_mr_plan
+        MODULE.run_mr_ensure = original_run_mr_ensure
+        MODULE.run_mr_status = original_run_mr_status
+        MODULE.run_release_state = original_run_release_state
+        MODULE.refresh_board = original_refresh_board
 
     assert payload["status"] == "completed"
+    assert payload["workflow"]["status"] in {"ok", "conditional"}
     saved_initiatives = json.loads(initiatives.read_text(encoding="utf-8"))
     saved_batches = json.loads(batches.read_text(encoding="utf-8"))
     assert saved_initiatives["initiatives"]["INIT-1"]["status"] == "integration_ready"
     assert saved_batches["batches"]["INIT-1-BATCH-001"]["status"] == "integration_ready"
     assert mr_report.exists()
-    assert release_state.exists()

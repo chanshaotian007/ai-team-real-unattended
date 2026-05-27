@@ -104,9 +104,13 @@ def column_for(task: dict[str, Any], initiative: dict[str, Any], work_order: dic
             return "Approved"
         if push_status == "pushed" and mr_status in {"created", "existing", "open"}:
             return "Ready for MR"
+        if work_status in {"running", "preparing_workspace", "starting_session", "collecting_results"}:
+            return "Coding"
+        if work_status in {"timed_out", "lease_expired", "cleanup_pending", "failed_validation"}:
+            return "Blocked"
         if work_status == "completed" or batch_status in {"completed", "integration_ready"}:
             return "Approved"
-        return "Coding" if work_status in {"claimed", "running", "dispatched"} else "Approved"
+        return "Coding" if work_status in {"claimed", "dispatched"} else "Approved"
     if task_type in {"qa", "compliance"}:
         release_gate = str(verification.get("release_gate") or "").strip().lower()
         pipeline_status = str(verification.get("pipeline_status") or "").strip().lower()
@@ -151,6 +155,10 @@ def build_board(args: argparse.Namespace) -> dict[str, Any]:
                     "batch": batches.get("batches", {}).get(task.get("batch_id")) if task.get("batch_id") else None,
                     "work_order_status": work_order.get("status") or "unseeded",
                     "write_scopes": task.get("write_scopes", []),
+                    "attempt_id": work_order.get("attempt_id"),
+                    "heartbeat_at": work_order.get("heartbeat_at"),
+                    "lease_expires_at": work_order.get("lease_expires_at"),
+                    "worker_session_id": work_order.get("worker_session_id"),
                 }
             )
 

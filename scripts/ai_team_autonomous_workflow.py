@@ -17,7 +17,7 @@ DEFAULT_REPORT = ROOT / "docs/ai-team/reports/AUTONOMOUS_WORKFLOW.json"
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Drive approved initiative batches through a minimal autonomous execution workflow.")
+    parser = argparse.ArgumentParser(description="Drive approved initiative batches through a minimal autonomous execution workflow (simulation/demo path, not real multi-terminal workers).")
     parser.add_argument("--initiatives-file", default=str(DEFAULT_INITIATIVES))
     parser.add_argument("--initiative-tasks-file", default=str(DEFAULT_INITIATIVE_TASKS))
     parser.add_argument("--execution-batches-file", default=str(DEFAULT_BATCHES))

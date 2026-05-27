@@ -37,7 +37,7 @@ def test_build_board_projects_awaiting_approval_and_done(tmp_path: Path) -> None
     )
     approvals.write_text(json.dumps({"approvals": {}}), encoding="utf-8")
     batches.write_text(json.dumps({"batches": {}}), encoding="utf-8")
-    broker.write_text(json.dumps({"work_orders": {"INIT-1-ANALYSIS": {"status": "completed"}}}), encoding="utf-8")
+    broker.write_text(json.dumps({"work_orders": {"INIT-1-ANALYSIS": {"status": "completed"}, "INIT-1-IMPLEMENT": {"status": "running", "attempt_id": "attempt-1", "heartbeat_at": "2026-01-01T00:00:00+00:00", "lease_expires_at": "2026-01-01T00:01:00+00:00", "worker_session_id": "session-1"}}}), encoding="utf-8")
 
     args = type(
         "Args",
@@ -57,4 +57,5 @@ def test_build_board_projects_awaiting_approval_and_done(tmp_path: Path) -> None
 
     assert payload["status"] == "ok"
     assert payload["columns"]["Done"][0]["task_ref"] == "INIT-1-ANALYSIS"
-    assert payload["columns"]["Awaiting Approval"][0]["task_ref"] == "INIT-1-IMPLEMENT"
+    assert payload["columns"]["Coding"][0]["task_ref"] == "INIT-1-IMPLEMENT"
+    assert payload["columns"]["Coding"][0]["attempt_id"] == "attempt-1"

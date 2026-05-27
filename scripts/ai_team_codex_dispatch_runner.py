@@ -16,9 +16,10 @@ DEFAULT_NOTIFICATIONS = ROOT / "docs/ai-team/operations/M1_M2_72H_AGENT_NOTIFICA
 DEFAULT_STATE = ROOT / "docs/ai-team/operations/M1_M2_72H_CODEX_AGENT_RUNNER_STATE.json"
 DEFAULT_BROKER_STATE = ROOT / "docs/ai-team/operations/M1_M2_72H_AGENT_BROKER.json"
 COMPLETED_WORK_ORDER_STATUSES = {"completed", "accepted", "closed"}
-ACTIVE_WORK_ORDER_STATUSES = {"claimed", "running"}
-QUEUED_WORK_ORDER_STATUSES = {"queued", "pending", "dispatched", "retry_scheduled"}
+ACTIVE_WORK_ORDER_STATUSES = {"claimed", "preparing_workspace", "starting_session", "running", "collecting_results"}
+QUEUED_WORK_ORDER_STATUSES = {"queued", "pending", "dispatched", "retry_scheduled", "lease_expired", "cleanup_pending"}
 APPROVAL_ALLOWED_STATUSES = {"approved", "not_required"}
+RUNTIME_ACTIVE_STATUSES = {"preparing_workspace", "starting_session", "running", "collecting_results"}
 
 
 def parse_args() -> argparse.Namespace:
@@ -47,6 +48,23 @@ def parse_args() -> argparse.Namespace:
     watch_cmd = subparsers.add_parser("watch")
     watch_cmd.add_argument("--role")
     watch_cmd.add_argument("--json", action="store_true")
+
+    heartbeat_cmd = subparsers.add_parser("heartbeat")
+    heartbeat_cmd.add_argument("--dispatch-id", required=True)
+    heartbeat_cmd.add_argument("--attempt-id")
+    heartbeat_cmd.add_argument("--heartbeat-at")
+    heartbeat_cmd.add_argument("--lease-expires-at")
+    heartbeat_cmd.add_argument("--json", action="store_true")
+
+    expire_cmd = subparsers.add_parser("expire")
+    expire_cmd.add_argument("--dispatch-id", required=True)
+    expire_cmd.add_argument("--reason", default="lease_expired")
+    expire_cmd.add_argument("--json", action="store_true")
+
+    retry_cmd = subparsers.add_parser("retry")
+    retry_cmd.add_argument("--dispatch-id", required=True)
+    retry_cmd.add_argument("--message")
+    retry_cmd.add_argument("--json", action="store_true")
 
     list_cmd = subparsers.add_parser("list")
     list_cmd.add_argument("--role")
@@ -149,6 +167,7 @@ def task_type(dispatch: dict[str, Any]) -> str:
     return str(contract.get("task_type") or dispatch.get("task_type") or "implementation").strip().lower() or "implementation"
 
 
+def broker_dispatch_view(entry: dict[str, Any], broker_state: dict[str, Any] | None) -> dict[str, Any]:
     state = ensure_broker_state(broker_state)
     task_id = str(entry.get("task_id") or "").strip()
     dispatch_id = str(entry.get("dispatch_id") or "").strip()
@@ -617,6 +636,44 @@ def watch_loop(args: argparse.Namespace) -> int:
         time.sleep(max(1.0, float(args.interval_seconds or 15.0)))
 
 
+def update_dispatch_runtime(
+    args: argparse.Namespace,
+    dispatch_id: str,
+    *,
+    status: str,
+    message: str,
+    lease_expires_at: str | None = None,
+    heartbeat_at: str | None = None,
+    attempt_id: str | None = None,
+) -> dict[str, Any]:
+    dispatches_path = resolve_path(args.dispatches_file)
+    notifications_path = resolve_path(args.notifications_file)
+    state_path = resolve_path(args.state_file)
+    broker_state_path = resolve_path(args.broker_state)
+    ensure_runtime_files(dispatches_path, state_path)
+    entries = load_dispatches(dispatches_path)
+    state = ensure_state(load_json(state_path))
+    dispatch = find_dispatch(entries, dispatch_id)
+    if dispatch is None:
+        return {"status": "missing", "dispatch_id": dispatch_id}
+    when = resolve_now()
+    dispatch_state = state["dispatches"].get(dispatch_id, {})
+    if not isinstance(dispatch_state, dict):
+        dispatch_state = {}
+    dispatch_state.update({"status": status, "updated_at": when.isoformat()})
+    if heartbeat_at:
+        dispatch_state["heartbeat_at"] = heartbeat_at
+    if lease_expires_at:
+        dispatch_state["lease_expires_at"] = lease_expires_at
+    if attempt_id:
+        dispatch_state["attempt_id"] = attempt_id
+    state["dispatches"][dispatch_id] = dispatch_state
+    write_json(state_path, state)
+    append_jsonl(notifications_path, build_notification(dispatch, state=status, message=message, when=when, delivery={"mode": "codex_agent", "dispatch_id": dispatch_id, "attempt_id": attempt_id, "heartbeat_at": heartbeat_at, "lease_expires_at": lease_expires_at}))
+    sync_broker_work_order(broker_state_path, dispatch, status=status, when=when, result_message=message, delivery={"mode": "codex_agent", "dispatch_id": dispatch_id, "attempt_id": attempt_id, "heartbeat_at": heartbeat_at, "lease_expires_at": lease_expires_at})
+    return {"status": status, "dispatch_id": dispatch_id, "state_file": str(state_path), "broker_state": str(broker_state_path)}
+
+
 def complete_dispatch(args: argparse.Namespace) -> dict[str, Any]:
     dispatches_path = resolve_path(args.dispatches_file)
     notifications_path = resolve_path(args.notifications_file)
@@ -735,6 +792,12 @@ def main() -> int:
         return emit(status_dispatches(args), args.json)
     if args.command == "watch":
         return watch_loop(args)
+    if args.command == "heartbeat":
+        return emit(update_dispatch_runtime(args, str(args.dispatch_id), status="running", message=f"heartbeat for {args.dispatch_id}", lease_expires_at=str(getattr(args, 'lease_expires_at', '') or '').strip() or None, heartbeat_at=str(getattr(args, 'heartbeat_at', '') or '').strip() or None, attempt_id=str(getattr(args, 'attempt_id', '') or '').strip() or None), args.json)
+    if args.command == "expire":
+        return emit(update_dispatch_runtime(args, str(args.dispatch_id), status="lease_expired", message=str(getattr(args, 'reason', '') or '').strip() or f"lease expired for {args.dispatch_id}"), args.json)
+    if args.command == "retry":
+        return emit(update_dispatch_runtime(args, str(args.dispatch_id), status="retry_scheduled", message=str(getattr(args, 'message', '') or '').strip() or f"retry scheduled for {args.dispatch_id}"), args.json)
     if args.command == "complete":
         return emit(complete_dispatch(args), args.json)
     if args.command == "fail":

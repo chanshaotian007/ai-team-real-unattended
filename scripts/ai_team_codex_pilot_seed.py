@@ -20,10 +20,16 @@ DEFAULT_APPROVALS = ROOT / "docs/ai-team/operations/APPROVALS.json"
 DEFAULT_EXECUTION_BATCHES = ROOT / "docs/ai-team/operations/EXECUTION_BATCHES.json"
 DEFAULT_BROKER_STATE = ROOT / "docs/ai-team/operations/M1_M2_72H_AGENT_BROKER.json"
 DEFAULT_DISPATCHES = ROOT / "docs/ai-team/operations/M1_M2_72H_CODEX_AGENT_DISPATCHES.jsonl"
-ACTIVE_WORK_ORDER_STATUSES = {"dispatched", "running", "claimed"}
+ACTIVE_WORK_ORDER_STATUSES = {"dispatched", "claimed", "preparing_workspace", "starting_session", "running", "collecting_results"}
 COMPLETED_WORK_ORDER_STATUSES = {"completed", "accepted", "closed"}
 PLANNING_TASK_TYPES = {"analysis", "design", "planning"}
 IMPLEMENTATION_TASK_TYPES = {"implementation", "qa", "compliance", "release", "devops"}
+DEFAULT_RUNTIME_HINTS = {
+    "timeout_seconds": 1800,
+    "heartbeat_interval_seconds": 30,
+    "max_attempts": 1,
+    "execution_backend": "simulation",
+}
 
 
 def parse_args() -> argparse.Namespace:
@@ -172,6 +178,7 @@ def approval_gate(task: dict[str, Any]) -> dict[str, Any]:
     return {"required": required, "status": status, "reason": reason}
 
 
+def ensure_broker_state(payload: dict[str, Any] | None = None) -> dict[str, Any]:
     state = payload if isinstance(payload, dict) else {}
     work_orders = state.get("work_orders")
     locks = state.get("locks")
@@ -239,6 +246,13 @@ def task_contract(task: dict[str, Any]) -> dict[str, Any]:
         "consumes": normalized_string_list(task.get("consumes")),
         "source_refs": normalized_string_list(task.get("source_refs")),
         "plan_links": task.get("plan_links") if isinstance(task.get("plan_links"), list) else [],
+        "runtime": {
+            "timeout_seconds": int(task.get("timeout_seconds") or DEFAULT_RUNTIME_HINTS["timeout_seconds"]),
+            "heartbeat_interval_seconds": int(task.get("heartbeat_interval_seconds") or DEFAULT_RUNTIME_HINTS["heartbeat_interval_seconds"]),
+            "max_attempts": int(task.get("max_attempts") or DEFAULT_RUNTIME_HINTS["max_attempts"]),
+            "execution_backend": str(task.get("execution_backend") or DEFAULT_RUNTIME_HINTS["execution_backend"]).strip()
+            or DEFAULT_RUNTIME_HINTS["execution_backend"],
+        },
     }
 
 
